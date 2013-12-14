@@ -5,8 +5,15 @@ public class Case {
 	public Espece espece;
 	public Nourriture nourriture;
 	
+        
+        public Case(int posX, int posY)
+        {
+            this.posX = posX;
+            this.posY = posY;
+        }
+        
 	public Boolean estVide() {
   
-		return null;
+		return espece == null && nourriture == null;
 	}
 }
