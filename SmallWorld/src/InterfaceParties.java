@@ -1,16 +1,12 @@
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class InterfaceParties {
 
-  public ArrayList<Partie> listeParties;
+	public ArrayList<Partie> listeParties = new ArrayList();
 
-    public Partie myPartie;
-    public Vector  1;
-
-  public void ouvrirPopupCreerPartie() {
-  }
-
-  public void ouvrirPopupChargerPartie() {
-  }
-
+	public void ouvrirPopupCreerPartie() {
+	}
+	
+	public void ouvrirPopupChargerPartie() {
+}
 }

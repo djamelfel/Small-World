@@ -1,12 +1,10 @@
+import java.util.ArrayList;
+
 public class Map {
 
-  public ArrayList<Case> listeCase;
+	public ArrayList<Case> listeCase = new ArrayList();
 
-    public Monde Appartenir;
-    public Case Composer;
-
-  public Case getCase(Integer posX, Integer posY) {
-  return null;
-  }
-
+	public Case getCase(Integer posX, Integer posY) {
+		return null;
+	}
 }

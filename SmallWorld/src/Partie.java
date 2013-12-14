@@ -1,15 +1,11 @@
 public class Partie {
 
-  public Xml xml;
-
-  public String nom;
-
-  public int dateCreation;
-
-    public InterfaceParties myInterfaceParties;
-
-  public XML sauvegarder( String) {
-  return null;
-  }
-
+	public String xml;
+	public String nom;
+	public int dateCreation;
+	public InterfaceParties myInterfaceParties;
+	
+	public String sauvegarder(String str) {
+		return null;
+	}
 }
