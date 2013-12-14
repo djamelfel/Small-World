@@ -1,8 +1,8 @@
 public class Decors {
 
-	public int type;
-	public int largeur;
-	public int hauteur;
+	private int type;
+	private int largeur;
+	private int hauteur;
 	
 	public String sauvegarder() {
 		return null;

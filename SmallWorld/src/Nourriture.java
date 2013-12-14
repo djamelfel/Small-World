@@ -1,8 +1,8 @@
 public class Nourriture {
 
-	public int energieRendue;
-	public Boolean mangeable;
-	public Case position;
+	private int energieRendue;
+	private Boolean mangeable;
+	private Case position;
 
 	public void seFaireManger(Espece espece) {
 	}

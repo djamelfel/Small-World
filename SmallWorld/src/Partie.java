@@ -1,9 +1,9 @@
 public class Partie {
 
-	public String xml;
-	public String nom;
-	public int dateCreation;
-	public InterfaceParties myInterfaceParties;
+	private String xml;
+	private String nom;
+	private int dateCreation;
+	private InterfaceParties myInterfaceParties;
 	
 	public String sauvegarder(String str) {
 		return null;

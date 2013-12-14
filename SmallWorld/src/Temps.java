@@ -1,7 +1,7 @@
 public class Temps {
 
-	public Integer jeux;
-	public Integer journee;
-	public Monde Contenir;
+	private Integer jeux;
+	private Integer journee;
+	private Monde Contenir;
 
 }

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Meute {
 
-	public Espece leader;
+	private Espece leader;
 	private ArrayList<Espece> membres = new ArrayList();
 
 	public void rejoindre(Espece espece) {

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class InterfaceParties {
 
-	public ArrayList<Partie> listeParties = new ArrayList();
+	private ArrayList<Partie> listeParties = new ArrayList();
 
 	public void ouvrirPopupCreerPartie() {
 	}

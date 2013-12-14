@@ -1,9 +1,9 @@
 public class Case {
-	public int posX;
-	public int posY;
-	public Decors element;
-	public Espece espece;
-	public Nourriture nourriture;
+	private int posX;
+	private int posY;
+	private Decors element;
+	private Espece espece;
+	private Nourriture nourriture;
 	
 	public Boolean estVide() {
   
