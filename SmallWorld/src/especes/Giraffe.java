@@ -4,17 +4,19 @@ import monde.Temps;
 import nourriture.Nourriture;
 
 public class Giraffe extends EspeceTer implements Herbivore {
+	
 
+	
 	public Giraffe(Espece espece) {
 		super(espece);
 	}
 
 	public Giraffe() {
-		super("Giraffe", false, 20, 40, 20, Math.random()<0.2, false, 65, 25, Utils.getRand(3));
+		super("Giraffe", false, 35, 80, 20, 40, 20, Math.random()<0.2, false, 65, 25, Utils.getRand(3));
 	}
 
 	public void verifierEtatJournee() {
-		if (Temps.getJournee() > 35 && Temps.getJournee() < 80){
+		if ( getSommeil() ){
 			if(getSommeil() == true)
 				reveiller();
 			activite();

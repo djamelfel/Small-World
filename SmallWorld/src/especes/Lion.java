@@ -2,4 +2,13 @@ package especes;
 
 public class Lion extends EspeceTer implements Carnivore {
 
+	Lion(Espece espece) {
+		super(espece);
+	}
+	
+	Lion() {
+		super("Lion", sommeil, vitesse, force, vitesseCourse, estLeader, nage, champVison,
+				tempIdeal, nbReproductions);
+	}
+
 }

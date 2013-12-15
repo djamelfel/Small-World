@@ -4,22 +4,23 @@ import java.util.ArrayList;
 import monde.Case;
 import monde.Monde;
 import monde.Temps;
-import nourriture.Nourriture;
 
 public class Espece {
 
 	private String _nom;
-	private Boolean _sommeil;
+	private Boolean _sommeil;	//true ==> dors
+	private int _sommeilDeb;
+	private int _sommeilFin;
 	private int _vitesse;
 	private int _force;
 	private int _energie;
 	private int _faim;
 	private Meute _meute;
 	private int _vitesseCourse;
-	private Boolean _sexe;	//false == femelle
-	private Boolean _estLeader;
+	private Boolean _sexe;	//false ==> femelle
+	private Boolean _estLeader;		//true ==> est un Leader
 	private long _dateNaissance;
-	private Boolean _nage;			//trouver au terme
+	private Boolean _nage;			//trouver autre terme
 	private Boolean _estVivant;
 	private Case _position;
 	private int _champVision;
@@ -33,11 +34,19 @@ public class Espece {
 	}
 
 	public Boolean getSommeil() {
-		return _sommeil;
+		return (Temps.getJournee() > _sommeilDeb && Temps.getJournee() < _sommeilFin) ;
 	}
 
 	public void setSommeil(Boolean sommeil) {
 		_sommeil = sommeil;
+	}
+	
+	public int getSommeilDeb() {
+		return _sommeilDeb;
+	}
+	
+	public int getSommeilFin() {
+		return _sommeilFin;
 	}
 
 	public int getVitesse() {
@@ -155,10 +164,12 @@ public class Espece {
 	public Espece(){
 	}
 	
-	public Espece(String nom, Boolean sommeil, int vitesse, int force, int vitesseCourse, Boolean estLeader, Boolean nage, int champVision, 
+	public Espece(String nom, Boolean sommeil, int sommeilDeb, int sommeilFin, int vitesse, int force, int vitesseCourse, Boolean estLeader, Boolean nage, int champVision, 
 			int tempIdeale, int nbReproductions) {
 		_nom = nom;
 		_sommeil = sommeil;
+		_sommeilDeb = sommeilDeb;
+		_sommeilFin = sommeilFin;
 		_vitesse = vitesse;
 		_force = force;
 		_energie = 100;
@@ -181,6 +192,8 @@ public class Espece {
 	public Espece(Espece espece){
 		_nom = espece.getNom();
 		_sommeil = espece.getSommeil();
+		_sommeilDeb = espece.getSommeilDeb();
+		_sommeilFin = espece.getSommeilFin();
 		_vitesse = espece.getVitesse();
 		_force = espece.getForce();
 		_energie = espece.getEnergie();
@@ -221,6 +234,7 @@ public class Espece {
 		if (_estLeader == true)
 			_meute.detruire();
 		setEstVivant(false);
+		//new Cadavre
 	}
 	
 	public void rejoindreMeute(Meute meute) {
@@ -229,11 +243,11 @@ public class Espece {
 	}
 	
 	public void appelLeader() {
-		_meute.getLeader().seDeplacer(_position);
+		_meute.getLeader().seDeplacer(_position.getPosX(), _position.getPosY() );
 	}
 	
 	public void chasser(Espece espece) {
-		seDeplacer(espece.getPosition());
+		seDeplacer(espece.getPosition().getPosX(), espece.getPosition().getPosY() );
 	}
 	
 	public void seReproduire(Espece espece) {		//pas besoin d'argument
@@ -289,10 +303,6 @@ public class Espece {
 	}
 	
 	public void seDeplacer(int posX, int posY) {
-		
-	}
-	
-	public void seDeplacer(Case _case){
 		
 	}
 	
