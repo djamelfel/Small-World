@@ -1,24 +1,23 @@
 package especes;
+import utils.Utils;
 import monde.Temps;
 import nourriture.Nourriture;
 
 public class Giraffe extends EspeceTer implements Herbivore {
 
 	public Giraffe(Espece espece) {
-		super();
+		super(espece);
 	}
 
 	public Giraffe() {
-		super("Giraffe", false, 20, 40, 100, 20, Math.random()<0.2, false, 65, 25, 2);
+		super("Giraffe", false, 20, 40, 20, Math.random()<0.2, false, 65, 25, Utils.getRand(3));
 	}
 
 	public void verifierEtatJournee() {
 		if (Temps.getJournee() > 35 && Temps.getJournee() < 80){
 			if(getSommeil() == true)
 				reveiller();
-			if(getEnergie() == 0)
-				tuer();
-			seDeplacer();
+			activite();
 		}	
 		else
 			if (getSommeil() == true)
@@ -51,8 +50,11 @@ public class Giraffe extends EspeceTer implements Herbivore {
 		super.fuir(espece);
 	}
 
+	public String toString() {
+		return "nom - leader - repro - " + getNom() + getEstLeader() + getNbReproductions() + super.toString();
+	}
+	
 	public String sauvegarder() {
-		// TODO Auto-generated method stub
-		return super.sauvegarder();
+		return null;
 	}
 }
