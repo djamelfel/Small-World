@@ -1,6 +1,6 @@
 package nourriture;
 
-import espece.Espece;
+import especes.Espece;
 import nourriture.Nourriture;
 
 public class Cadavre extends Nourriture {

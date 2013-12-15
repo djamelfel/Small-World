@@ -1,4 +1,4 @@
-package espece;
+package especes;
 
 import nourriture.Nourriture;
 import monde.Case;

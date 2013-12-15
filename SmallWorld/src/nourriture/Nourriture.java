@@ -1,6 +1,6 @@
 package nourriture;
 
-import espece.Espece;
+import especes.Espece;
 import monde.Case;
 
 

@@ -1,10 +1,8 @@
 package monde;
 
 
-import espece.Decors;
-import espece.Espece;
+import especes.Espece;
 import nourriture.Nourriture;
-import espece.Temps;
 import java.util.ArrayList;
 
 public class Monde {

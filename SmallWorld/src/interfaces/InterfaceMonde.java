@@ -1,4 +1,4 @@
-package espece;
+package interfaces;
 
 import monde.Monde;
 

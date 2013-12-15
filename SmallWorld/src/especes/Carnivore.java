@@ -1,4 +1,4 @@
-package espece;
+package especes;
 
 public interface Carnivore {
 
