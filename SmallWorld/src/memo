@@ -5,3 +5,5 @@ lancer un while(estVivant) sur verifierEtatJournee()
 creer deuxieme methode seDeplacer avec comme argument une position de destination
 
 pas besoin d'argument pour la methode seReproduire
+
+revoir méthode activité
