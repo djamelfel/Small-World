@@ -4,6 +4,7 @@ package monde;
 
 import monde.Monde;
 import java.util.ArrayList;
+import nourriture.Nourriture;
 
 public class Map {
 
@@ -28,6 +29,17 @@ public class Map {
           } 
        }
        
+   }
+   
+   
+   
+   
+   
+   public void ajouterNouriture(Nourriture nourriture)
+   {
+       Case tmpCase = getCase(nourriture.getPosX(), nourriture.getPosY());
+       if(tmpCase != null &&  tmpCase.getNourriture() == null) 
+           tmpCase.setNourriture(nourriture);
    }
    
    public void ajouterDecors(Decors elementDecors)

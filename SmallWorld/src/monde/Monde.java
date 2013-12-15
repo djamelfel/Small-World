@@ -35,12 +35,11 @@ public class Monde {
       _listeNourriture = new ArrayList<>();
       
       
-      
       ArrayList<Case> _casesVoisines = getVoisins(_map.getCase(1917,500), 10, 1);
       System.out.println("nbCases : "+_casesVoisines.size());
       
       
-      ajoutDecors("montagne1");
+      ajoutDecors("montagne1", 1500,1000);
   }
   
   
@@ -69,7 +68,7 @@ public class Monde {
     return _casesVoisines;
   }
 
-  public Espece ajoutAnimaux(String nom) {
+  public Espece ajoutAnimaux(String nom, int posX, int posY) {
       
       Espece tmpEspece = null;
       
@@ -86,7 +85,7 @@ public class Monde {
      return tmpEspece;
   }
 
-  public Decors ajoutDecors(String nom) {
+  public Decors ajoutDecors(String nom, int posX, int posY) {
       Decors tmpDecors = null;
       
       switch(nom)
@@ -99,16 +98,18 @@ public class Monde {
       }
       
       if(tmpDecors != null)
-        _map.ajouterDecors(tmpDecors);
+      {
+         _map.ajouterDecors(tmpDecors);
+         _listeElementsDecors.add(tmpDecors);
+      }
+        
       
      return tmpDecors;
   }
   
   
-  
-  
 
-  public Nourriture ajoutNourriture(String nom) {
+  public Nourriture ajoutNourriture(String nom, int posX, int posY) {
     Nourriture tmpNourriture = null;
       
       switch(nom)
@@ -119,7 +120,12 @@ public class Monde {
           
       }
       
-      
+      if(tmpNourriture != null)
+      { 
+        _map.ajouterNouriture(tmpNourriture);
+        _listeNourriture.add(tmpNourriture);
+      }
+        
       
      return tmpNourriture;
   }
