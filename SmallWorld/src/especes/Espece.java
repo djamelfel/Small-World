@@ -1,9 +1,6 @@
 package especes;
-
-import nourriture.Nourriture;
 import monde.Case;
-
-
+import monde.Temps;
 
 public class Espece {
 
@@ -17,7 +14,7 @@ public class Espece {
 	private int vitesseCourse;
 	private Boolean sexe;
 	private Boolean estLeader;
-	private int dateNaissance;
+	private long dateNaissance;
 	private Boolean nage;
 	private Boolean estVivant;
 	private Case position;
@@ -107,7 +104,7 @@ public class Espece {
 		this.estLeader = estLeader;
 	}
 
-	public int getDateNaissance() {
+	public long getDateNaissance() {
 		return dateNaissance;
 	}
 
@@ -178,14 +175,34 @@ public class Espece {
 	public void setFuite(Boolean fuite) {
 		this.fuite = fuite;
 	}
-	
+
 	public Espece(){
-		
 	}
 	
+	public Espece(String nom, Boolean nocturne, Boolean sommeil, int vitesse, int force, int energie, Meute meute, int vitesseCourse, 
+			Boolean sexe, Boolean estLeader, Boolean nage, Boolean estVivant, int champVision,
+			int tempIdeale, int nbReproductions, Boolean fuite) {
+		this.nom = nom;
+		this.nocturne = nocturne;
+		this.sommeil = sommeil;
+		this.vitesse = vitesse;
+		this.force = force;
+		this.energie = energie;
+		this.meute = meute;
+		this.vitesseCourse = vitesseCourse;
+		this.sexe = sexe;
+		this.estLeader = estLeader;
+		this.dateNaissance = Temps.getJeux();
+		this.nage = nage;
+		this.estVivant = estVivant;
+		this.champVision = champVision;
+		this.tempIdeale = tempIdeale;
+		this.nbReproductions = nbReproductions;
+		this.fuite = fuite;
+	}
+		
 	public Espece(Espece espece){
 		this.nom=espece.nom;
-		
 		this.nocturne=espece.nocturne;
 		this.sommeil=espece.sommeil;
 		this.vitesse=espece.vitesse;
@@ -207,12 +224,21 @@ public class Espece {
 	}
 	
 	public void verifierEtatJournee() {
+		if (nocturne && getJournee() < 50 && getJournee() > 80){
+			if(getSommeil() == true)
+				reveiller(getForce());
+			seDeplacer();
+		}	
+		else
+			dormir();
 	}
 	
 	public void chuteCapacite() {
+		setForce(getForce()-10);
 	}
 	
-	public void retrouveCapacite() {
+	public void retrouveCapacite(int force) {
+		setForce(force);
 	}
 	
 	public void dormir() {
@@ -220,8 +246,9 @@ public class Espece {
 		chuteCapacite();
 	}
 	
-	public void reveiller() {
-		
+	public void reveiller(int force) {
+		setSommeil(false);
+		retrouveCapacite(force);
 	}
 	
 	public void tuer() {
