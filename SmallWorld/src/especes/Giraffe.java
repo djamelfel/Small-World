@@ -12,7 +12,7 @@ public class Giraffe extends EspeceTer implements Herbivore {
 	}
 
 	public Giraffe() {
-		super("Giraffe", false, 35, 80, 20, 40, 20, Math.random()<0.2, false, 65, 25, Utils.getRand(3));
+		super("Giraffe", 35, 80, 20, 40, 20, Math.random()<0.2, false, 65, 25, Utils.getRand(3));
 	}
 
 	public void verifierEtatJournee() {

@@ -7,8 +7,7 @@ public class Lion extends EspeceTer implements Carnivore {
 	}
 	
 	Lion() {
-		super("Lion", sommeil, vitesse, force, vitesseCourse, estLeader, nage, champVison,
-				tempIdeal, nbReproductions);
+		super("Lion", /*heure */, vitesse, force, vitesseCourse, estLeader, nage, champVison, tempIdeal, nbReproductions);
 	}
 
 }

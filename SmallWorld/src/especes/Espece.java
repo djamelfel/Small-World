@@ -8,7 +8,6 @@ import monde.Temps;
 public class Espece {
 
 	private String _nom;
-	private Boolean _sommeil;	//true ==> dors
 	private int _sommeilDeb;
 	private int _sommeilFin;
 	private int _vitesse;
@@ -32,13 +31,10 @@ public class Espece {
 	public String getNom() {
 		return _nom;
 	}
-
+	
+	//(Temps.getJournee() > _sommeilDeb && Temps.getJournee() < _sommeilFin)
 	public Boolean getSommeil() {
 		return (Temps.getJournee() > _sommeilDeb && Temps.getJournee() < _sommeilFin) ;
-	}
-
-	public void setSommeil(Boolean sommeil) {
-		_sommeil = sommeil;
 	}
 	
 	public int getSommeilDeb() {
@@ -164,10 +160,9 @@ public class Espece {
 	public Espece(){
 	}
 	
-	public Espece(String nom, Boolean sommeil, int sommeilDeb, int sommeilFin, int vitesse, int force, int vitesseCourse, Boolean estLeader, Boolean nage, int champVision, 
+	public Espece(String nom, int sommeilDeb, int sommeilFin, int vitesse, int force, int vitesseCourse, Boolean estLeader, Boolean nage, int champVision, 
 			int tempIdeale, int nbReproductions) {
 		_nom = nom;
-		_sommeil = sommeil;
 		_sommeilDeb = sommeilDeb;
 		_sommeilFin = sommeilFin;
 		_vitesse = vitesse;
@@ -191,7 +186,6 @@ public class Espece {
 		
 	public Espece(Espece espece){
 		_nom = espece.getNom();
-		_sommeil = espece.getSommeil();
 		_sommeilDeb = espece.getSommeilDeb();
 		_sommeilFin = espece.getSommeilFin();
 		_vitesse = espece.getVitesse();
@@ -221,13 +215,11 @@ public class Espece {
 	
 	public void dormir() {
 		setEnergie(100);
-		setSommeil(true);
 		chuteCapacite();
 	}
 	
 	public void reveiller() {
 		retrouveCapacite();
-		setSommeil(false);
 	}
 	
 	public void tuer() {
