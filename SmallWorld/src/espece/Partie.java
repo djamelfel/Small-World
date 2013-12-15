@@ -1,3 +1,5 @@
+package espece;
+
 public class Partie {
 
 	private String xml;

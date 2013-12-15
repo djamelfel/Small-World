@@ -1,3 +1,8 @@
+package espece;
+
+import nourriture.Nourriture;
+import monde.Case;
+
 
 
 public class Espece {

@@ -1,3 +1,5 @@
+package espece;
+
 public class Decors {
 
 	private int type;

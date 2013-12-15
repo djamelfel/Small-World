@@ -1,3 +1,9 @@
+package monde;
+
+import espece.Decors;
+import espece.Espece;
+import nourriture.Nourriture;
+
 
 
 public class Case {

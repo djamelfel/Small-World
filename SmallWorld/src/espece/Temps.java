@@ -1,3 +1,7 @@
+package espece;
+
+import monde.Monde;
+
 
 public class Temps {
 
