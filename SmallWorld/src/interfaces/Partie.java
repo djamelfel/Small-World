@@ -1,3 +1,7 @@
+package interfaces;
+
+import interfaces.InterfaceParties;
+
 public class Partie {
 
 	private String xml;

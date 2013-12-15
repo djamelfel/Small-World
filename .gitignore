@@ -4,3 +4,6 @@
 *.jar
 *.war
 *.ear
+/SmallWorld/nbproject/private/
+/SmallWorld/build/
+/SmallWorld/dist/
