@@ -38,6 +38,9 @@ public class Monde {
       
       ArrayList<Case> _casesVoisines = getVoisins(_map.getCase(1917,500), 10, 1);
       System.out.println("nbCases : "+_casesVoisines.size());
+      
+      
+      ajoutDecors("montagne1");
   }
   
   
@@ -88,16 +91,22 @@ public class Monde {
       
       switch(nom)
       {
-          case "":
+          case "montagne1":
+              tmpDecors = new Decors(TypeDecors.BASE, 1918, 1076, 5, 5);
               break;
           
           
       }
       
-      
+      if(tmpDecors != null)
+        _map.ajouterDecors(tmpDecors);
       
      return tmpDecors;
   }
+  
+  
+  
+  
 
   public Nourriture ajoutNourriture(String nom) {
     Nourriture tmpNourriture = null;

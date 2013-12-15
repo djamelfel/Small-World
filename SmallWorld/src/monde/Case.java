@@ -8,7 +8,7 @@ import nourriture.Nourriture;
 public class Case {
 	private int posX;
 	private int posY;
-	private Decors element;
+	private Decors decors;
 	private Espece espece;
 	private Nourriture nourriture;
 	
@@ -36,12 +36,12 @@ public class Case {
             return posY;
         }
 
-        public Decors getElement() {
-            return element;
+        public Decors getDecorst() {
+            return decors;
         }
 
-        public void setElement(Decors element) {
-            this.element = element;
+        public void setDecors(Decors element) {
+            this.decors = element;
         }
 
         public Espece getEspece() {

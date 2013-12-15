@@ -29,6 +29,23 @@ public class Map {
        }
        
    }
+   
+   public void ajouterDecors(Decors elementDecors)
+   {
+       Case tmpCase;
+       for(int i = 0; i < elementDecors.getHauteur(); i++)
+       {
+          for(int j = 0; j < elementDecors.getLargeur(); j++)
+          {
+              tmpCase = getCase(elementDecors.getPosX() + j, elementDecors.getPosY() + i);
+              if(tmpCase != null)
+              {
+                  tmpCase.setDecors(elementDecors);
+              }
+          } 
+           System.out.println("");
+       }
+   }
 
   public Case getCase(Integer posX, Integer posY) {
       if(posX < 0 || posY < 0 || posX >= largeur || posY >= hauteur) return null; // Sort du tableau !
