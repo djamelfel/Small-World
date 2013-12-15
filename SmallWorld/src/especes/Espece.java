@@ -1,6 +1,7 @@
 package especes;
 import monde.Case;
 import monde.Temps;
+import nourriture.Nourriture;
 
 public class Espece {
 
@@ -224,7 +225,7 @@ public class Espece {
 	}
 	
 	public void verifierEtatJournee() {
-		if (nocturne && getJournee() < 50 && getJournee() > 80){
+		if (nocturne && Temps.getJournee() < 50 && Temps.getJournee() > 80){
 			if(getSommeil() == true)
 				reveiller(getForce());
 			seDeplacer();
