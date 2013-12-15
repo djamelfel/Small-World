@@ -6,7 +6,6 @@ import nourriture.Nourriture;
 public class Espece {
 
 	private String nom;
-	private Boolean nocturne;
 	private Boolean sommeil;
 	private int vitesse;
 	private int force;
@@ -16,7 +15,7 @@ public class Espece {
 	private Boolean sexe;
 	private Boolean estLeader;
 	private long dateNaissance;
-	private Boolean nage;
+	private Boolean nage;			//trouver au terme
 	private Boolean estVivant;
 	private Case position;
 	private int champVision;
@@ -31,14 +30,6 @@ public class Espece {
 
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	public Boolean getNocturne() {
-		return nocturne;
-	}
-
-	public void setNocturne(Boolean nocturne) {
-		this.nocturne = nocturne;
 	}
 
 	public Boolean getSommeil() {
@@ -180,31 +171,28 @@ public class Espece {
 	public Espece(){
 	}
 	
-	public Espece(String nom, Boolean nocturne, Boolean sommeil, int vitesse, int force, int energie, Meute meute, int vitesseCourse, 
-			Boolean sexe, Boolean estLeader, Boolean nage, Boolean estVivant, int champVision,
-			int tempIdeale, int nbReproductions, Boolean fuite) {
+	public Espece(String nom, Boolean sommeil, int vitesse, int force, int energie, int vitesseCourse, Boolean estLeader, Boolean nage, int champVision, 
+			int tempIdeale, int nbReproductions) {
 		this.nom = nom;
-		this.nocturne = nocturne;
 		this.sommeil = sommeil;
 		this.vitesse = vitesse;
 		this.force = force;
 		this.energie = energie;
-		this.meute = meute;
+		this.meute = null;
 		this.vitesseCourse = vitesseCourse;
-		this.sexe = sexe;
+		this.sexe = Math.random()<0.5;
 		this.estLeader = estLeader;
 		this.dateNaissance = Temps.getJeux();
 		this.nage = nage;
-		this.estVivant = estVivant;
+		this.estVivant = true;
 		this.champVision = champVision;
 		this.tempIdeale = tempIdeale;
 		this.nbReproductions = nbReproductions;
-		this.fuite = fuite;
+		this.fuite = false;
 	}
 		
 	public Espece(Espece espece){
 		this.nom=espece.nom;
-		this.nocturne=espece.nocturne;
 		this.sommeil=espece.sommeil;
 		this.vitesse=espece.vitesse;
 		this.force=espece.force;
@@ -225,34 +213,32 @@ public class Espece {
 	}
 	
 	public void verifierEtatJournee() {
-		if (nocturne && Temps.getJournee() < 50 && Temps.getJournee() > 80){
-			if(getSommeil() == true)
-				reveiller(getForce());
-			seDeplacer();
-		}	
-		else
-			dormir();
+
 	}
 	
 	public void chuteCapacite() {
-		setForce(getForce()-10);
+		
 	}
 	
-	public void retrouveCapacite(int force) {
-		setForce(force);
+	public void retrouveCapacite() {
+		
 	}
 	
 	public void dormir() {
+		setEnergie(100);
 		setSommeil(true);
 		chuteCapacite();
 	}
 	
-	public void reveiller(int force) {
+	public void reveiller() {
+		retrouveCapacite();
 		setSommeil(false);
-		retrouveCapacite(force);
 	}
 	
 	public void tuer() {
+		if (getEstLeader()==true)
+			getMeute().detruire();
+		setEstVivant(false);
 	}
 	
 	public void rejoindreMeute(Meute meute) {
