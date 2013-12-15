@@ -1,0 +1,5 @@
+supprimer attribut nocturne
+
+lancé un while(estVivant) sur verifierEtatJournee()
+
+creer deuxieme méthode seDeplacer avec comme argument une position de destination
