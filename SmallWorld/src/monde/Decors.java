@@ -18,7 +18,11 @@ public class Decors {
         }
         
         public String sauvegarder() {
-		return "";
+            String res = 
+                    "<elementDecors type='"+_type+"'>"
+                    + "<position x='"+_posX+"' y='"+_posY+"' largeur='"+_largeur+"' hauteur='"+_hauteur+"'/>"
+                    + "</elementDecors>";
+		return res;
 	}
 	
         public int getType() {

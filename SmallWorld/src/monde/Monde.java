@@ -4,6 +4,7 @@ package monde;
 import especes.Espece;
 import nourriture.Nourriture;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Monde {
 
@@ -40,8 +41,32 @@ public class Monde {
       
       
       ajoutDecors("montagne1", 1500,1000);
+      
+      checkNourritures();
   }
   
+  
+  
+  
+  private void checkNourritures()
+  {
+      Case tmpCase;
+      
+      for (Iterator it = _listeNourriture.iterator(); it.hasNext(); )
+      {
+         Nourriture n = (Nourriture) it.next();
+         
+          if(!n.getMangeable())
+          {
+              tmpCase = _map.getCase(n.getPosX(), n.getPosY());
+              if(tmpCase != null)
+              {
+                  tmpCase.setNourriture(null);
+                   it.remove();
+              }
+          }
+      }
+  }
   
   
   
@@ -79,7 +104,11 @@ public class Monde {
           
           
       }
-      
+      if(tmpEspece != null)
+      {
+         _map.ajouterAnimal(tmpEspece);
+         _listeAnimaux.add(tmpEspece);
+      }
       
       
      return tmpEspece;
@@ -136,6 +165,7 @@ public class Monde {
 
   public void charger(String nom) {
       
+      //http://cynober.developpez.com/tutoriel/java/xml/jdom/
       
   }
   

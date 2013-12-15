@@ -26,9 +26,18 @@ public class Nourriture {
 	
 	public void detruire() {
 	}
-	
+        
+        
 	public String sauvegarder() {
-		return null;
+            return sauvegarder("inconnu");
+        }
+	public String sauvegarder(String typeNourriture) {
+            String res = 
+                    "<nourriture type='"+typeNourriture+"'>"
+                    + "<energie rendue='"+_energieRendue+"'/>"
+                    + "<position x='"+_posX+"' y='"+_posY+"'/>"
+                    + "</nourriture>";
+		return res;
 	}
         
         

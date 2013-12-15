@@ -2,6 +2,7 @@ package monde;
 
 
 
+import especes.Espece;
 import monde.Monde;
 import java.util.ArrayList;
 import nourriture.Nourriture;
@@ -31,7 +32,13 @@ public class Map {
        
    }
    
-   
+   public void ajouterAnimal(Espece tmpEspece)
+   {
+       // TODO
+      /* Case tmpCase = getCase(tmpEspece.getPosX(), tmpEspece.getPosY());
+       if(tmpCase != null &&  tmpCase.getNourriture() == null) 
+           tmpCase.setEspece(tmpEspece);*/
+   }
    
    
    

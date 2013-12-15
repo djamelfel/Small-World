@@ -23,5 +23,9 @@ public class Cadavre extends Nourriture {
     public int getTempsDecomposition() {
         return _tempsDecomposition;
     }
+    
+    public String sauvegarder() {
+         return sauvegarder("Cadavre");
+     }
 
 }
