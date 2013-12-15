@@ -3,17 +3,17 @@ import java.util.ArrayList;
 
 public class Monde {
 
-  public ArrayList<Espece> listeAnimaux;
+  private ArrayList<Espece> _listeAnimaux;
 
-  public ArrayList<Nourriture> listeNourriture;
+  private ArrayList<Nourriture> _listeNourriture;
 
-  public ArrayList<Decors> listeElementsDecors;
+  private ArrayList<Decors> _listeElementsDecors;
 
-  public Map map;
+  private Map _map;
 
-  public int temperature;
+  private int _temperature;
 
-  public Temps temps;
+  private Temps _temps;
 
    /* public Nourriture 1;
     public Decors Posseder;
@@ -24,9 +24,16 @@ public class Monde {
     public Nourriture Contenir;*/
   public Monde()
   {
-      map = new Map(1920,1080);
+      _map = new Map(1920,1080);
+      
+      _listeAnimaux = new ArrayList<>();
+      _listeElementsDecors = new ArrayList<>();
+      _listeNourriture = new ArrayList<>();
       
       
+      
+      ArrayList<Case> _casesVoisines = getVoisins(_map.getCase(1917,500), 10, 1);
+      System.out.println("nbCases : "+_casesVoisines.size());
   }
   
   
@@ -38,39 +45,93 @@ public class Monde {
       ArrayList<Case> _casesVoisines = new ArrayList();
       
       // TODO : prendre en compte le sens
+      // TODO : retourner une zone en cone et non en ligne
       
       Case tmpCase;
-      int posX = caseDepart.posX;
-      int posY = caseDepart.posY;
+      int posX = caseDepart.getPosX();
+      int posY = caseDepart.getPosY();
       
       for(int i = 0; i < champVision; i++)
       {
-          tmpCase = map.getCase(posX + i, posY);
+          tmpCase = _map.getCase(posX + i, posY);
           if(tmpCase == null) continue;
+          _casesVoisines.add(tmpCase);
+      }
+      
+      
+    return _casesVoisines;
+  }
+
+  public Espece ajoutAnimaux(String nom) {
+      
+      Espece tmpEspece = null;
+      
+      switch(nom)
+      {
+          case "":
+             break;
+          
           
       }
       
       
-    return null;
-  }
-
-  public Espece ajoutAnimaux(String nom) {
-     return null;
+      
+     return tmpEspece;
   }
 
   public Decors ajoutDecors(String nom) {
-  return null;
+      Decors tmpDecors = null;
+      
+      switch(nom)
+      {
+          case "":
+              break;
+          
+          
+      }
+      
+      
+      
+     return tmpDecors;
   }
 
   public Nourriture ajoutNourriture(String nom) {
-  return null;
+    Nourriture tmpNourriture = null;
+      
+      switch(nom)
+      {
+          case "":
+              break;
+          
+          
+      }
+      
+      
+      
+     return tmpNourriture;
   }
 
   public String sauvegarder() {
-  return null;
+  return "";
   }
 
   public void charger(String nom) {
+      
+      
   }
+  
+  
+  
+  public Map getMap() {
+        return _map;
+    }
+
+    public int getTemperature() {
+        return _temperature;
+    }
+
+    public Temps getTemps() {
+        return _temps;
+    }
 
 }

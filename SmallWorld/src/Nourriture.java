@@ -1,3 +1,4 @@
+
 public class Nourriture {
 
 	private int energieRendue;
