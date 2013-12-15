@@ -13,6 +13,7 @@ public class Espece {
 	private int _vitesse;
 	private int _force;
 	private int _energie;
+	private int _faim;
 	private Meute _meute;
 	private int _vitesseCourse;
 	private Boolean _sexe;	//false == femelle
@@ -61,6 +62,14 @@ public class Espece {
 
 	public void setEnergie(int energie) {
 		_energie = energie;
+	}
+	
+	public void setFaim(int faim) {
+		_faim = faim;
+	}
+	
+	public int getFaim() {
+		return _faim;
 	}
 
 	public Meute getMeute() {
@@ -146,16 +155,19 @@ public class Espece {
 	public Espece(){
 	}
 	
-	public Espece(String nom, Boolean sommeil, int vitesse, int force, int energie, int vitesseCourse, Boolean estLeader, Boolean nage, int champVision, 
+	public Espece(String nom, Boolean sommeil, int vitesse, int force, int vitesseCourse, Boolean estLeader, Boolean nage, int champVision, 
 			int tempIdeale, int nbReproductions) {
 		_nom = nom;
 		_sommeil = sommeil;
 		_vitesse = vitesse;
 		_force = force;
-		_energie = energie;
+		_energie = 100;
+		_faim = 100;
 		_meute = null;
 		_vitesseCourse = vitesseCourse;
 		_sexe = Math.random()<0.5;
+		if (estLeader == true)
+			_meute = new Meute();
 		_estLeader = estLeader;
 		_dateNaissance = Temps.getJeux();
 		_nage = nage;
@@ -172,6 +184,7 @@ public class Espece {
 		_vitesse = espece.getVitesse();
 		_force = espece.getForce();
 		_energie = espece.getEnergie();
+		_faim = espece.getFaim();
 		_meute = espece.getMeute();
 		_vitesseCourse = espece.getVitesseCourse();
 		_sexe = espece.getSexe();
@@ -231,14 +244,14 @@ public class Espece {
 	}
 	
 	public Boolean aFaim() {
-		if (_energie < 20)
+		if (_energie < 20)	//toute espece ˆ faim avec une energie de -20
 			return true;
 		return false;
 	}
 	
 	public void manger() {
 		if (_position.getNourriture().getEnergieRendue() + _energie > 100)
-			setEnergie(100);
+			setEnergie(100);							//energie maximum 100
 		else
 			setEnergie(_position.getNourriture().getEnergieRendue() + _energie);
 		_position.getNourriture().seFaireManger(this);
@@ -246,13 +259,30 @@ public class Espece {
 	
 	public void combattre(Espece espece) {
 		if (_force < espece.getForce() ){	//perd
-			if (_estLeader)
-				if (espece.getEstLeader())
-					espece.getMeute().rejoindre(_meute);
+			if (_estLeader)						//si leader
+				if (espece.getEstLeader())			//si adversaire leader
+					espece.getMeute().rejoindre(_meute);	//legue sa meute
+				else								//sinon
+					_meute.detruire();						//dissout la meute
+			tuer();
 		}
-		else{	//gagne
-			
+		else{								//gagne
+			if (_estLeader)						//si leader
+				if (espece.getEstLeader())			//si adversaire est leader
+					_meute.rejoindre(espece.getMeute());	//rŽcupere sa meute
+			setEnergie( (_force - espece.getForce() ) / 2);
+			setFaim(_force - espece.getForce() );
 		}
+	}
+	
+	public void activite(){
+		if (Temps.getJeux() % 20 == 0) {		//temps ˆ comfirmer
+			setEnergie(_energie - 5);			//baisse d'Žnergie ˆ confimer
+			setFaim(_faim - 20);				//baisse de faim ˆ confirmer
+		}
+		if(getEnergie() <= 0)
+			tuer();
+		seDeplacer();
 	}
 	
 	public void fuir(Espece espece) {
@@ -268,6 +298,10 @@ public class Espece {
 	
 	public void seDeplacer() {
 		ArrayList<Case> tmp = Monde.getVoisins(getPosition(), getChampVision(), getSens() );
+	}
+	
+	public String toString() {
+		return "sexe - date - " + _sexe + _dateNaissance;
 	}
 	
 	public String sauvegarder() {
