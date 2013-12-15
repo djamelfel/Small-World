@@ -178,6 +178,7 @@ public class Espece {
 	
 	public Espece(Espece espece){
 		this.nom=espece.nom;
+		
 		this.nocturne=espece.nocturne;
 		this.sommeil=espece.sommeil;
 		this.vitesse=espece.vitesse;
