@@ -47,7 +47,7 @@ public class Monde {
   
   
   
-  
+  // Parcours la liste des nourritures et supprime
   private void checkNourritures()
   {
       Case tmpCase;
@@ -160,12 +160,79 @@ public class Monde {
   }
 
   public String sauvegarder() {
-  return "";
+      String res = "";
+      String tmpRes = "";
+      
+      
+      // #### Sauvegarde des décors de la map ####
+      tmpRes = "";
+        for(Decors d : _listeElementsDecors)
+        {
+            if(d != null)
+                tmpRes += d.sauvegarder();
+        }
+       if(!tmpRes.equalsIgnoreCase(""))
+       {
+           res += "<decors>"+tmpRes+"</decors>";
+       }
+       // ####     FIN     ####
+       
+       // #### Sauvegarde des animaux de la map ####
+      tmpRes = "";
+        for(Espece e : _listeAnimaux)
+        {
+            if(e != null)
+                tmpRes += e.sauvegarder();
+        }
+       if(!tmpRes.equalsIgnoreCase(""))
+       {
+           res += "<animaux>"+tmpRes+"</animaux>";
+       }
+       // ####     FIN     ####
+      
+      // #### Sauvegarde des nourritures de la map ####
+      tmpRes = "";
+        for(Nourriture n : _listeNourriture)
+        {
+            if(n != null && n.getMangeable())
+                tmpRes += n.sauvegarder();
+        }
+       if(!tmpRes.equalsIgnoreCase(""))
+       {
+           res += "<nourritures>"+tmpRes+"</nourritures>";
+       }
+       // ####     FIN     ####
+      
+    return res;
   }
 
   public void charger(String nom) {
       
       //http://cynober.developpez.com/tutoriel/java/xml/jdom/
+       //Dans un premier temps on liste tous les étudiants
+     /* List listEtudiant = racine.getChildren("etudiant");
+      Iterator i = listEtudiant.iterator();
+      //On parcours la liste grâce à un iterator
+      while(i.hasNext())
+      {
+         Element courant = (Element)i.next();
+         //Si l’étudiant possède l'Element en question on applique
+         //les modifications.
+         if(courant.getChild(element)!=null)
+         {
+            //On supprime l'Element en question
+            courant.removeChild(element);
+            //On renomme l'Element père sachant qu'une balise XML n'accepte
+            //ni les espaces ni les caractères spéciaux
+            //"étudiant modifié" devient "etudiant_modifie"
+            courant.setName("etudiant_modifie");
+         }
+      }*/
+      
+      /*ajoutDecors(nom, posX, posY);
+      ajoutAnimaux(nom, posX, posY);
+      ajoutNourriture(nom, posX, posY);*/
+      
       
   }
   
