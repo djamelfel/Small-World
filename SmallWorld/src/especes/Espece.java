@@ -1,171 +1,146 @@
 package especes;
+import java.util.ArrayList;
+
 import monde.Case;
+import monde.Monde;
 import monde.Temps;
 import nourriture.Nourriture;
 
 public class Espece {
 
-	private String nom;
-	private Boolean sommeil;
-	private int vitesse;
-	private int force;
-	private int energie;
-	private Meute meute;
-	private int vitesseCourse;
-	private Boolean sexe;
-	private Boolean estLeader;
-	private long dateNaissance;
-	private Boolean nage;			//trouver au terme
-	private Boolean estVivant;
-	private Case position;
-	private int champVision;
-	private int sens;
-	private int tempIdeale;
-	private int nbReproductions;
-	private Boolean fuite;
+	private String _nom;
+	private Boolean _sommeil;
+	private int _vitesse;
+	private int _force;
+	private int _energie;
+	private Meute _meute;
+	private int _vitesseCourse;
+	private Boolean _sexe;	//false == femelle
+	private Boolean _estLeader;
+	private long _dateNaissance;
+	private Boolean _nage;			//trouver au terme
+	private Boolean _estVivant;
+	private Case _position;
+	private int _champVision;
+	private int _sens;
+	private int _tempIdeale;
+	private int _nbReproductions;
+	private Boolean _fuite;
 	
 	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
+		return _nom;
 	}
 
 	public Boolean getSommeil() {
-		return sommeil;
+		return _sommeil;
 	}
 
 	public void setSommeil(Boolean sommeil) {
-		this.sommeil = sommeil;
+		_sommeil = sommeil;
 	}
 
 	public int getVitesse() {
-		return vitesse;
+		return _vitesse;
 	}
 
 	public void setVitesse(int vitesse) {
-		this.vitesse = vitesse;
+		_vitesse = vitesse;
 	}
 
 	public int getForce() {
-		return force;
+		return _force;
 	}
 
 	public void setForce(int force) {
-		this.force = force;
+		_force = force;
 	}
 
 	public int getEnergie() {
-		return energie;
+		return _energie;
 	}
 
 	public void setEnergie(int energie) {
-		this.energie = energie;
+		_energie = energie;
 	}
 
 	public Meute getMeute() {
-		return meute;
+		return _meute;
 	}
 
 	public void setMeute(Meute meute) {
-		this.meute = meute;
+		_meute = meute;
 	}
 
 	public int getVitesseCourse() {
-		return vitesseCourse;
+		return _vitesseCourse;
 	}
 
 	public void setVitesseCourse(int vitesseCourse) {
-		this.vitesseCourse = vitesseCourse;
+		_vitesseCourse = vitesseCourse;
 	}
 
 	public Boolean getSexe() {
-		return sexe;
-	}
-
-	public void setSexe(Boolean sexe) {
-		this.sexe = sexe;
+		return _sexe;
 	}
 
 	public Boolean getEstLeader() {
-		return estLeader;
-	}
-
-	public void setEstLeader(Boolean estLeader) {
-		this.estLeader = estLeader;
+		return _estLeader;
 	}
 
 	public long getDateNaissance() {
-		return dateNaissance;
-	}
-
-	public void setDateNaissance(int dateNaissance) {
-		this.dateNaissance = dateNaissance;
+		return _dateNaissance;
 	}
 
 	public Boolean getNage() {
-		return nage;
-	}
-
-	public void setNage(Boolean nage) {
-		this.nage = nage;
+		return _nage;
 	}
 
 	public Boolean getEstVivant() {
-		return estVivant;
+		return _estVivant;
 	}
 
 	public void setEstVivant(Boolean estVivant) {
-		this.estVivant = estVivant;
+		_estVivant = estVivant;
 	}
 
 	public Case getPosition() {
-		return position;
+		return _position;
 	}
 
 	public void setPosition(Case position) {
-		this.position = position;
+		_position = position;
 	}
 
 	public int getChampVision() {
-		return champVision;
-	}
-
-	public void setChampVision(int champVision) {
-		this.champVision = champVision;
+		return _champVision;
 	}
 
 	public int getSens() {
-		return sens;
+		return _sens;
 	}
 
 	public void setSens(int sens) {
-		this.sens = sens;
+		_sens = sens;
 	}
 
 	public int getTempIdeale() {
-		return tempIdeale;
-	}
-
-	public void setTempIdeale(int tempIdeale) {
-		this.tempIdeale = tempIdeale;
+		return _tempIdeale;
 	}
 
 	public int getNbReproductions() {
-		return nbReproductions;
+		return _nbReproductions;
 	}
 
 	public void setNbReproductions(int nbReproductions) {
-		this.nbReproductions = nbReproductions;
+		_nbReproductions = nbReproductions;
 	}
 
 	public Boolean getFuite() {
-		return fuite;
+		return _fuite;
 	}
 
 	public void setFuite(Boolean fuite) {
-		this.fuite = fuite;
+		_fuite = fuite;
 	}
 
 	public Espece(){
@@ -173,56 +148,50 @@ public class Espece {
 	
 	public Espece(String nom, Boolean sommeil, int vitesse, int force, int energie, int vitesseCourse, Boolean estLeader, Boolean nage, int champVision, 
 			int tempIdeale, int nbReproductions) {
-		this.nom = nom;
-		this.sommeil = sommeil;
-		this.vitesse = vitesse;
-		this.force = force;
-		this.energie = energie;
-		this.meute = null;
-		this.vitesseCourse = vitesseCourse;
-		this.sexe = Math.random()<0.5;
-		this.estLeader = estLeader;
-		this.dateNaissance = Temps.getJeux();
-		this.nage = nage;
-		this.estVivant = true;
-		this.champVision = champVision;
-		this.tempIdeale = tempIdeale;
-		this.nbReproductions = nbReproductions;
-		this.fuite = false;
+		_nom = nom;
+		_sommeil = sommeil;
+		_vitesse = vitesse;
+		_force = force;
+		_energie = energie;
+		_meute = null;
+		_vitesseCourse = vitesseCourse;
+		_sexe = Math.random()<0.5;
+		_estLeader = estLeader;
+		_dateNaissance = Temps.getJeux();
+		_nage = nage;
+		_estVivant = true;
+		_champVision = champVision;
+		_tempIdeale = tempIdeale;
+		_nbReproductions = nbReproductions;
+		_fuite = false;
 	}
 		
 	public Espece(Espece espece){
-		this.nom=espece.nom;
-		this.sommeil=espece.sommeil;
-		this.vitesse=espece.vitesse;
-		this.force=espece.force;
-		this.energie=espece.energie;
-		this.meute=espece.meute;
-		this.vitesseCourse=espece.vitesseCourse;
-		this.sexe=espece.sexe;
-		this.estLeader=espece.estLeader;
-		this.dateNaissance=espece.dateNaissance;
-		this.nage=espece.nage;
-		this.estVivant=espece.estVivant;
-		this.position=espece.position;
-		this.champVision=espece.champVision;
-		this.sens=espece.sens;
-		this.tempIdeale=espece.tempIdeale;
-		this.nbReproductions=espece.nbReproductions;
-		this.fuite=espece.fuite;
+		_nom = espece.getNom();
+		_sommeil = espece.getSommeil();
+		_vitesse = espece.getVitesse();
+		_force = espece.getForce();
+		_energie = espece.getEnergie();
+		_meute = espece.getMeute();
+		_vitesseCourse = espece.getVitesseCourse();
+		_sexe = espece.getSexe();
+		_estLeader = espece.getEstLeader();
+		_dateNaissance = espece.getDateNaissance();
+		_nage = espece.getNage();
+		_estVivant = espece.getEstVivant();
+		_position = espece.getPosition();
+		_champVision = espece.getChampVision();
+		_sens = espece.getSens();
+		_tempIdeale = espece.getTempIdeale();
+		_nbReproductions = espece.getNbReproductions();
+		_fuite = espece.getFuite();
 	}
 	
-	public void verifierEtatJournee() {
-
-	}
+	public void verifierEtatJournee() {	}
 	
-	public void chuteCapacite() {
-		
-	}
+	public void chuteCapacite() {	}
 	
-	public void retrouveCapacite() {
-		
-	}
+	public void retrouveCapacite() {	}
 	
 	public void dormir() {
 		setEnergie(100);
@@ -236,38 +205,69 @@ public class Espece {
 	}
 	
 	public void tuer() {
-		if (getEstLeader()==true)
-			getMeute().detruire();
+		if (_estLeader == true)
+			_meute.detruire();
 		setEstVivant(false);
 	}
 	
 	public void rejoindreMeute(Meute meute) {
+		setMeute(meute);
+		_meute.rejoindre(this);
 	}
 	
-	public void seDeplacer() {
+	public void appelLeader() {
+		_meute.getLeader().seDeplacer(_position);
+	}
+	
+	public void chasser(Espece espece) {
+		seDeplacer(espece.getPosition());
+	}
+	
+	public void seReproduire(Espece espece) {		//pas besoin d'argument
+		setNbReproductions(_nbReproductions - 1);
+		if (_sexe == false){
+			//CrŽation d'un Giraffe
+		}
+	}
+	
+	public Boolean aFaim() {
+		if (_energie < 20)
+			return true;
+		return false;
+	}
+	
+	public void manger() {
+		if (_position.getNourriture().getEnergieRendue() + _energie > 100)
+			setEnergie(100);
+		else
+			setEnergie(_position.getNourriture().getEnergieRendue() + _energie);
+		_position.getNourriture().seFaireManger(this);
+	}
+	
+	public void combattre(Espece espece) {
+		if (_force < espece.getForce() ){	//perd
+			if (_estLeader)
+				if (espece.getEstLeader())
+					espece.getMeute().rejoindre(_meute);
+		}
+		else{	//gagne
+			
+		}
 	}
 	
 	public void fuir(Espece espece) {
 	}
 	
-	public void appelLeader() {
-	}
-	
-	public void chasser(Espece espece) {
-	}
-	
-	public void seReproduire(Espece espece) {
-	}
-	
-	public Boolean aFaim() {
-		return null;
-	}
-	
-	public void combattre(Espece espece) {
+	public void seDeplacer(int posX, int posY) {
 		
 	}
 	
-	public void manger(Nourriture nour) {
+	public void seDeplacer(Case _case){
+		
+	}
+	
+	public void seDeplacer() {
+		ArrayList<Case> tmp = Monde.getVoisins(getPosition(), getChampVision(), getSens() );
 	}
 	
 	public String sauvegarder() {
