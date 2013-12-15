@@ -46,7 +46,7 @@ public class Monde {
   
   
 
-  public ArrayList<Case> getVoisins(Case caseDepart, int champVision, int sens) {
+  public static ArrayList<Case> getVoisins(Case caseDepart, int champVision, int sens) {
       
       ArrayList<Case> _casesVoisines = new ArrayList();
       
