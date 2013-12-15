@@ -1,32 +1,24 @@
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Meute {
 
-  public Espece leader;
+	private Espece leader;
+	private ArrayList<Espece> membres = new ArrayList();
 
-  private ArrayList<Espece> membres;
-
-    public Vector  myEspece;
-    /**
-   * 
-   * @element-type Espece
-   */
-  public Vector  Appartenir;
-
-  public void rejoindre( Espece) {
-  }
-
-  public void rejoindre( Meute) {
-  }
-
-  public void quitter( Espece) {
-  }
-
-  public void detruire() {
-  }
-
-  public Espece getLeader() {
-  return null;
-  }
+	public void rejoindre(Espece espece) {
+	}
+	
+	public void rejoindre(Meute meute) {
+	}
+	
+	public void quitter(Espece espece) {
+	}
+	
+	public void detruire() {
+	}
+	
+	public Espece getLeader() {
+		return null;
+	}
 
 }

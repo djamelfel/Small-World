@@ -1,28 +1,17 @@
-import java.util.Vector;
-
 public class Nourriture {
 
-  public integer energieRendue;
+	private int energieRendue;
+	private Boolean mangeable;
+	private Case position;
 
-  public Boolean mangeable;
-
-  public Case position;
-
-    public Vector  *;
-    /**
-   * 
-   * @element-type Monde
-   */
-  public Vector  Contenir;
-
-  public void seFaireManger( Espece) {
-  }
-
-  public void detruire() {
-  }
-
-  public String sauvegarder() {
-  return null;
-  }
+	public void seFaireManger(Espece espece) {
+	}
+	
+	public void detruire() {
+	}
+	
+	public String sauvegarder() {
+		return null;
+	}
 
 }

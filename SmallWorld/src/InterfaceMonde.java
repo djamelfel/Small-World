@@ -1,4 +1,4 @@
 public class InterfaceMonde {
 
-	public Monde monde;
+	private Monde monde ;
 }

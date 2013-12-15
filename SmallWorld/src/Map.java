@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 public class Map {
@@ -27,5 +26,4 @@ public class Map {
   public Case getCase(Integer posX, Integer posY) {
     return null;
   }
-
 }
