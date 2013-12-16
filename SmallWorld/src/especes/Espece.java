@@ -292,6 +292,7 @@ public class Espece {
 	}
 	
 	public void fuir(Espece espece) {
+		
 	}
 	
 	public void seDeplacer(int posX, int posY) {
