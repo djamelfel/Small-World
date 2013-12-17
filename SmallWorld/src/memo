@@ -1,9 +1,0 @@
-supprimer attribut nocturne
-
-lancer un while(estVivant) sur verifierEtatJournee()
-
-creer deux methodes seDeplacer avec comme argument une position de destination, ou une case
-
-pas besoin d'argument pour la methode seReproduire
-
-revoir méthode activité
