@@ -13,7 +13,7 @@ public class Monde {
 
   private ArrayList<Decors> _listeElementsDecors;
 
-  private Map _map;
+  private static Map _map;
 
   private int _temperature;
 
@@ -141,7 +141,7 @@ public class Monde {
   
   
   
-  public Map getMap() {
+  public static Map getMap() {
         return _map;
     }
 

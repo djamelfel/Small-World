@@ -1,6 +1,6 @@
 package especes;
 import java.util.ArrayList;
-
+import utils.Utils;
 import monde.Case;
 import monde.Monde;
 import monde.Temps;
@@ -26,7 +26,7 @@ public class Espece {
 	private int _sens;
 	private int _tempIdeale;
 	private int _nbReproductions;
-	private Boolean _fuite;
+	private Boolean _course;
 	
 	public String getNom() {
 		return _nom;
@@ -149,12 +149,12 @@ public class Espece {
 		_nbReproductions = nbReproductions;
 	}
 
-	public Boolean getFuite() {
-		return _fuite;
+	public Boolean getCourse() {
+		return _course;
 	}
 
-	public void setFuite(Boolean fuite) {
-		_fuite = fuite;
+	public void setCourse(Boolean course) {
+		_course = course;
 	}
 
 	public Espece(){
@@ -181,7 +181,7 @@ public class Espece {
 		_champVision = champVision;
 		_tempIdeale = tempIdeale;
 		_nbReproductions = nbReproductions;
-		_fuite = false;
+		_course = false;
 	}
 		
 	public Espece(Espece espece){
@@ -204,7 +204,7 @@ public class Espece {
 		_sens = espece.getSens();
 		_tempIdeale = espece.getTempIdeale();
 		_nbReproductions = espece.getNbReproductions();
-		_fuite = espece.getFuite();
+		_course = espece.getCourse();
 	}
 	
 	public void verifierEtatJournee() {	}
@@ -291,16 +291,61 @@ public class Espece {
 		seDeplacer();
 	}
 	
-	public void fuir(Espece espece) {
-		
-	}
-	
 	public void seDeplacer(int posX, int posY) {
+		int x = 0, y = 0, deplacer = _vitesse;
 		
+		if (_course == true)				//definie le nombre de case dont il peut se deplacer
+			deplacer += _vitesseCourse;
+
+//Gestion point X	
+		if (Math.abs(posX - _position.getPosX()) < deplacer)	//permet de ne pas depasser le point X
+			x = Math.abs(posX - _position.getPosX());
+		else
+			x = deplacer;
+		
+		if (x > _position.getPosX())		//choisi aleatoirement un nombre compris dans son champ de deplacement
+			x = Utils.getRand(x, _position.getPosX());
+		else
+			x = Utils.getRand(_position.getPosX(), x);
+		
+		deplacer -= x;		//soustrait le deplacement x a deplacer
+
+//Gestion point Y			
+		if (Math.abs(posY - _position.getPosY()) < deplacer)
+			y = Math.abs(posY - _position.getPosY());
+		else
+			y = deplacer;
+		if (y > _position.getPosX())
+			y = Utils.getRand(y, _position.getPosX());
+		else
+			y = Utils.getRand(_position.getPosX(), y);
+		
+		_position.setPosX(x);
+		_position.setPosY(y);
 	}
 	
 	public void seDeplacer() {
-		ArrayList<Case> tmp = Monde.getVoisins(getPosition(), getChampVision(), getSens() );
+		//deplacement aleatoire
+		int x = 0, y = 0, deplacer = _vitesse;
+
+//Gestion point X
+		if ( (_position.getPosX() + deplacer) > Monde.getMap().getLargeur() ) {		//sorti tableau droite
+			x = Monde.getMap().getLargeur() - _position.getPosX();
+			x = Utils.getRand(x, deplacer);
+		}
+		if ( (_position.getPosX() - deplacer) < 0) {								//sorti tableau gauche
+			x = deplacer - _position.getPosX();
+			x = Utils.getRand(deplacer, 0);
+		}
+
+		deplacer -= x;		//soustrait le deplacement x a deplacer
+
+		_position.setPosX(x);
+		_position.setPosY(y);
+	}
+	
+	public void fuir(Espece espece) {
+		//s'eloigner de l'espece en question 
 	}
 	
 	public String toString() {

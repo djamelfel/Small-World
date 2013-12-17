@@ -6,8 +6,8 @@ import nourriture.Nourriture;
 
 
 public class Case {
-	private int posX;
-	private int posY;
+	private int _posX;
+	private int _posY;
 	private Decors decors;
 	private Espece espece;
 	private Nourriture nourriture;
@@ -15,8 +15,8 @@ public class Case {
         
         public Case(int posX, int posY)
         {
-            this.posX = posX;
-            this.posY = posY;
+            _posX = posX;
+            _posY = posY;
         }
         
 	public Boolean estVide() {
@@ -25,15 +25,15 @@ public class Case {
 	}
         
         public String toString ( ){
-            return "[Case : posX : "+posX+" , posY : "+posY+" ]";
+            return "[Case : posX : " + _posX + " , posY : " + _posY +" ]";
         }
         
         public int getPosX() {
-            return posX;
+            return _posX;
         }
 
         public int getPosY() {
-            return posY;
+            return _posY;
         }
 
         public Decors getDecorst() {
@@ -59,4 +59,12 @@ public class Case {
         public void setNourriture(Nourriture nourriture) {
             this.nourriture = nourriture;
         }
+
+		public void setPosX(int posX) {
+			_posX = posX;
+		}
+		
+		public void setPosY(int posY) {
+			_posY = posY;
+		}
 }
