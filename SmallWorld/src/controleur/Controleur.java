@@ -1,9 +1,17 @@
+package controleur;
 
 import modele.especes.Giraffe;
 import vue.Fenetre;
 
-
 public class Controleur {
+    public Controleur() {
+    }
+
+    // Méthode appelé lors de la création d'une nouvelle partie
+    public boolean creerPartie(String nomJoueur) {
+        System.out.println("My name is " + nomJoueur);
+        return true;
+    }
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
@@ -20,6 +28,6 @@ public class Controleur {
             System.out.println(g1 + "==> Giraffe 2");
         }
 
-        new Fenetre();
+        new Fenetre(new Controleur());
     }
 }
