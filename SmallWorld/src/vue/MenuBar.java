@@ -46,6 +46,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
         fichier.addSeparator();
         fichier.add(quitter);
 
+        sauvegarder.setEnabled(false);
+
         add(fichier);
     }
 
@@ -60,5 +62,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
         } else if (e.getSource().equals(quitter)) {
             fenetre.dispose();
         }
+    }
+
+    public void activate() {
+        sauvegarder.setEnabled(true);
     }
 }

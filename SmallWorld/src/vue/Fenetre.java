@@ -17,7 +17,7 @@ public class Fenetre extends JFrame {
         this.controleur = controleur;
 
         // Initialisation de la JFrame
-        setSize(700, 500);
+        setSize(800, 600);
         setPreferredSize(getSize());
         setMinimumSize(getPreferredSize());
         setTitle("Small World - LO43");
@@ -49,7 +49,9 @@ public class Fenetre extends JFrame {
         setVisible(true);
     }
 
-    public void activateDrawGrille() {
+    // Utiliser un observateur ça serait Tip-Top !
+    public void activate() {
         drawGrille.setVisible(true);
+        menuBar.activate();
     }
 }

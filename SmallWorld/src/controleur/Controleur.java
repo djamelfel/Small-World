@@ -17,7 +17,7 @@ public class Controleur {
     // Méthode appelé lors de la création d'une nouvelle partie
     public boolean creerPartie(String nomJoueur) {
         System.out.println("My name is " + nomJoueur);
-        fenetre.activateDrawGrille();
+        fenetre.activate();
         return true;
     }
 
@@ -28,7 +28,11 @@ public class Controleur {
 
     // Méthode appelé lors d'un chargement de partie
     public boolean charger(File file) {
-        return Charger.chargerXML(file);
+        if (Charger.chargerXML(file)) {
+            fenetre.activate();
+            return true;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
