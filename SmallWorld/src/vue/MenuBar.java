@@ -1,7 +1,9 @@
 package vue;
 
 import controleur.Controleur;
+import vue.dialog.DialogCharger;
 import vue.dialog.DialogNouveau;
+import vue.dialog.DialogSauvegarder;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -52,9 +54,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
         if (e.getSource().equals(nouveau)) {
             new DialogNouveau(fenetre, controleur);
         } else if (e.getSource().equals(sauvegarder)) {
-
+            new DialogSauvegarder(fenetre, controleur);
         } else if (e.getSource().equals(charger)) {
-
+            new DialogCharger(fenetre, controleur);
         } else if (e.getSource().equals(quitter)) {
             fenetre.dispose();
         }

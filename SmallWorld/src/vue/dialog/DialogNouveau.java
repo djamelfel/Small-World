@@ -90,7 +90,7 @@ public class DialogNouveau extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(valider)) {
             if (nom.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Eggs are not supposed to be green.");
+                JOptionPane.showMessageDialog(fenetre, "Eggs are not supposed to be green.");
                 return;
             }
             controleur.creerPartie(nom.getText());

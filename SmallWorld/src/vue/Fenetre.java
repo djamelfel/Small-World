@@ -11,6 +11,7 @@ public class Fenetre extends JFrame {
     private Controleur controleur;
 
     private MenuBar menuBar;
+    private DrawGrille drawGrille;
 
     public Fenetre(Controleur controleur) {
         this.controleur = controleur;
@@ -39,7 +40,16 @@ public class Fenetre extends JFrame {
         menuBar = new MenuBar(this, controleur);
         setJMenuBar(menuBar);
 
+        // Initialisation de la zone de jeu
+        drawGrille = new DrawGrille(this, controleur);
+        drawGrille.setVisible(false);
+        add(drawGrille);
+
         pack();
         setVisible(true);
+    }
+
+    public void activateDrawGrille() {
+        drawGrille.setVisible(true);
     }
 }
