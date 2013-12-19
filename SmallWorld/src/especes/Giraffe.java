@@ -46,12 +46,6 @@ public class Giraffe extends EspeceTer implements Herbivore {
 		}
 	}
 
-	@Override
-	public void fuir(Espece espece) {
-		// TODO Auto-generated method stub
-		super.fuir(espece);
-	}
-
 	public String toString() {
 		return "nom - leader - repro - " + getNom() + getEstLeader() + getNbReproductions() + super.toString();
 	}
