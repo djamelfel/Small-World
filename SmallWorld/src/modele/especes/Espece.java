@@ -1,5 +1,4 @@
 package modele.especes;
-import java.util.ArrayList;
 import utils.Utils;
 import modele.monde.Case;
 import modele.monde.Monde;
@@ -16,10 +15,10 @@ public class Espece {
 	private int _faim;
 	private Meute _meute;
 	private int _vitesseCourse;
-	private Boolean _sexe;	//false ==> femelle
-	private Boolean _estLeader;		//true ==> est un Leader
+	private Boolean _sexe;							//false ==> femelle
+	private Boolean _estLeader;						//true ==> est un Leader
 	private long _dateNaissance;
-	private Boolean _nage;			//trouver autre terme
+	private Boolean _nage;							//trouver autre terme
 	private Boolean _estVivant;
 	private Case _position;
 	private int _champVision;
@@ -236,7 +235,7 @@ public class Espece {
 		if (_estLeader == true)
 			_meute.detruire();
 		setEstVivant(false);
-		//new Cadavre
+		//==> new Cadavre
 	}
 	
 	public void rejoindreMeute(Meute meute) {
@@ -252,7 +251,7 @@ public class Espece {
 		seDeplacer(espece.getPosition().getPosX(), espece.getPosition().getPosY() );
 	}
 	
-	public void seReproduire(Espece espece) {		//pas besoin d'argument
+	public void seReproduire(Espece espece) {				//pas besoin d'argument
 		setNbReproductions(_nbReproductions - 1);
 		if (_sexe == false){
 			//Création d'un Giraffe
@@ -267,19 +266,19 @@ public class Espece {
 	
 	public void manger() {
 		if (_position.getNourriture().getEnergieRendue() + _energie > 100)
-			setEnergie(100);							//energie maximum 100
+			setEnergie(100);					//energie maximum 100
 		else
 			setEnergie(_position.getNourriture().getEnergieRendue() + _energie);
 		_position.getNourriture().seFaireManger(this);
 	}
 	
 	public void combattre(Espece espece) {
-		if (_force < espece.getForce() ){	//perd
-			if (_estLeader)						//si leader
-				if (espece.getEstLeader())			//si adversaire leader
+		if (_force < espece.getForce() ){				//perd
+			if (_estLeader)						//si leader et de la meme espece
+				if (espece.getEstLeader() && this.getClass().getName().equals(espece.getClass().getName()) )			//si adversaire leader
 					espece.getMeute().rejoindre(_meute);	//legue sa meute
-				else								//sinon
-					_meute.detruire();						//dissout la meute
+				else						//sinon
+					_meute.detruire();			//dissout la meute
 			tuer();
 		}
 		else{								//gagne
@@ -292,9 +291,9 @@ public class Espece {
 	}
 	
 	public void activite(){
-		if (Temps.getJeux() % 20 == 0) {		//temps à comfirmer
-			setEnergie(_energie - 5);			//baisse d'énergie à confimer
-			setFaim(_faim - 20);				//baisse de faim à confirmer
+		if (Temps.getJeux() % 20 == 0) {				//temps à comfirmer
+			setEnergie(_energie - 5);				//baisse d'énergie à confimer
+			setFaim(_faim - 20);					//baisse de faim à confirmer
 		}
 		if(getEnergie() <= 0)
 			tuer();
@@ -304,11 +303,11 @@ public class Espece {
 	public void seDeplacer(int posX, int posY) {
 		int x, y, deplacer = _vitesse;
 		
-		if (_course == true)				//definie le nombre de case dont il peut se deplacer
+		if (_course == true)						//definie le nombre de case dont il peut se deplacer
 			deplacer += _vitesseCourse;
 
 //Gestion point X	
-		if (Math.abs(posX - _position.getPosX()) < deplacer)	//permet de ne pas depasser le point X
+		if (Math.abs(posX - _position.getPosX()) < deplacer)		//permet de ne pas depasser le point X
 			x = Math.abs(posX - _position.getPosX());
 		else
 			x = deplacer;
@@ -318,7 +317,7 @@ public class Espece {
 		else
 			x = Utils.getRand(_position.getPosX(), x);
 		
-		deplacer -= x;		//soustrait le deplacement x a deplacer
+		deplacer -= x;							//soustrait le deplacement x a deplacer
 
 //Gestion point Y			
 		if (Math.abs(posY - _position.getPosY()) < deplacer)
@@ -335,7 +334,7 @@ public class Espece {
 	}
 	
 	public void seDeplacer() {
-		//deplacement aleatoire
+										//deplacement aleatoire
 		int x = 0, y = 0, deplacer = _vitesse;
 
 //Gestion point X
@@ -343,12 +342,11 @@ public class Espece {
 			x = Monde.getMap().getLargeur() - _position.getPosX();
 			x = Utils.getRand(x, deplacer);
 		}
-		if ( (_position.getPosX() - deplacer) < 0) {								//sorti tableau gauche
-			x = deplacer - _position.getPosX();
-			x = Utils.getRand(deplacer, 0);
+		if ( (_position.getPosX() - deplacer) < 0) {
+			x = Utils.getRand(_position.getPosX(), 0);
 		}
 
-		deplacer -= x;		//soustrait le deplacement x a deplacer
+		deplacer -= x;							//soustrait le deplacement x a deplacer
 
 		_position.setPosX(x);
 		_position.setPosY(y);
