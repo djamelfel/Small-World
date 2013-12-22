@@ -1,5 +1,5 @@
-package nourriture;
-import especes.Espece;
+package modele.nourriture;
+import modele.especes.Espece;
 
 public class Nourriture {
         

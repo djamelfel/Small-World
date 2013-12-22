@@ -1,7 +1,7 @@
-package nourriture;
+package modele.nourriture;
 
-import especes.Espece;
-import nourriture.Nourriture;
+import modele.especes.Espece;
+import modele.nourriture.Nourriture;
 
 public class Cadavre extends Nourriture {
 	private Espece _animal;

@@ -1,4 +1,4 @@
-package nourriture;
+package modele.nourriture;
 
 public class Herbe extends Nourriture {
     

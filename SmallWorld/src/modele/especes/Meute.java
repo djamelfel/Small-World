@@ -1,4 +1,4 @@
-package especes;
+package modele.especes;
 
 import java.util.ArrayList;
 

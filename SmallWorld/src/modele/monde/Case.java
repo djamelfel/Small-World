@@ -1,7 +1,7 @@
-package monde;
+package modele.monde;
 
-import especes.Espece;
-import nourriture.Nourriture;
+import modele.especes.Espece;
+import modele.nourriture.Nourriture;
 
 
 

@@ -1,9 +1,9 @@
-package especes;
+package modele.especes;
 import java.util.ArrayList;
 import utils.Utils;
-import monde.Case;
-import monde.Monde;
-import monde.Temps;
+import modele.monde.Case;
+import modele.monde.Monde;
+import modele.monde.Temps;
 
 public class Espece {
 
@@ -302,7 +302,7 @@ public class Espece {
 	}
 	
 	public void seDeplacer(int posX, int posY) {
-		int x = 0, y = 0, deplacer = _vitesse;
+		int x, y, deplacer = _vitesse;
 		
 		if (_course == true)				//definie le nombre de case dont il peut se deplacer
 			deplacer += _vitesseCourse;
@@ -358,6 +358,7 @@ public class Espece {
 		//s'eloigner de l'espece en question 
 	}
 	
+	@Override
 	public String toString() {
 		return "sexe - date - " + _sexe + _dateNaissance;
 	}

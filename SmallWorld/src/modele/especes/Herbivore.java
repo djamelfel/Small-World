@@ -1,4 +1,4 @@
-package especes;
+package modele.especes;
 
 public interface Herbivore {
 

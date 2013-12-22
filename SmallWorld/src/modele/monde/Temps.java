@@ -1,4 +1,4 @@
-package monde;
+package modele.monde;
 public class Temps {
 
 	private static long _jeux;

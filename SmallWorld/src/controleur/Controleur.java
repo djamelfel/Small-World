@@ -1,6 +1,6 @@
 package controleur;
 
-import modele.especes.Giraffe;
+import modele.especes.animaux.Giraffe;
 import utilitaires.Charger;
 import utilitaires.Sauvegarder;
 import vue.Fenetre;

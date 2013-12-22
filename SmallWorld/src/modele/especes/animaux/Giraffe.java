@@ -1,7 +1,8 @@
-package especes;
+package modele.especes.animaux;
+import modele.especes.Espece;
+import modele.especes.EspeceTer;
+import modele.especes.Herbivore;
 import utils.Utils;
-import monde.Temps;
-import nourriture.Nourriture;
 
 public class Giraffe extends EspeceTer implements Herbivore {
 	
@@ -15,6 +16,7 @@ public class Giraffe extends EspeceTer implements Herbivore {
 		super("Giraffe", 35, 80, 20, 40, 20, Math.random()<0.2, false, 65, 25, Utils.getRand(3));
 	}
 
+	@Override
 	public void chuteCapacite() {
 		if (getSommeil() == true)
 			setForce(getForce() - 40);
@@ -25,6 +27,7 @@ public class Giraffe extends EspeceTer implements Herbivore {
 		}
 	}
 
+	@Override
 	public void retrouveCapacite() {
 		if (getSommeil() == true)
 			setForce(getForce() + 40);
@@ -35,6 +38,7 @@ public class Giraffe extends EspeceTer implements Herbivore {
 		}
 	}
 
+	@Override
 	public String toString() {
 		return "nom - leader - repro - " + getNom() + getEstLeader() + getNbReproductions() + super.toString();
 	}

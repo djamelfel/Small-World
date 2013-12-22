@@ -1,7 +1,8 @@
-package monde;
-import monde.Monde;
+package modele.monde;
+
+import modele.monde.Monde;
 import java.util.ArrayList;
-import nourriture.Nourriture;
+import modele.nourriture.Nourriture;
 
 public class Map {
 
@@ -54,7 +55,7 @@ public class Map {
 
     public Case getCase(Integer posX, Integer posY) {
 		if(posX < 0 || posY < 0 || posX >= _largeur || posY >= _hauteur) return null; // Sort du tableau !
-			return listeCase[posY][posX];
+			return _listeCase[posY][posX];
     }
   
 	public int getLargeur() {
