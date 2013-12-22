@@ -9,32 +9,36 @@ public class Espece {
 	private String _nom;
 	private int _sommeilDeb;
 	private int _sommeilFin;
+	private boolean _sommeil;
 	private int _vitesse;
 	private int _force;
 	private int _energie;
 	private int _faim;
 	private Meute _meute;
 	private int _vitesseCourse;
-	private Boolean _sexe;							//false ==> femelle
-	private Boolean _estLeader;						//true ==> est un Leader
+	private boolean _sexe;							//false ==> femelle
+	private boolean _estLeader;						//true ==> est un Leader
 	private long _dateNaissance;
-	private Boolean _nage;							//trouver autre terme
-	private Boolean _estVivant;
+	private boolean _nage;							//trouver autre terme
+	private boolean _estVivant;
 	private Case _position;
 	private int _champVision;
-	private int _sens;
+	private int _sens;							//0 : haut, 1 : droite, 2 : bas, 3 : gauche
 	private int _tempIdeale;
 	private int _nbReproductions;
-	private Boolean _fuite;
-	private Boolean _course;
+	private boolean _fuite;
+	private boolean _course;
 	
 	public String getNom() {
 		return _nom;
 	}
 	
-	//(Temps.getJournee() > _sommeilDeb && Temps.getJournee() < _sommeilFin)
-	public Boolean getSommeil() {
-		return (Temps.getJournee() > _sommeilDeb && Temps.getJournee() < _sommeilFin) ;
+	public boolean setSommeil(boolean sommeil) {
+		return _sommeil = sommeil;
+	}
+	
+	public boolean getSommeil() {
+		return _sommeil ;
 	}
 	
 	public int getSommeilDeb() {
@@ -93,11 +97,11 @@ public class Espece {
 		_vitesseCourse = vitesseCourse;
 	}
 
-	public Boolean getSexe() {
+	public boolean getSexe() {
 		return _sexe;
 	}
 
-	public Boolean getEstLeader() {
+	public boolean getEstLeader() {
 		return _estLeader;
 	}
 
@@ -105,11 +109,11 @@ public class Espece {
 		return _dateNaissance;
 	}
 
-	public Boolean getNage() {
+	public boolean getNage() {
 		return _nage;
 	}
 
-	public Boolean getEstVivant() {
+	public boolean getEstVivant() {
 		return _estVivant;
 	}
 
@@ -121,8 +125,9 @@ public class Espece {
 		return _position;
 	}
 
-	public void setPosition(Case position) {
-		_position = position;
+	public void setPosition(int posX, int posY) {
+		_position.setPosX(posX);
+		_position.setPosX(posX);
 	}
 
 	public int getChampVision() {
@@ -148,8 +153,16 @@ public class Espece {
 	public void setNbReproductions(int nbReproductions) {
 		_nbReproductions = nbReproductions;
 	}
-
-	public Boolean getCourse() {
+	
+	public boolean getFuite() {
+		return _fuite;
+	}
+	
+	public void setFuite(boolean fuite) {
+		_fuite = fuite;
+	}
+	
+	public boolean getCourse() {
 		return _course;
 	}
 
@@ -160,7 +173,7 @@ public class Espece {
 	public Espece(){
 	}
 	
-	public Espece(String nom, int sommeilDeb, int sommeilFin, int vitesse, int force, int vitesseCourse, Boolean estLeader, Boolean nage, int champVision, 
+	public Espece(String nom, int sommeilDeb, int sommeilFin, int vitesse, int force, int vitesseCourse, boolean estLeader, boolean nage, int champVision, 
 			int tempIdeale, int nbReproductions) {
 		_nom = nom;
 		_sommeilDeb = sommeilDeb;
@@ -208,7 +221,7 @@ public class Espece {
 	}
 	
 	public void verifierEtatJournee() {
-		if ( getSommeil() ){
+		if ( Temps.getJournee() > _sommeilDeb && Temps.getJournee() < _sommeilFin ){
 			if(getSommeil() == true)
 				reveiller();
 			activite();
@@ -223,12 +236,14 @@ public class Espece {
 	public void retrouveCapacite() {	}
 	
 	public void dormir() {
+		setSommeil(true);
 		setEnergie(100);
 		chuteCapacite();
 	}
 	
 	public void reveiller() {
 		retrouveCapacite();
+		setSommeil(false);
 	}
 	
 	public void tuer() {
@@ -252,24 +267,24 @@ public class Espece {
 	}
 	
 	public void seReproduire(Espece espece) {				//pas besoin d'argument
-		setNbReproductions(_nbReproductions - 1);
+		_nbReproductions -= 1;
 		if (_sexe == false){
 			//Création d'un Giraffe
 		}
 	}
 	
-	public Boolean aFaim() {
-		if (_energie < 20)	//toute espece à faim avec une energie de -20
-			return true;
-		return false;
+	public boolean aFaim() {
+		return _energie < 20;
 	}
 	
 	public void manger() {
-		if (_position.getNourriture().getEnergieRendue() + _energie > 100)
-			setEnergie(100);					//energie maximum 100
-		else
-			setEnergie(_position.getNourriture().getEnergieRendue() + _energie);
-		_position.getNourriture().seFaireManger(this);
+		if (_position.getNourriture() != null ){
+			if ( _position.getNourriture().getEnergieRendue() + _energie > 100)
+				setEnergie(100);					//energie maximum 100
+			else
+				setEnergie(_position.getNourriture().getEnergieRendue() + _energie);
+			_position.getNourriture().seFaireManger(this);
+		}
 	}
 	
 	public void combattre(Espece espece) {
@@ -279,7 +294,6 @@ public class Espece {
 					espece.getMeute().rejoindre(_meute);	//legue sa meute
 				else						//sinon
 					_meute.detruire();			//dissout la meute
-			tuer();
 		}
 		else{								//gagne
 			if (_estLeader)						//si leader
@@ -287,6 +301,7 @@ public class Espece {
 					_meute.rejoindre(espece.getMeute());	//récupere sa meute
 			setEnergie( (_force - espece.getForce() ) / 2);
 			setFaim(_force - espece.getForce() );
+			espece.tuer();
 		}
 	}
 	
@@ -328,6 +343,19 @@ public class Espece {
 			y = Utils.getRand(y, _position.getPosX());
 		else
 			y = Utils.getRand(_position.getPosX(), y);
+		
+		if (Utils.getRand(1) == 1) {					//gestion du sens
+			if ( _position.getPosX() < x )
+				_sens = 1;
+			else
+				_sens = 3;
+		}
+		else {
+			if ( _position.getPosY() < y )
+				_sens = 0;
+			else
+				_sens = 2;
+		}
 		
 		_position.setPosX(x);
 		_position.setPosY(y);
