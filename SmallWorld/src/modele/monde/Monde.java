@@ -19,13 +19,14 @@ public class Monde {
 
   private Temps _temps;
 
-   /* public Nourriture 1;
-    public Decors Posseder;
-    public Map Appartenir;
-    public Espece Comporter;
-    public Temps Contenir;
-    public InterfaceMonde myInterfaceMonde;
-    public Nourriture Contenir;*/
+	/* 	public Nourriture 1;
+		public Decors Posseder;
+		public Map Appartenir;
+		public Espece Comporter;
+		public Temps Contenir;
+		public InterfaceMonde myInterfaceMonde;
+		public Nourriture Contenir;
+	*/
   public Monde()
   {
       _map = new Map(1920,1080);
@@ -41,10 +42,6 @@ public class Monde {
       
       ajoutDecors("montagne1", 1500,1000);
   }
-  
-  
-  
-  
 
   public static ArrayList<Case> getVoisins(Case caseDepart, int champVision, int sens) {
       
@@ -106,8 +103,6 @@ public class Monde {
       
      return tmpDecors;
   }
-  
-  
 
   public Nourriture ajoutNourriture(String nom, int posX, int posY) {
     Nourriture tmpNourriture = null;
@@ -138,8 +133,6 @@ public class Monde {
       
       
   }
-  
-  
   
   public static Map getMap() {
         return _map;

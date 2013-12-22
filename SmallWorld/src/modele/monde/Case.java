@@ -8,9 +8,9 @@ import nourriture.Nourriture;
 public class Case {
 	private int _posX;
 	private int _posY;
-	private Decors decors;
-	private Espece espece;
-	private Nourriture nourriture;
+	private Decors _decors;
+	private Espece _espece;
+	private Nourriture _nourriture;
 	
         
         public Case(int posX, int posY)
@@ -21,7 +21,7 @@ public class Case {
         
 	public Boolean estVide() {
   
-		return espece == null && nourriture == null;
+		return _espece == null && _nourriture == null;
 	}
         
         public String toString ( ){
@@ -37,27 +37,27 @@ public class Case {
         }
 
         public Decors getDecorst() {
-            return decors;
+            return _decors;
         }
 
         public void setDecors(Decors element) {
-            this.decors = element;
+            _decors = element;
         }
 
         public Espece getEspece() {
-            return espece;
+            return _espece;
         }
 
         public void setEspece(Espece espece) {
-            this.espece = espece;
+            _espece = espece;
         }
 
         public Nourriture getNourriture() {
-            return nourriture;
+            return _nourriture;
         }
 
         public void setNourriture(Nourriture nourriture) {
-            this.nourriture = nourriture;
+            _nourriture = nourriture;
         }
 
 		public void setPosX(int posX) {

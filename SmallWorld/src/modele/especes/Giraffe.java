@@ -15,17 +15,6 @@ public class Giraffe extends EspeceTer implements Herbivore {
 		super("Giraffe", 35, 80, 20, 40, 20, Math.random()<0.2, false, 65, 25, Utils.getRand(3));
 	}
 
-	public void verifierEtatJournee() {
-		if ( getSommeil() ){
-			if(getSommeil() == true)
-				reveiller();
-			activite();
-		}	
-		else
-			if (getSommeil() == true)
-				dormir();
-	}
-
 	public void chuteCapacite() {
 		if (getSommeil() == true)
 			setForce(getForce() - 40);
@@ -48,9 +37,5 @@ public class Giraffe extends EspeceTer implements Herbivore {
 
 	public String toString() {
 		return "nom - leader - repro - " + getNom() + getEstLeader() + getNbReproductions() + super.toString();
-	}
-	
-	public String sauvegarder() {
-		return null;
 	}
 }

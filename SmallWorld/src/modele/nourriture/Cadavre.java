@@ -10,9 +10,8 @@ public class Cadavre extends Nourriture {
     public Cadavre(Espece animal, int tempsDecomposition)
     {
         super(5);
-        this._animal = animal;
-        this._tempsDecomposition = tempsDecomposition;
-        
+        _animal = animal;
+        _tempsDecomposition = tempsDecomposition;    
     }
     
     

@@ -1,10 +1,9 @@
 package especes;
-
 import java.util.ArrayList;
+import utils.Utils;
 import monde.Case;
 import monde.Monde;
 import monde.Temps;
-import utils.Utils;
 
 public class Espece {
 
@@ -17,24 +16,25 @@ public class Espece {
 	private int _faim;
 	private Meute _meute;
 	private int _vitesseCourse;
-	private boolean _sexe;			//false ==> femelle
-	private boolean _estLeader;		//true ==> est un Leader
+	private Boolean _sexe;	//false ==> femelle
+	private Boolean _estLeader;		//true ==> est un Leader
 	private long _dateNaissance;
-	private boolean _nage;			//trouver autre terme
-	private boolean _estVivant;
+	private Boolean _nage;			//trouver autre terme
+	private Boolean _estVivant;
 	private Case _position;
 	private int _champVision;
 	private int _sens;
 	private int _tempIdeale;
 	private int _nbReproductions;
-	private boolean _course;
+	private Boolean _fuite;
+	private Boolean _course;
 	
 	public String getNom() {
 		return _nom;
 	}
 	
 	//(Temps.getJournee() > _sommeilDeb && Temps.getJournee() < _sommeilFin)
-	public boolean getSommeil() {
+	public Boolean getSommeil() {
 		return (Temps.getJournee() > _sommeilDeb && Temps.getJournee() < _sommeilFin) ;
 	}
 	
@@ -94,11 +94,11 @@ public class Espece {
 		_vitesseCourse = vitesseCourse;
 	}
 
-	public boolean getSexe() {
+	public Boolean getSexe() {
 		return _sexe;
 	}
 
-	public boolean getEstLeader() {
+	public Boolean getEstLeader() {
 		return _estLeader;
 	}
 
@@ -106,15 +106,15 @@ public class Espece {
 		return _dateNaissance;
 	}
 
-	public boolean getNage() {
+	public Boolean getNage() {
 		return _nage;
 	}
 
-	public boolean getEstVivant() {
+	public Boolean getEstVivant() {
 		return _estVivant;
 	}
 
-	public void setEstVivant(boolean estVivant) {
+	public void setEstVivant(Boolean estVivant) {
 		_estVivant = estVivant;
 	}
 
@@ -150,18 +150,18 @@ public class Espece {
 		_nbReproductions = nbReproductions;
 	}
 
-	public boolean getCourse() {
+	public Boolean getCourse() {
 		return _course;
 	}
 
-	public void setCourse(boolean course) {
+	public void setCourse(Boolean course) {
 		_course = course;
 	}
 
 	public Espece(){
 	}
 	
-	public Espece(String nom, int sommeilDeb, int sommeilFin, int vitesse, int force, int vitesseCourse, boolean estLeader, boolean nage, int champVision, 
+	public Espece(String nom, int sommeilDeb, int sommeilFin, int vitesse, int force, int vitesseCourse, Boolean estLeader, Boolean nage, int champVision, 
 			int tempIdeale, int nbReproductions) {
 		_nom = nom;
 		_sommeilDeb = sommeilDeb;
@@ -208,7 +208,16 @@ public class Espece {
 		_course = espece.getCourse();
 	}
 	
-	public void verifierEtatJournee() {	}
+	public void verifierEtatJournee() {
+		if ( getSommeil() ){
+			if(getSommeil() == true)
+				reveiller();
+			activite();
+		}	
+		else
+			if (getSommeil() == true)
+				dormir();
+	}
 	
 	public void chuteCapacite() {	}
 	
@@ -246,12 +255,12 @@ public class Espece {
 	public void seReproduire(Espece espece) {		//pas besoin d'argument
 		setNbReproductions(_nbReproductions - 1);
 		if (_sexe == false){
-			//Creation d'un Giraffe
+			//Création d'un Giraffe
 		}
 	}
 	
-	public boolean aFaim() {
-		if (_energie < 20)	//toute espece qui a faim avec une energie de -20
+	public Boolean aFaim() {
+		if (_energie < 20)	//toute espece à faim avec une energie de -20
 			return true;
 		return false;
 	}
@@ -265,14 +274,7 @@ public class Espece {
 	}
 	
 	public void combattre(Espece espece) {
-		if (_force > espece.getForce() || espece.getSommeil() == true ) {	//gagne
-			if (_estLeader)						//si leader
-				if (espece.getEstLeader())			//si adversaire est leader
-					_meute.rejoindre(espece.getMeute());	//recupere sa meute
-			setEnergie( (_force - espece.getForce() ) / 2);
-			setFaim(_force - espece.getForce() );
-		}
-		else {								//perd
+		if (_force < espece.getForce() ){	//perd
 			if (_estLeader)						//si leader
 				if (espece.getEstLeader())			//si adversaire leader
 					espece.getMeute().rejoindre(_meute);	//legue sa meute
@@ -280,6 +282,23 @@ public class Espece {
 					_meute.detruire();						//dissout la meute
 			tuer();
 		}
+		else{								//gagne
+			if (_estLeader)						//si leader
+				if (espece.getEstLeader())			//si adversaire est leader
+					_meute.rejoindre(espece.getMeute());	//récupere sa meute
+			setEnergie( (_force - espece.getForce() ) / 2);
+			setFaim(_force - espece.getForce() );
+		}
+	}
+	
+	public void activite(){
+		if (Temps.getJeux() % 20 == 0) {		//temps à comfirmer
+			setEnergie(_energie - 5);			//baisse d'énergie à confimer
+			setFaim(_faim - 20);				//baisse de faim à confirmer
+		}
+		if(getEnergie() <= 0)
+			tuer();
+		seDeplacer();
 	}
 	
 	public void seDeplacer(int posX, int posY) {
@@ -320,36 +339,23 @@ public class Espece {
 		int x = 0, y = 0, deplacer = _vitesse;
 
 //Gestion point X
-		if ( (_position.getPosX() + deplacer) > Monde.getMap().getLargeur() )		//sorti tableau droite
-			x = Utils.getRand(Monde.getMap().getLargeur(), -deplacer);
-		if ( (_position.getPosX() - deplacer) < 0)								//sorti tableau gauche
+		if ( (_position.getPosX() + deplacer) > Monde.getMap().getLargeur() ) {		//sorti tableau droite
+			x = Monde.getMap().getLargeur() - _position.getPosX();
+			x = Utils.getRand(x, deplacer);
+		}
+		if ( (_position.getPosX() - deplacer) < 0) {								//sorti tableau gauche
+			x = deplacer - _position.getPosX();
 			x = Utils.getRand(deplacer, 0);
+		}
 
 		deplacer -= x;		//soustrait le deplacement x a deplacer
 
-//Gestion point X
-		if ( (_position.getPosY() + deplacer) > Monde.getMap().getHauteur() )		//sorti tableau bas
-			x = Utils.getRand(Monde.getMap().getHauteur(), -deplacer);
-		if ( (_position.getPosY() - deplacer) < 0)								//sorti tableau haut
-			x = Utils.getRand(deplacer, 0);
-//Deplace espece
 		_position.setPosX(x);
 		_position.setPosY(y);
 	}
 	
 	public void fuir(Espece espece) {
 		//s'eloigner de l'espece en question 
-	}
-	
-	public void activite(){ 
-		if (Temps.getJeux() % 20 == 0) {		//temps a comfirmer
-			setEnergie(_energie - 5);			//baisse d'energie a confimer
-			setFaim(_faim - 20);				//baisse de faim a confirmer
-		}
-		if(getEnergie() <= 0)
-			tuer();
-		seDeplacer();	//avant de se deplacer effectuer tout les test --'
-		//ArrayList<Case> tmp = Monde.getVoisins(getPosition(), getChampVision(), getSens() );
 	}
 	
 	public String toString() {

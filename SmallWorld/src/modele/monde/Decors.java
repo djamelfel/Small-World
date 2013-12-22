@@ -3,7 +3,7 @@ package monde;
 public class Decors {
 
 	private int _type;
-        private int _posX;
+    private int _posX;
 	private int _posY;        
 	private int _largeur;
 	private int _hauteur;
