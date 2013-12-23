@@ -381,25 +381,24 @@ public class Espece {
 			hauteur = 35;
 		}
 					//deplacement aleatoire	
-	//Gestion point X
-			if ( (_position.getPosX() + vitesse) > largeur ) {		//sorti tableau droite
-				x = largeur - _position.getPosX();
-				x = Utils.getRand(x, vitesse);
-			}
-			else if ( (_position.getPosX() - vitesse) < 0) {
-				x = Utils.getRand(_position.getPosX(), 0);
-			}
+		//Gestion point X
+		if ( (_position.getPosX() + vitesse) > largeur )		//sorti tableau droite
+			x = Utils.getRand( (largeur - _position.getPosX()), (_position.getPosX() - vitesse) );
+		else if ( (_position.getPosX() - vitesse) < 0)
+			x = Utils.getRand(_position.getPosX() + vitesse);
+		else
+			x = Utils.getRand( (_position.getPosX() + vitesse), (_position.getPosX() - vitesse) );
 
-			vitesse -= x;						//soustrait le deplacement x a deplacer
+		vitesse -= x;							//soustrait le deplacement x a deplacer
 
-	//Gestion point Y
-			if ( (_position.getPosY() + vitesse) > hauteur ) {		//sorti tableau droite
-				y = hauteur - _position.getPosY();
-				y = Utils.getRand(y, vitesse);
-			}
-			else if ( (_position.getPosY() - vitesse) < 0) {
-				y = Utils.getRand(_position.getPosY(), 0);
-			}
+		//Gestion point Y
+		if ( (_position.getPosY() + vitesse) > hauteur )		//sorti tableau droite
+			y = Utils.getRand( (hauteur - _position.getPosY() ), (_position.getPosY() - vitesse) ) ;
+		else if ( (_position.getPosY() - vitesse) < 0) 
+			y = Utils.getRand(_position.getPosY() + vitesse);
+		else
+			y = Utils.getRand( (_position.getPosY() + vitesse), (_position.getPosY() - vitesse));
+		
 		sens(x,y);							//gestion du sens du regard des especes
 		
 		_position.setPosX(x);
