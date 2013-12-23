@@ -367,37 +367,46 @@ public class Espece {
 		_position.setPosY(y);
 	}
 	
-	public void seDeplacer() {
-		int x = 0, y = 0, vitesse = _vitesse;
-		int hauteur = 0, largeur;
+	public void seDeplacer() {						//deplacement aleatoire	
+		int x, y, vitesse = _vitesse;
 		
-		if(_meute == null || _estLeader) {				//definition du périmetre de deplacement
-			largeur = Monde.getMap().getLargeur();
-			hauteur = Monde.getMap().getHauteur();
-		}
-		else {
-			
-			largeur = 35;
-			hauteur = 35;
-		}
-					//deplacement aleatoire	
-		//Gestion point X
-		if ( (_position.getPosX() + vitesse) > largeur )		//sorti tableau droite
-			x = Utils.getRand( (largeur - _position.getPosX()), (_position.getPosX() - vitesse) );
-		else if ( (_position.getPosX() - vitesse) < 0)
-			x = Utils.getRand(_position.getPosX() + vitesse);
-		else
-			x = Utils.getRand( (_position.getPosX() + vitesse), (_position.getPosX() - vitesse) );
+		if(_meute == null || _estLeader) {				//si l'espece est sans meute ou si il est leader
+			//Gestion point X
+			if ( (_position.getPosX() + vitesse) > Monde.getMap().getLargeur() )		//sorti tableau droite
+				x = Utils.getRand( (Monde.getMap().getLargeur() - _position.getPosX()), (_position.getPosX() - vitesse) );
+			else if ( (_position.getPosX() - vitesse) < 0)		//sorti tableau gauche
+				x = Utils.getRand(_position.getPosX() + vitesse);
+			else
+				x = Utils.getRand( (_position.getPosX() + vitesse), (_position.getPosX() - vitesse) );
 
-		vitesse -= x;							//soustrait le deplacement x a deplacer
+			vitesse -= x;						//soustrait le deplacement x a deplacer
 
-		//Gestion point Y
-		if ( (_position.getPosY() + vitesse) > hauteur )		//sorti tableau droite
-			y = Utils.getRand( (hauteur - _position.getPosY() ), (_position.getPosY() - vitesse) ) ;
-		else if ( (_position.getPosY() - vitesse) < 0) 
-			y = Utils.getRand(_position.getPosY() + vitesse);
-		else
-			y = Utils.getRand( (_position.getPosY() + vitesse), (_position.getPosY() - vitesse));
+			//Gestion point Y
+			if ( (_position.getPosY() + vitesse) > Monde.getMap().getHauteur() )		//sorti tableau bas
+				y = Utils.getRand( (Monde.getMap().getHauteur() - _position.getPosY() ), (_position.getPosY() - vitesse) ) ;
+			else if ( (_position.getPosY() - vitesse) < 0)		//sorti tableau haut
+				y = Utils.getRand(_position.getPosY() + vitesse);
+			else
+				y = Utils.getRand( (_position.getPosY() + vitesse), (_position.getPosY() - vitesse));
+		}
+		else {								//sinon
+			//calcul de la distance sur l'axe x entre l'espece et son chef de meute
+			int var = _meute.getLeader().getPosition().getPosX() - _position.getPosX() ;
+			if ( Math.abs(var) > 50) {				//si la distance est supérieur à 50 unité alors
+				if (var < 0)					//si espece s'éloigne par la droite
+					
+				else						//si espece s'éloigne par la gauche
+					
+			}
+			//calcul de la distance sur l'axe y entre l'espece et son chef de meute
+			var = _meute.getLeader().getPosition().getPosY() - _position.getPosY() ;
+			if ( Math.abs(var) > 50) {				//si la distance est supérieur à 50 unité alors
+				if (var < 0)					//si espece s'éloigne par le bas
+					
+				else						//si espece s'éloigne par le haut
+					
+			}
+		}
 		
 		sens(x,y);							//gestion du sens du regard des especes
 		
