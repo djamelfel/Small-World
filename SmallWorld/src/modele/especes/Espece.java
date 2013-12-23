@@ -186,7 +186,7 @@ public class Espece {
 		_vitesseCourse = vitesseCourse;
 		_sexe = Math.random()<0.5;
 		if (estLeader == true)
-			_meute = new Meute();
+			_meute = new Meute(this);
 		_estLeader = estLeader;
 		_dateNaissance = Temps.getJeux();
 		_nage = nage;
@@ -249,6 +249,8 @@ public class Espece {
 	public void tuer() {
 		if (_estLeader == true)
 			_meute.detruire();
+		else if (_meute != null)
+			_meute.quitter(this);
 		setEstVivant(false);
 		//==> new Cadavre
 	}
@@ -314,36 +316,8 @@ public class Espece {
 			tuer();
 		seDeplacer();
 	}
-	
-	public void seDeplacer(int posX, int posY) {
-		int x, y, deplacer = _vitesse;
-		
-		if (_course == true)						//definie le nombre de case dont il peut se deplacer
-			deplacer += _vitesseCourse;
 
-//Gestion point X	
-		if (Math.abs(posX - _position.getPosX()) < deplacer)		//permet de ne pas depasser le point X
-			x = Math.abs(posX - _position.getPosX());
-		else
-			x = deplacer;
-		
-		if (x > _position.getPosX())		//choisi aleatoirement un nombre compris dans son champ de deplacement
-			x = Utils.getRand(x, _position.getPosX());
-		else
-			x = Utils.getRand(_position.getPosX(), x);
-		
-		deplacer -= x;							//soustrait le deplacement x a deplacer
-
-//Gestion point Y			
-		if (Math.abs(posY - _position.getPosY()) < deplacer)
-			y = Math.abs(posY - _position.getPosY());
-		else
-			y = deplacer;
-		if (y > _position.getPosX())
-			y = Utils.getRand(y, _position.getPosX());
-		else
-			y = Utils.getRand(_position.getPosX(), y);
-		
+	public void sens(int x, int y) {
 		if (Utils.getRand(1) == 1) {					//gestion du sens
 			if ( _position.getPosX() < x )
 				_sens = 1;
@@ -356,26 +330,78 @@ public class Espece {
 			else
 				_sens = 2;
 		}
+	}
+		
+	public void seDeplacer(int posX, int posY) {
+		int x, y, vitesse = _vitesse;
+		
+		if (_course == true)						//definie le nombre de case dont il peut se deplacer
+			vitesse += _vitesseCourse;
+
+//Gestion point X	
+		if (Math.abs(posX - _position.getPosX()) < vitesse)		//permet de ne pas depasser le point X
+			x = Math.abs(posX - _position.getPosX());
+		else
+			x = vitesse;
+		
+		if (x > _position.getPosX())		//choisi aleatoirement un nombre compris dans son champ de deplacement
+			x = Utils.getRand(x, _position.getPosX());
+		else
+			x = Utils.getRand(_position.getPosX(), x);
+		
+		vitesse -= x;							//soustrait le deplacement x a deplacer
+
+//Gestion point Y			
+		if (Math.abs(posY - _position.getPosY()) < vitesse)
+			y = Math.abs(posY - _position.getPosY());
+		else
+			y = vitesse;
+		if (y > _position.getPosX())
+			y = Utils.getRand(y, _position.getPosX());
+		else
+			y = Utils.getRand(_position.getPosX(), y);
+		
+		sens(x,y);
 		
 		_position.setPosX(x);
 		_position.setPosY(y);
 	}
 	
 	public void seDeplacer() {
-										//deplacement aleatoire
-		int x = 0, y = 0, deplacer = _vitesse;
-
-//Gestion point X
-		if ( (_position.getPosX() + deplacer) > Monde.getMap().getLargeur() ) {		//sorti tableau droite
-			x = Monde.getMap().getLargeur() - _position.getPosX();
-			x = Utils.getRand(x, deplacer);
+		int x = 0, y = 0, vitesse = _vitesse;
+		int hauteur = 0, largeur;
+		
+		if(_meute == null || _estLeader) {				//definition du périmetre de deplacement
+			largeur = Monde.getMap().getLargeur();
+			hauteur = Monde.getMap().getHauteur();
 		}
-		if ( (_position.getPosX() - deplacer) < 0) {
-			x = Utils.getRand(_position.getPosX(), 0);
+		else {
+			
+			largeur = 35;
+			hauteur = 35;
 		}
+					//deplacement aleatoire	
+	//Gestion point X
+			if ( (_position.getPosX() + vitesse) > largeur ) {		//sorti tableau droite
+				x = largeur - _position.getPosX();
+				x = Utils.getRand(x, vitesse);
+			}
+			else if ( (_position.getPosX() - vitesse) < 0) {
+				x = Utils.getRand(_position.getPosX(), 0);
+			}
 
-		deplacer -= x;							//soustrait le deplacement x a deplacer
+			vitesse -= x;						//soustrait le deplacement x a deplacer
 
+	//Gestion point Y
+			if ( (_position.getPosY() + vitesse) > hauteur ) {		//sorti tableau droite
+				y = hauteur - _position.getPosY();
+				y = Utils.getRand(y, vitesse);
+			}
+			else if ( (_position.getPosY() - vitesse) < 0) {
+				y = Utils.getRand(_position.getPosY(), 0);
+			}
+		sens(x,y);							//gestion du sens du regard des especes
+		
 		_position.setPosX(x);
 		_position.setPosY(y);
 	}
