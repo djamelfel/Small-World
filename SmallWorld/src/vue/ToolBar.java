@@ -1,7 +1,5 @@
 package vue;
 
-import vue.dialog.DialogNouveauAnimal;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,6 +21,5 @@ public class ToolBar extends JToolBar implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        new DialogNouveauAnimal();
     }
 }
