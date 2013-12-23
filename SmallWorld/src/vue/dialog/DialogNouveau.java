@@ -39,7 +39,7 @@ public class DialogNouveau extends JFrame implements ActionListener {
         // JPanel principal
         caracteristiques = new JPanel();
         LineBorder bordure = new LineBorder(Color.BLACK, 1, true);
-        TitledBorder titre = new TitledBorder(bordure, "Caractéristiques principales");
+        TitledBorder titre = new TitledBorder(bordure, "Caractéristiques joueur");
         caracteristiques.setBorder(titre);
         caracteristiques.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -95,7 +95,8 @@ public class DialogNouveau extends JFrame implements ActionListener {
             }
             controleur.creerPartie(nom.getText());
             dispose();
-        } else if (e.getSource().equals(annuler)) {
+        }
+        else if (e.getSource().equals(annuler)) {
             dispose();
         }
     }

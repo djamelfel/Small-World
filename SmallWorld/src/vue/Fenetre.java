@@ -3,6 +3,7 @@ package vue;
 import controleur.Controleur;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by Edwin on 17/12/13.
@@ -10,14 +11,19 @@ import javax.swing.*;
 public class Fenetre extends JFrame {
     private Controleur controleur;
 
+    private JPanel panelDroit;
     private MenuBar menuBar;
-    private DrawGrille drawGrille;
+    private Grid grille;
+    private Arbre arbre;
+    private JScrollPane scrollPaneArbre;
+    private BarreEtat barreEtat;
+    private ToolBar toolBar;
 
     public Fenetre(Controleur controleur) {
         this.controleur = controleur;
 
         // Initialisation de la JFrame
-        setSize(800, 600);
+        setSize(1080, 720);
         setPreferredSize(getSize());
         setMinimumSize(getPreferredSize());
         setTitle("Small World - LO43");
@@ -25,25 +31,42 @@ public class Fenetre extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            // If Nimbus is not available, you can set the GUI to another look and feel.
         }
 
         // Initialisation de la barre de menu
         menuBar = new MenuBar(this, controleur);
         setJMenuBar(menuBar);
 
-        // Initialisation de la zone de jeu
-        drawGrille = new DrawGrille(this, controleur);
-        drawGrille.setVisible(false);
-        add(drawGrille);
+        // Initialisation du panel droit contenant la zone de jeu, la toolbar et la barre d'informations
+        panelDroit = new JPanel();
+        panelDroit.setLayout(new BorderLayout(0, 5));
+        add(panelDroit, BorderLayout.CENTER);
+        panelDroit.setVisible(false);
+
+        toolBar = new ToolBar();
+        panelDroit.add(toolBar, BorderLayout.NORTH);
+
+        grille = new Grid(this, controleur, 50, 75);
+        panelDroit.add(grille);
+
+        barreEtat = new BarreEtat(this, controleur);
+        panelDroit.add(barreEtat, BorderLayout.SOUTH);
+
+        // Initialisation du panel gauche contenant l'arbre
+        arbre = new Arbre();
+        scrollPaneArbre = new JScrollPane(arbre);
+        scrollPaneArbre.setSize(150, 0);
+        scrollPaneArbre.setPreferredSize(scrollPaneArbre.getSize());
+        add(scrollPaneArbre, BorderLayout.WEST);
+        scrollPaneArbre.setVisible(false);
 
         pack();
         setVisible(true);
@@ -51,7 +74,8 @@ public class Fenetre extends JFrame {
 
     // Utiliser un observateur ça serait Tip-Top !
     public void activate() {
-        drawGrille.setVisible(true);
+        panelDroit.setVisible(true);
+        scrollPaneArbre.setVisible(true);
         menuBar.activate();
     }
 }
