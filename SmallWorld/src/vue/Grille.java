@@ -37,6 +37,7 @@ public class Grille extends JPanel implements ActionListener {
         mondeAL = new ArrayList<>();
 
         setLayout(null);
+        setBackground(Color.GREEN);
     }
 
     public boolean ajouterAnimal(String type, int posX, int posY) {
@@ -55,26 +56,60 @@ public class Grille extends JPanel implements ActionListener {
         // Dimensions cellule
         double width = getSize().width;
         double height = getSize().height;
-        double htOfRow = height / rows;
-        double wdOfRow = width / cols;
+        int wdOfRow = (int) (width / cols);
+        int htOfRow = (int) (height / rows);
+        setSize(wdOfRow * cols, htOfRow * rows);
+        setPreferredSize(getSize());
 
         // Affichage des animaux
         for (CelluleAnimal celluleAnimal : animalAL) {
-            celluleAnimal.setBounds((int) (celluleAnimal.getPosX() * width) + 1,
-                    (int) (celluleAnimal.getPosY() * height) + 1, (int) wdOfRow - 1, (int) htOfRow - 1);
+            // Optimiser l'affichage des cases pour éviter de superposer une ligne ou une colonne
+            double wdOfCell = wdOfRow;
+            double htOfCell = htOfRow;
+            if (celluleAnimal.getPosX() == cols - 1)
+                wdOfCell--;
+            if (celluleAnimal.getPosY() == rows - 1)
+                htOfCell--;
+            celluleAnimal.setBounds(celluleAnimal.getPosX() * wdOfRow + 1, celluleAnimal.getPosY() * htOfRow + 1,
+                    (int) wdOfCell - 1, (int) htOfCell - 1);
             celluleAnimal.setSize(celluleAnimal.getBounds().width, celluleAnimal.getBounds().height);
             celluleAnimal.setPreferredSize(celluleAnimal.getSize());
             celluleAnimal.repaint();
-            System.out.println(celluleAnimal.getBounds());
         }
 
-        int k;
+        int i;
+        Shape line; // Permet de tracer des lignes à partir de coordonnées Double =)
+        // Tracage des lignes
+        for (i = 0; i <= rows; i++) {
+            if (i == rows)
+                g2.drawLine(0, i * htOfRow - 1, (int) width, i * htOfRow - 1);
+            g2.drawLine(0, i * htOfRow, (int) width, i * htOfRow);
+            /*if (i == rows)
+                line = new Line2D.Double(0, i * htOfRow - 1, width, i * htOfRow - 1);
+            else
+                line = new Line2D.Double(0, i * htOfRow, width, i * htOfRow);
+            g2.draw(line);*/
 
-        for (k = 0; k <= rows; k++)
-            g.drawLine(0, (int) (k * htOfRow), (int) width, (int) (k * htOfRow));
+        }
+        // Tracage des colonnes
+        for (i = 0; i <= cols; i++) {
+            if (i == cols)
+                g2.drawLine(i * wdOfRow - 1, 0, i * wdOfRow - 1, (int) height);
+            g2.drawLine(i * wdOfRow, 0, i * wdOfRow, (int) height);
+            /*if (i == cols)
+                line = new Line2D.Double(i * wdOfRow - 1, 0, i * wdOfRow - 1, height);
+            else
+                line = new Line2D.Double(i * wdOfRow, 0, i * wdOfRow, height);
+            g2.draw(line);*/
+        }
+    }
 
-        for (k = 0; k < cols; k++)
-            g.drawLine((int) (k * wdOfRow), 0, (int) (k * wdOfRow), (int) height);
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public void setCols(int cols) {
+        this.cols = cols;
     }
 
     @Override

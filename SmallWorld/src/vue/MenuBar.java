@@ -55,6 +55,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(nouveau)) {
             new DialogNouveau(fenetre, controleur);
+            fenetre.setFocusableWindowState(false);
         }
         else if (e.getSource().equals(sauvegarder)) {
             new DialogSauvegarder(fenetre, controleur);

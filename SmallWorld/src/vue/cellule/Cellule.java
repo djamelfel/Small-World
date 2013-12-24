@@ -25,7 +25,7 @@ public abstract class Cellule extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(image, 0, 0, getSize().width, getSize().height, Color.lightGray, null);
+        g2.drawImage(image, 0, 0, getSize().width, getSize().height, Color.WHITE, null);
     }
 
     public int getPosY() {
@@ -34,9 +34,5 @@ public abstract class Cellule extends JPanel {
 
     public int getPosX() {
         return posX;
-    }
-
-    public Image getImage() {
-        return image;
     }
 }

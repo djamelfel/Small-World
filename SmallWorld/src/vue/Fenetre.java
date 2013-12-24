@@ -47,7 +47,7 @@ public class Fenetre extends JFrame {
 
         // Initialisation du panel droit contenant la zone de jeu, la toolbar et la barre d'informations
         panelDroit = new JPanel();
-        panelDroit.setLayout(new BorderLayout(0, 0));
+        panelDroit.setLayout(new BorderLayout(0, 10));
         add(panelDroit, BorderLayout.CENTER);
         panelDroit.setVisible(false);
 
@@ -73,6 +73,14 @@ public class Fenetre extends JFrame {
 
         // Test grille
         grille.ajouterAnimal("lion", 0, 0);
+        grille.ajouterAnimal("lion", 0, 1);
+        grille.ajouterAnimal("lion", 1, 0);
+        grille.ajouterAnimal("lion", 0, 14);
+        grille.ajouterAnimal("lion", 24, 0);
+        grille.ajouterAnimal("lion", 24, 14);
+        grille.ajouterAnimal("lion", 24, 1);
+        grille.ajouterAnimal("lion", 23, 10);
+        grille.ajouterAnimal("lion", 22, 9);
     }
 
     // Utiliser un observateur ça serait Tip-Top !
@@ -80,5 +88,12 @@ public class Fenetre extends JFrame {
         panelDroit.setVisible(true);
         scrollPaneArbre.setVisible(true);
         menuBar.activate();
+    }
+
+    // Modifie la taille de la grille
+    public void setTailleGrille(int rows, int cols) {
+        grille.setRows(rows);
+        grille.setCols(cols);
+        grille.repaint();
     }
 }

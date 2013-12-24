@@ -5,6 +5,7 @@ import utilitaires.Charger;
 import utilitaires.Sauvegarder;
 import vue.Fenetre;
 
+import javax.swing.*;
 import java.io.File;
 
 public class Controleur {
@@ -15,9 +16,10 @@ public class Controleur {
     }
 
     // Méthode appelé lors de la création d'une nouvelle partie
-    public boolean creerPartie(String nomJoueur) {
+    public boolean creerPartie(String nomJoueur, int rows, int cols) {
         System.out.println("My name is " + nomJoueur);
         fenetre.activate();
+        fenetre.setTailleGrille(rows, cols);
         return true;
     }
 
@@ -36,7 +38,6 @@ public class Controleur {
     }
 
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
 //            System.out.println("test");
 //            new Monde();
 
@@ -50,6 +51,12 @@ public class Controleur {
             System.out.println(g1 + "==> Giraffe 2");
         }
 
-        new Controleur();
+        Runnable gui = new Runnable() {
+            public void run() {
+                new Controleur();
+            }
+        };
+        //GUI must start on EventDispatchThread:
+        SwingUtilities.invokeLater(gui);
     }
 }
