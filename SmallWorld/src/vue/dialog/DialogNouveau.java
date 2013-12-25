@@ -9,12 +9,14 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.regex.Pattern;
 
 /**
  * Created by Edwin on 17/12/13.
  */
-public class DialogNouveau extends JFrame implements ActionListener {
+public class DialogNouveau extends JFrame implements ActionListener, KeyListener {
     private Fenetre fenetre;
     private Controleur controleur;
 
@@ -25,6 +27,8 @@ public class DialogNouveau extends JFrame implements ActionListener {
     private JTextField nom;
     private JTextField rows;
     private JTextField cols;
+
+    private KeyListener keyListener;
 
     public DialogNouveau(Fenetre fenetre, Controleur controleur) {
         this.fenetre = fenetre;
@@ -98,7 +102,7 @@ public class DialogNouveau extends JFrame implements ActionListener {
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
-        gbc.weightx = 1;
+        gbc.weightx = 0;
         gbc.weighty = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.BASELINE;
@@ -127,6 +131,11 @@ public class DialogNouveau extends JFrame implements ActionListener {
         annuler.addActionListener(this);
         boutons.add(annuler);
 
+        // Ajout des listeners du clavier
+        nom.addKeyListener(this);
+        rows.addKeyListener(this);
+        cols.addKeyListener(this);
+
         // Ajout des différents JPanel
         add(caracteristiques);
         add(boutons, BorderLayout.SOUTH);
@@ -152,5 +161,23 @@ public class DialogNouveau extends JFrame implements ActionListener {
             dispose();
             fenetre.setFocusableWindowState(true);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    // Valider les choix à partir de la touche "entrée"
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            valider.doClick();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }

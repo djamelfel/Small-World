@@ -14,6 +14,7 @@ public class Fenetre extends JFrame {
     private JPanel panelDroit;
     private MenuBar menuBar;
     private Grille grille;
+    private JScrollPane scrollPaneGrille;
     private Arbre arbre;
     private JScrollPane scrollPaneArbre;
     private BarreEtat barreEtat;
@@ -55,7 +56,10 @@ public class Fenetre extends JFrame {
         panelDroit.add(toolBar, BorderLayout.NORTH);
 
         grille = new Grille(this, controleur, 15, 25);
-        panelDroit.add(grille);
+        scrollPaneGrille = new JScrollPane(grille);
+        scrollPaneGrille.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPaneGrille.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        panelDroit.add(scrollPaneGrille);
 
         barreEtat = new BarreEtat(this, controleur);
         panelDroit.add(barreEtat, BorderLayout.SOUTH);

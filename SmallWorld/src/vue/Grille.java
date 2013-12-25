@@ -56,6 +56,8 @@ public class Grille extends JPanel implements ActionListener {
         // Dimensions cellule
         double width = getSize().width;
         double height = getSize().height;
+        width = 1280;
+        height = 720;
         int wdOfRow = (int) (width / cols);
         int htOfRow = (int) (height / rows);
         setSize(wdOfRow * cols, htOfRow * rows);

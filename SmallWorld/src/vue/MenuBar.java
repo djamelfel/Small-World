@@ -17,11 +17,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
     private Controleur controleur;
 
     private JMenu fichier;
+    private JMenu aide;
 
     private JMenuItem nouveau;
     private JMenuItem sauvegarder;
     private JMenuItem charger;
     private JMenuItem quitter;
+    private JMenuItem aPropos;
 
     public MenuBar(Fenetre fenetre, Controleur controleur) {
         this.fenetre = fenetre;
@@ -33,6 +35,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
         sauvegarder = new JMenuItem("Sauvegarder...");
         charger = new JMenuItem("Charger...");
         quitter = new JMenuItem("Quitter");
+
+        nouveau.setMnemonic('n');
+        sauvegarder.setMnemonic('s');
+        charger.setMnemonic('c');
+        quitter.setMnemonic('q');
 
         nouveau.addActionListener(this);
         sauvegarder.addActionListener(this);
@@ -49,6 +56,18 @@ public class MenuBar extends JMenuBar implements ActionListener {
         sauvegarder.setEnabled(false);
 
         add(fichier);
+
+        // Menu aide
+        aide = new JMenu("Aide");
+        aPropos = new JMenuItem("À propos");
+
+        aPropos.setMnemonic('a');
+
+        aPropos.addActionListener(this);
+
+        aide.add(aPropos);
+
+        add(aide);
     }
 
     @Override
@@ -65,6 +84,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
         }
         else if (e.getSource().equals(quitter)) {
             fenetre.dispose();
+        }
+        else if (e.getSource().equals(aPropos)) {
+            JOptionPane.showMessageDialog(fenetre, "En cours de réalisation...");
         }
     }
 
