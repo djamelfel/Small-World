@@ -368,7 +368,7 @@ public class Espece {
 	}
 	
 	public void seDeplacer() {						//deplacement aleatoire	
-		int x = 0, y, vitesse = _vitesse;
+		int x, y, vitesse = _vitesse;
 		
 		if(_meute == null || _estLeader) {				//si l'espece est sans meute ou si il est leader
 			//Gestion point X
@@ -432,7 +432,35 @@ public class Espece {
 	}
 	
 	public void fuir(Espece espece) {
-		//s'eloigner de l'espece en question 
+		int x, y, vitesse;
+		int var = _position.getPosX() - espece.getPosition().getPosX() ;
+		
+		vitesse = _vitesse + _vitesseCourse ;
+		
+		//Gestion point X
+			if ( (_position.getPosX() + vitesse) >= Monde.getMap().getLargeur() )		//sorti tableau droite
+				x = Utils.getRand( (Monde.getMap().getLargeur() - _position.getPosX()), _position.getPosX() );
+			else if ( (_position.getPosX() - vitesse) <= 0)					//sorti tableau gauche
+				x = Utils.getRand(_position.getPosX(), (_position.getPosX() - vitesse) );
+			else {
+				if (var < 0)					//fuite à droite
+					x = Utils.getRand(_position.getPosX(), (_position.getPosX() - vitesse) );
+				else						//fuite à gauche
+					x = Utils.getRand( (_position.getPosX() + vitesse), _position.getPosX());
+			}
+		//Gestion point X
+			if ( (_position.getPosY() + vitesse) >= Monde.getMap().getHauteur() )		//sorti tableau droite
+				y = Utils.getRand( (Monde.getMap().getHauteur() - _position.getPosX()), _position.getPosX() );
+			else if ( (_position.getPosY() - vitesse) <= 0)					//sorti tableau gauche
+				y = Utils.getRand(_position.getPosY(), (_position.getPosY() - vitesse) );
+			else {
+				if (var < 0)					//fuite en haut
+					y = Utils.getRand(_position.getPosY(), (_position.getPosY() - vitesse) );
+				else						//fuite en bas
+					y = Utils.getRand( (_position.getPosY() + vitesse), _position.getPosY());
+			}	
+		_position.setPosX(x);
+		_position.setPosY(y);
 	}
 	
 	@Override
