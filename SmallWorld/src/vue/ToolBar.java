@@ -20,8 +20,8 @@ public class ToolBar extends JToolBar implements ActionListener {
     private JButton addAnimal;
     private JButton addHerbe;
     private JButton retour;
-
-    private JButton test;
+    private JButton addLion;
+    private JButton addLamasticot;
 
     public ToolBar(Fenetre fenetre, Controleur controleur) {
         super();
@@ -37,12 +37,7 @@ public class ToolBar extends JToolBar implements ActionListener {
         setPreferredSize(getSize());
 
         ImageIcon image;
-        // Initialisation du 1er niveau
-
-        // Bouton test
-        test = new JButton("Test");
-        test.addActionListener(this);
-        add(test);
+        // Initialisation du premier niveau
 
         // Ajout monde
         image = new ImageIcon(this.getClass().getResource("../images/toolbar/globe.png"));
@@ -52,11 +47,29 @@ public class ToolBar extends JToolBar implements ActionListener {
         add(addMonde);
 
         // Ajout animal
-        image = new ImageIcon(this.getClass().getResource("../images/toolbar/lamasticot.png"));
+        image = new ImageIcon(this.getClass().getResource("../images/toolbar/animal.png"));
         addAnimal = new JButton(image);
         addAnimal.addActionListener(this);
         addAnimal.setToolTipText("Ajouter un animal...");
         add(addAnimal);
+
+        // Initialisation du deuxième niveau
+
+        // Ajout lion
+        image = Animal.lion.getToolbar();
+        addLion = new JButton(image);
+        addLion.addActionListener(this);
+        addLion.setToolTipText("Ajouter un lion");
+        add(addLion);
+        addLion.setVisible(false);
+
+        // Ajout lamasticot
+        image = Animal.lamasticot.getToolbar();
+        addLamasticot = new JButton(image);
+        addLamasticot.addActionListener(this);
+        addLamasticot.setToolTipText("Ajouter un lamasticot");
+        add(addLamasticot);
+        addLamasticot.setVisible(false);
 
         // Ajout herbe
         image = new ImageIcon(this.getClass().getResource("../images/toolbar/herbe.png"));
@@ -67,7 +80,8 @@ public class ToolBar extends JToolBar implements ActionListener {
         addHerbe.setVisible(false);
 
         // Retour
-        retour = new JButton("Retour");
+        image = new ImageIcon(this.getClass().getResource("../images/toolbar/retour.png"));
+        retour = new JButton(image);
         retour.addActionListener(this);
         retour.setToolTipText("Retour...");
         add(retour);
@@ -96,6 +110,8 @@ public class ToolBar extends JToolBar implements ActionListener {
         else if (e.getSource().equals(addAnimal)) {
             addMonde.setVisible(false);
             addAnimal.setVisible(false);
+            addLion.setVisible(true);
+            addLamasticot.setVisible(true);
             retour.setVisible(true);
         }
         else if (e.getSource().equals(addHerbe)) {
@@ -105,10 +121,15 @@ public class ToolBar extends JToolBar implements ActionListener {
             addMonde.setVisible(true);
             addAnimal.setVisible(true);
             addHerbe.setVisible(false);
+            addLamasticot.setVisible(false);
+            addLion.setVisible(false);
             retour.setVisible(false);
         }
-        else if (e.getSource().equals(test)) {
+        else if (e.getSource().equals(addLion)) {
             new DialogNouveauAnimal(fenetre, controleur, Animal.lion);
+        }
+        else if (e.getSource().equals(addLamasticot)) {
+            new DialogNouveauAnimal(fenetre, controleur, Animal.lamasticot);
         }
     }
 }

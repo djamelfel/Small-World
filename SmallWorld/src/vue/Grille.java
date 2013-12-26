@@ -4,6 +4,7 @@ import controleur.Controleur;
 import vue.cellule.Cellule;
 import vue.cellule.CelluleAnimal;
 import vue.cellule.CelluleMonde;
+import vue.enums.Animal;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,8 +41,8 @@ public class Grille extends JPanel implements ActionListener {
         setBackground(Color.GREEN);
     }
 
-    public boolean ajouterAnimal(String type, int posX, int posY) {
-        CelluleAnimal tmp = new CelluleAnimal(type, posX, posY);
+    public boolean ajouterAnimal(Animal animal, int posX, int posY) {
+        CelluleAnimal tmp = new CelluleAnimal(animal, posX, posY);
         animalAL.add(tmp);
         add(tmp);
 

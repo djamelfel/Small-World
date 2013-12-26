@@ -1,16 +1,14 @@
 package vue.cellule;
 
-import javax.swing.*;
+import vue.enums.Animal;
 
 /**
  * Created by Edwin on 19/12/13.
  */
 public class CelluleAnimal extends Cellule {
-    public CelluleAnimal(String type, int posX, int posY) {
-        super(type, posX, posY);
+    public CelluleAnimal(Animal animal, int posX, int posY) {
+        super(posX, posY);
 
-        if (type.equals("lion")) {
-            image = new ImageIcon(this.getClass().getResource("../../images/animaux/lion.png")).getImage();
-        }
+        image = animal.getGrille();
     }
 }

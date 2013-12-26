@@ -9,14 +9,12 @@ import java.awt.*;
 public abstract class Cellule extends JPanel {
     private int posX;
     private int posY;
-    protected String type;
     protected Image image;
 
-    public Cellule(String type, int posX, int posY) {
+    public Cellule(int posX, int posY) {
         super();
 
         // Initialisation
-        this.type = type;
         this.posX = posX;
         this.posY = posY;
     }
