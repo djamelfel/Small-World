@@ -9,11 +9,14 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.regex.Pattern;
 
 /**
  * Created by Edwin on 17/12/13.
  */
-public class DialogNouveau extends JFrame implements ActionListener {
+public class DialogNouveau extends JDialog implements ActionListener, KeyListener {
     private Fenetre fenetre;
     private Controleur controleur;
 
@@ -22,8 +25,14 @@ public class DialogNouveau extends JFrame implements ActionListener {
     private JButton valider;
     private JButton annuler;
     private JTextField nom;
+    private JTextField rows;
+    private JTextField cols;
+
+    private KeyListener keyListener;
 
     public DialogNouveau(Fenetre fenetre, Controleur controleur) {
+        super();
+
         this.fenetre = fenetre;
         this.controleur = controleur;
 
@@ -32,14 +41,15 @@ public class DialogNouveau extends JFrame implements ActionListener {
         setLayout(new BorderLayout());
         setTitle("Nouvelle Partie");
         setLocation(fenetre.getLocation());
-        setSize(275, 135);
+        setSize(250, 175);
         setPreferredSize(getSize());
         setMinimumSize(getPreferredSize());
+        setModal(true);
 
         // JPanel principal
         caracteristiques = new JPanel();
         LineBorder bordure = new LineBorder(Color.BLACK, 1, true);
-        TitledBorder titre = new TitledBorder(bordure, "Caractéristiques principales");
+        TitledBorder titre = new TitledBorder(bordure, "Caractéristiques joueur");
         caracteristiques.setBorder(titre);
         caracteristiques.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -65,7 +75,53 @@ public class DialogNouveau extends JFrame implements ActionListener {
         gbc.anchor = GridBagConstraints.BASELINE;
         gbc.insets = new Insets(0, 15, 0, 10);
         nom = new JTextField();
+        nom.setText("magicedwin");
         caracteristiques.add(nom, gbc);
+
+        // Taille
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 0;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+        caracteristiques.add(new JLabel("Taille :"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1;
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.BASELINE;
+        rows = new JTextField();
+        rows.setText("15");
+        caracteristiques.add(rows, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 0;
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.BASELINE;
+        caracteristiques.add(new JLabel("x"), gbc);
+
+        gbc.gridx = 3;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1;
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.BASELINE;
+        cols = new JTextField();
+        cols.setText("25");
+        caracteristiques.add(cols, gbc);
 
         // Boutons
         boutons = new JPanel();
@@ -78,6 +134,11 @@ public class DialogNouveau extends JFrame implements ActionListener {
         annuler.addActionListener(this);
         boutons.add(annuler);
 
+        // Ajout des listeners du clavier
+        nom.addKeyListener(this);
+        rows.addKeyListener(this);
+        cols.addKeyListener(this);
+
         // Ajout des différents JPanel
         add(caracteristiques);
         add(boutons, BorderLayout.SOUTH);
@@ -89,14 +150,35 @@ public class DialogNouveau extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(valider)) {
-            if (nom.getText().equals("")) {
+            if (nom.getText().equals("") || rows.getText().equals("") || cols.getText().equals("") ||
+                    !Pattern.matches("\\d*", rows.getText()) || Integer.parseInt(rows.getText()) < 0 ||
+                    !Pattern.matches("\\d*", cols.getText()) || Integer.parseInt(cols.getText()) < 0) {
                 JOptionPane.showMessageDialog(fenetre, "Eggs are not supposed to be green.");
                 return;
             }
-            controleur.creerPartie(nom.getText());
-            dispose();
-        } else if (e.getSource().equals(annuler)) {
+            controleur.creerPartie(nom.getText(), Integer.parseInt(rows.getText()), Integer.parseInt(cols.getText()));
             dispose();
         }
+        else if (e.getSource().equals(annuler)) {
+            dispose();
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    // Valider les choix à partir de la touche "entrée"
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            valider.doClick();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }
