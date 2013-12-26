@@ -106,12 +106,24 @@ public class Grille extends JPanel implements ActionListener {
         }
     }
 
+    public int getRows() {
+        return rows;
+    }
+
+    public int getCols() {
+        return cols;
+    }
+
     public void setRows(int rows) {
         this.rows = rows;
     }
 
     public void setCols(int cols) {
         this.cols = cols;
+    }
+
+    public ArrayList<CelluleAnimal> getAnimalAL() {
+        return animalAL;
     }
 
     @Override

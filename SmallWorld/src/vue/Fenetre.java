@@ -52,7 +52,7 @@ public class Fenetre extends JFrame {
         add(panelDroit, BorderLayout.CENTER);
         panelDroit.setVisible(false);
 
-        toolBar = new ToolBar();
+        toolBar = new ToolBar(this, controleur);
         panelDroit.add(toolBar, BorderLayout.NORTH);
 
         grille = new Grille(this, controleur, 15, 25);
@@ -99,5 +99,9 @@ public class Fenetre extends JFrame {
         grille.setRows(rows);
         grille.setCols(cols);
         grille.repaint();
+    }
+
+    public Grille getGrille() {
+        return grille;
     }
 }

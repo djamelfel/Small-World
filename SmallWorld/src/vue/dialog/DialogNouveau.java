@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Edwin on 17/12/13.
  */
-public class DialogNouveau extends JFrame implements ActionListener, KeyListener {
+public class DialogNouveau extends JDialog implements ActionListener, KeyListener {
     private Fenetre fenetre;
     private Controleur controleur;
 
@@ -31,6 +31,8 @@ public class DialogNouveau extends JFrame implements ActionListener, KeyListener
     private KeyListener keyListener;
 
     public DialogNouveau(Fenetre fenetre, Controleur controleur) {
+        super();
+
         this.fenetre = fenetre;
         this.controleur = controleur;
 
@@ -42,6 +44,7 @@ public class DialogNouveau extends JFrame implements ActionListener, KeyListener
         setSize(250, 175);
         setPreferredSize(getSize());
         setMinimumSize(getPreferredSize());
+        setModal(true);
 
         // JPanel principal
         caracteristiques = new JPanel();
@@ -155,11 +158,9 @@ public class DialogNouveau extends JFrame implements ActionListener, KeyListener
             }
             controleur.creerPartie(nom.getText(), Integer.parseInt(rows.getText()), Integer.parseInt(cols.getText()));
             dispose();
-            fenetre.setFocusableWindowState(true);
         }
         else if (e.getSource().equals(annuler)) {
             dispose();
-            fenetre.setFocusableWindowState(true);
         }
     }
 

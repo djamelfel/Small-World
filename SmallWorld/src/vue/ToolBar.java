@@ -1,5 +1,9 @@
 package vue;
 
+import controleur.Controleur;
+import vue.dialog.DialogNouveauAnimal;
+import vue.enums.Animal;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,13 +13,21 @@ import java.awt.event.ActionListener;
  * Created by Edwin on 19/12/13.
  */
 public class ToolBar extends JToolBar implements ActionListener {
+    private Fenetre fenetre;
+    private Controleur controleur;
+
     private JButton addMonde;
     private JButton addAnimal;
     private JButton addHerbe;
     private JButton retour;
 
-    public ToolBar() {
+    private JButton test;
+
+    public ToolBar(Fenetre fenetre, Controleur controleur) {
         super();
+
+        this.fenetre = fenetre;
+        this.controleur = controleur;
 
         // Initialisation de la toolbar
         setFloatable(false);
@@ -26,6 +38,11 @@ public class ToolBar extends JToolBar implements ActionListener {
 
         ImageIcon image;
         // Initialisation du 1er niveau
+
+        // Bouton test
+        test = new JButton("Test");
+        test.addActionListener(this);
+        add(test);
 
         // Ajout monde
         image = new ImageIcon(this.getClass().getResource("../images/toolbar/globe.png"));
@@ -89,6 +106,9 @@ public class ToolBar extends JToolBar implements ActionListener {
             addAnimal.setVisible(true);
             addHerbe.setVisible(false);
             retour.setVisible(false);
+        }
+        else if (e.getSource().equals(test)) {
+            new DialogNouveauAnimal(fenetre, controleur, Animal.lion);
         }
     }
 }

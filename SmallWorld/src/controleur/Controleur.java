@@ -4,8 +4,10 @@ import modele.especes.Giraffe;
 import utilitaires.Charger;
 import utilitaires.Sauvegarder;
 import vue.Fenetre;
+import vue.enums.Animal;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 
 public class Controleur {
@@ -35,6 +37,12 @@ public class Controleur {
             return true;
         }
         return false;
+    }
+
+    // Méthode appelé pour ajouter un nouvel animal
+    public boolean ajouterAnimal(Animal animal, String nom, char sexe, char leader, Point position) {
+        System.out.println("Animal => " + animal.getNom() + " : " + nom + ", " + sexe + ", " + leader + ", " + position);
+        return true;
     }
 
     public static void main(String[] args) {
