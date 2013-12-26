@@ -1,10 +1,12 @@
 package controleur;
 
-import modele.especes.animaux.Giraffe;
 import utilitaires.Charger;
 import utilitaires.Sauvegarder;
 import vue.Fenetre;
+import vue.enums.Animal;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 
 public class Controleur {
@@ -15,9 +17,10 @@ public class Controleur {
     }
 
     // Méthode appelé lors de la création d'une nouvelle partie
-    public boolean creerPartie(String nomJoueur) {
+    public boolean creerPartie(String nomJoueur, int rows, int cols) {
         System.out.println("My name is " + nomJoueur);
         fenetre.activate();
+        fenetre.setTailleGrille(rows, cols);
         return true;
     }
 
@@ -35,21 +38,19 @@ public class Controleur {
         return false;
     }
 
+    // Méthode appelé pour ajouter un nouvel animal
+    public boolean ajouterAnimal(Animal animal, String nom, char sexe, char leader, Point position) {
+        System.out.println("Animal => " + animal.getNom() + " : " + nom + ", " + sexe + ", " + leader + ", " + position);
+        return true;
+    }
+
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
-//            System.out.println("test");
-//            new Monde();
-
-        System.out.println("-- Espece --");
-        for (int i = 0; i < 10; i++)
-            System.out.println(new Giraffe());
-        System.out.println("==> Giraffe 1 <==");
-        Giraffe g1 = new Giraffe();
-        for (int i = 0; i < 7; i++) {
-            g1.verifierEtatJournee();
-            System.out.println(g1 + "==> Giraffe 2");
-        }
-
-        new Controleur();
+        Runnable gui = new Runnable() {
+            public void run() {
+                new Controleur();
+            }
+        };
+        //GUI must start on EventDispatchThread:
+        SwingUtilities.invokeLater(gui);
     }
 }
