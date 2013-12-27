@@ -14,16 +14,18 @@ public abstract class Cellule extends JPanel {
     public Cellule(int posX, int posY) {
         super();
 
-        // Initialisation
         this.posX = posX;
         this.posY = posY;
+
+        // Initialisation
+        setOpaque(false);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(image, 0, 0, getSize().width, getSize().height, Color.WHITE, null);
+        g2.drawImage(image, 0, 0, getSize().width, getSize().height, null);
     }
 
     public int getPosY() {

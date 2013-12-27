@@ -4,6 +4,7 @@ import controleur.Controleur;
 import vue.dialog.DialogNouveauAnimal;
 import vue.dialog.DialogNouveauMonde;
 import vue.enums.Animal;
+import vue.enums.Monde;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,7 +74,7 @@ public class ToolBar extends JToolBar implements ActionListener {
         addLamasticot.setVisible(false);
 
         // Ajout herbe
-        image = new ImageIcon(this.getClass().getResource("../images/toolbar/herbe.png"));
+        image = Monde.herbe.getToolbar();
         addHerbe = new JButton(image);
         addHerbe.addActionListener(this);
         addHerbe.setToolTipText("Ajouter de l'herbe");

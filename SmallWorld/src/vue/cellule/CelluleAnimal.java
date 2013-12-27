@@ -11,4 +11,6 @@ public class CelluleAnimal extends Cellule {
 
         image = animal.getGrille();
     }
+
+
 }

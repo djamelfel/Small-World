@@ -18,7 +18,8 @@ public class Giraffe extends EspeceTer implements Herbivore {
             if (getSommeil() == true)
                 reveiller();
             activite();
-        } else if (getSommeil() == true)
+        }
+        else if (getSommeil() == true)
             dormir();
     }
 

@@ -60,6 +60,8 @@ public class Fenetre extends JFrame {
         scrollPaneGrille = new JScrollPane(grille);
         scrollPaneGrille.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPaneGrille.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPaneGrille.getVerticalScrollBar().setUnitIncrement(15);
+        scrollPaneGrille.getHorizontalScrollBar().setUnitIncrement(15);
         panelDroit.add(scrollPaneGrille);
 
         barreEtat = new BarreEtat(this, controleur);
