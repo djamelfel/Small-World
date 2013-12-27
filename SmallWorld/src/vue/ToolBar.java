@@ -2,6 +2,7 @@ package vue;
 
 import controleur.Controleur;
 import vue.dialog.DialogNouveauAnimal;
+import vue.dialog.DialogNouveauMonde;
 import vue.enums.Animal;
 
 import javax.swing.*;
@@ -115,7 +116,7 @@ public class ToolBar extends JToolBar implements ActionListener {
             retour.setVisible(true);
         }
         else if (e.getSource().equals(addHerbe)) {
-
+            new DialogNouveauMonde(fenetre, controleur, null);
         }
         else if (e.getSource().equals(retour)) {
             addMonde.setVisible(true);

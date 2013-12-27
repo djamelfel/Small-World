@@ -17,8 +17,8 @@ import java.awt.event.ActionListener;
 public class DialogNouveauAnimal extends JDialog implements ActionListener {
     private Fenetre fenetre;
     private Controleur controleur;
-
     private Animal animal;
+
     private JPanel caracteristiques;
     private JPanel boutons;
     private JButton valider;
