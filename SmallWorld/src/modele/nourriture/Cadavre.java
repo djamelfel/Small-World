@@ -1,19 +1,20 @@
 package modele.nourriture;
 
 import modele.especes.Espece;
+import modele.nourriture.Nourriture;
 
 public class Cadavre extends Nourriture {
-    private Espece _animal;
-    private int _tempsDecomposition;
-
-    public Cadavre(Espece animal, int tempsDecomposition) {
+	private Espece _animal;
+	private int _tempsDecomposition;
+        
+    public Cadavre(Espece animal, int tempsDecomposition)
+    {
         super(5);
-        this._animal = animal;
-        this._tempsDecomposition = tempsDecomposition;
-
+        _animal = animal;
+        _tempsDecomposition = tempsDecomposition;    
     }
-
-
+    
+    
     public Espece getAnimal() {
         return _animal;
     }

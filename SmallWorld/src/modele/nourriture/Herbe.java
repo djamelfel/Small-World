@@ -1,8 +1,9 @@
 package modele.nourriture;
 
 public class Herbe extends Nourriture {
-
-    public Herbe() {
+    
+    public Herbe()
+    {
         super(5);
     }
 
