@@ -1,24 +1,31 @@
 package vue.cellule;
 
+import vue.Grille;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * Created by Edwin on 23/12/13.
  */
-public abstract class Cellule extends JPanel {
+public abstract class Cellule extends JComponent implements MouseListener {
+    protected Grille grille;
     private int posX;
     private int posY;
     protected Image image;
 
-    public Cellule(int posX, int posY) {
+    public Cellule(Grille grille, int posX, int posY) {
         super();
 
+        this.grille = grille;
         this.posX = posX;
         this.posY = posY;
 
         // Initialisation
         setOpaque(false);
+        addMouseListener(this);
     }
 
     @Override
@@ -34,5 +41,38 @@ public abstract class Cellule extends JPanel {
 
     public int getPosX() {
         return posX;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

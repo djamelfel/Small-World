@@ -4,7 +4,7 @@ import controleur.Controleur;
 import vue.dialog.DialogNouveauAnimal;
 import vue.dialog.DialogNouveauMonde;
 import vue.enums.Animal;
-import vue.enums.Monde;
+import vue.enums.Decor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +24,7 @@ public class ToolBar extends JToolBar implements ActionListener {
     private JButton retour;
     private JButton addLion;
     private JButton addLamasticot;
+    private JButton addTerre;
 
     public ToolBar(Fenetre fenetre, Controleur controleur) {
         super();
@@ -74,12 +75,20 @@ public class ToolBar extends JToolBar implements ActionListener {
         addLamasticot.setVisible(false);
 
         // Ajout herbe
-        image = Monde.herbe.getToolbar();
+        image = Decor.herbe.getToolbar();
         addHerbe = new JButton(image);
         addHerbe.addActionListener(this);
         addHerbe.setToolTipText("Ajouter de l'herbe");
         add(addHerbe);
         addHerbe.setVisible(false);
+
+        // Ajout terre
+        image = Decor.terre.getToolbar();
+        addTerre = new JButton(image);
+        addTerre.addActionListener(this);
+        addTerre.setToolTipText("Ajouter de la terre");
+        add(addTerre);
+        addTerre.setVisible(false);
 
         // Retour
         image = new ImageIcon(this.getClass().getResource("../images/toolbar/retour.png"));
@@ -106,6 +115,7 @@ public class ToolBar extends JToolBar implements ActionListener {
             addMonde.setVisible(false);
             addAnimal.setVisible(false);
             addHerbe.setVisible(true);
+            addTerre.setVisible(true);
             retour.setVisible(true);
 
         }
@@ -117,21 +127,25 @@ public class ToolBar extends JToolBar implements ActionListener {
             retour.setVisible(true);
         }
         else if (e.getSource().equals(addHerbe)) {
-            new DialogNouveauMonde(fenetre, controleur, null);
+            new DialogNouveauMonde(fenetre, controleur, Decor.herbe);
         }
-        else if (e.getSource().equals(retour)) {
-            addMonde.setVisible(true);
-            addAnimal.setVisible(true);
-            addHerbe.setVisible(false);
-            addLamasticot.setVisible(false);
-            addLion.setVisible(false);
-            retour.setVisible(false);
+        else if (e.getSource().equals(addTerre)) {
+            new DialogNouveauMonde(fenetre, controleur, Decor.terre);
         }
         else if (e.getSource().equals(addLion)) {
             new DialogNouveauAnimal(fenetre, controleur, Animal.lion);
         }
         else if (e.getSource().equals(addLamasticot)) {
             new DialogNouveauAnimal(fenetre, controleur, Animal.lamasticot);
+        }
+        else if (e.getSource().equals(retour)) {
+            addMonde.setVisible(true);
+            addAnimal.setVisible(true);
+            addHerbe.setVisible(false);
+            addTerre.setVisible(false);
+            addLamasticot.setVisible(false);
+            addLion.setVisible(false);
+            retour.setVisible(false);
         }
     }
 }

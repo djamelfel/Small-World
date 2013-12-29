@@ -8,22 +8,23 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * Created by Edwin on 26/12/13.
  */
 public class MiniGrille extends JPanel implements MouseListener {
     private Grille grille;
-    private DialogNouveauAnimal dialogNouveauAnimal;
+    private JDialog dialogNouveau;
     private ArrayList<CelluleAnimal> animalAL;
     private Point caseSelectionne;
     private Point coordonnees;
 
-    public MiniGrille(Grille grille, DialogNouveauAnimal dialogNouveauAnimal) {
+    public MiniGrille(Grille grille, JDialog dialogNouveau) {
         super();
 
         this.grille = grille;
-        this.dialogNouveauAnimal = dialogNouveauAnimal;
+        this.dialogNouveau = dialogNouveau;
 
         // Initialisation
         setLayout(null);
@@ -64,49 +65,112 @@ public class MiniGrille extends JPanel implements MouseListener {
             g2.drawLine(i * wdOfRow, 0, i * wdOfRow, height);
         }
 
-        // Affichage des différentes cases occupés par les animaux
-        animalAL = grille.getAnimalAL();
-        g2.setColor(Color.RED);
-        for (CelluleAnimal animal : animalAL) {
-            int wdOfCell = wdOfRow;
-            int htOfCell = htOfRow;
-            if (animal.getPosX() == cols - 1)
-                wdOfCell--;
-            if (animal.getPosY() == rows - 1)
-                htOfCell--;
-            g2.fillRect(animal.getPosX() * wdOfRow + 1, animal.getPosY() * htOfRow + 1, wdOfCell - 1, htOfCell - 1);
+        // Si le JDialog est pour ajouter un animal
+        // On affiche, les animaux déjà présents.
+        if (dialogNouveau instanceof DialogNouveauAnimal) {
+            DialogNouveauAnimal dialogNouveauAnimal = (DialogNouveauAnimal) dialogNouveau;
+
+            // Affichage des différentes cases occupés par les animaux
+            animalAL = grille.getAnimalAL();
+            g2.setColor(Color.RED);
+            for (CelluleAnimal animal : animalAL) {
+                int wdOfCell = wdOfRow;
+                int htOfCell = htOfRow;
+                if (animal.getPosX() == cols - 1)
+                    wdOfCell--;
+                if (animal.getPosY() == rows - 1)
+                    htOfCell--;
+                g2.fillRect(animal.getPosX() * wdOfRow + 1, animal.getPosY() * htOfRow + 1, wdOfCell - 1, htOfCell - 1);
+            }
+
+            // Affichage de la case sélectionnée
+            g2.setColor(Color.BLUE);
+            if (caseSelectionne != null) {
+                int x = 0;
+                for (i = 0; i < cols; i++) {
+                    x = i * wdOfRow + 1;
+                    if (x > caseSelectionne.x) {
+                        x = (i - 1) * wdOfRow + 1;
+                        break;
+                    }
+                }
+                int y = 0;
+                for (i = 0; i < rows; i++) {
+                    y = i * htOfRow + 1;
+                    if (y > caseSelectionne.y) {
+                        y = (i - 1) * htOfRow + 1;
+                        break;
+                    }
+                }
+
+                int wdOfCell = wdOfRow;
+                int htOfCell = htOfRow;
+                if ((x - 1) / wdOfRow == cols - 1)
+                    wdOfCell--;
+                if ((y - 1) / htOfRow == rows - 1)
+                    htOfCell--;
+                g2.fillRect(x, y, wdOfCell - 1, htOfCell - 1);
+
+                coordonnees = new Point((x - 1) / wdOfRow, (y - 1) / htOfRow);
+                dialogNouveauAnimal.getPositionAnimal().setText("x = " + coordonnees.x + " y = " + coordonnees.y);
+            }
         }
 
-        // Affichage de la case sélectionné
-        g2.setColor(Color.BLUE);
-        if (caseSelectionne != null) {
-            int x = 0;
-            for (i = 0; i < cols; i++) {
-                x = i * wdOfRow + 1;
-                if (x > caseSelectionne.x) {
-                    x = (i - 1) * wdOfRow + 1;
-                    break;
-                }
-            }
-            int y = 0;
-            for (i = 0; i < rows; i++) {
-                y = i * htOfRow + 1;
-                if (y > caseSelectionne.y) {
-                    y = (i - 1) * htOfRow + 1;
-                    break;
-                }
-            }
+        // Si le JDialog est pour ajouter un décor
+        if (dialogNouveau instanceof DialogNouveauMonde) {
+            DialogNouveauMonde dialogNouveauMonde = (DialogNouveauMonde) dialogNouveau;
 
-            int wdOfCell = wdOfRow;
-            int htOfCell = htOfRow;
-            if ((x - 1) / wdOfRow == cols - 1)
-                wdOfCell--;
-            if ((y - 1) / htOfRow == rows - 1)
-                htOfCell--;
-            g2.fillRect(x, y, wdOfCell - 1, htOfCell - 1);
+            // Affichage des cases sélectionnées
+            g2.setColor(Color.BLUE);
+            if (caseSelectionne != null) {
+                int x = 0;
+                for (i = 0; i < cols; i++) {
+                    x = i * wdOfRow + 1;
+                    if (x > caseSelectionne.x) {
+                        x = (i - 1) * wdOfRow + 1;
+                        break;
+                    }
+                }
+                int y = 0;
+                for (i = 0; i < rows; i++) {
+                    y = i * htOfRow + 1;
+                    if (y > caseSelectionne.y) {
+                        y = (i - 1) * htOfRow + 1;
+                        break;
+                    }
+                }
 
-            coordonnees = new Point((x - 1) / wdOfRow, (y - 1) / htOfRow);
-            dialogNouveauAnimal.getPositionAnimal().setText("x = " + coordonnees.x + " y = " + coordonnees.y);
+                int wdOfCell = wdOfRow;
+                int htOfCell = htOfRow;
+                if ((x - 1) / wdOfRow == cols - 1)
+                    wdOfCell--;
+                if ((y - 1) / htOfRow == rows - 1)
+                    htOfCell--;
+                for (i = 0; i < Integer.parseInt(dialogNouveauMonde.getHauteur().getText()); i++) {
+                    coordonnees = new Point((x - 1) / wdOfRow, (y - 1) / htOfRow);
+                    coordonnees.y += i;
+                    if (coordonnees.y == rows - 1) {
+                        dialogNouveauMonde.getHauteur().setText(String.valueOf(i + 1));
+                        //i = Integer.parseInt(dialogNouveauMonde.getHauteur().getText());
+                    }
+                    for (int j = 0; j < Integer.parseInt(dialogNouveauMonde.getLargeur().getText()); j++) {
+                        coordonnees = new Point((x - 1) / wdOfRow, (y - 1) / htOfRow);
+                        coordonnees.x += j;
+                        coordonnees.y += i;
+                        if (coordonnees.x == cols - 1) {
+                            dialogNouveauMonde.getLargeur().setText(String.valueOf(j + 1));
+                            j = Integer.parseInt(dialogNouveauMonde.getLargeur().getText());
+                        }
+                        g2.fillRect(coordonnees.x * wdOfRow + 1, coordonnees.y * htOfRow + 1,
+                                wdOfCell - 1, htOfCell - 1);
+                    }
+                }
+                coordonnees = new Point((x - 1) / wdOfRow, (y - 1) / htOfRow);
+                dialogNouveauMonde.getPositionMonde().setText("x = " + coordonnees.x + " y = " + coordonnees.y);
+            }
+            else {
+                dialogNouveauMonde.getPositionMonde().setText("Aucune cellule sélectionnée!");
+            }
         }
     }
 
@@ -141,11 +205,31 @@ public class MiniGrille extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (caseContientAnimal(e.getPoint())) {
-            JOptionPane.showMessageDialog(getTopLevelAncestor(), "La cellule sélectionné contient déjà un animal!");
+        // DialogNouveauAnimal
+        if (dialogNouveau instanceof DialogNouveauAnimal) {
+            if (caseContientAnimal(e.getPoint())) {
+                JOptionPane.showMessageDialog(getTopLevelAncestor(), "La cellule sélectionné contient déjà un animal!");
+            }
+            else {
+                caseSelectionne = e.getPoint();
+                repaint();
+            }
         }
-        else {
-            caseSelectionne = e.getPoint();
+        // DialogNouveauMonde
+        else if (dialogNouveau instanceof DialogNouveauMonde) {
+            if (!Pattern.matches("\\d*", ((DialogNouveauMonde) dialogNouveau).getLargeur().getText()) ||
+                    Integer.parseInt(((DialogNouveauMonde) dialogNouveau).getLargeur().getText()) <= 0) {
+                JOptionPane.showMessageDialog(getTopLevelAncestor(), "Veuillez saisir une largeur valide!");
+                caseSelectionne = null;
+            }
+            else if (!Pattern.matches("\\d*", ((DialogNouveauMonde) dialogNouveau).getHauteur().getText()) ||
+                    Integer.parseInt(((DialogNouveauMonde) dialogNouveau).getHauteur().getText()) <= 0) {
+                JOptionPane.showMessageDialog(getTopLevelAncestor(), "Veuillez saisir une hauteur valide!");
+                caseSelectionne = null;
+            }
+            else {
+                caseSelectionne = e.getPoint();
+            }
             repaint();
         }
     }

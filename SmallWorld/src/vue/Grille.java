@@ -4,18 +4,17 @@ import controleur.Controleur;
 import vue.cellule.CelluleAnimal;
 import vue.cellule.CelluleMonde;
 import vue.enums.Animal;
-import vue.enums.Monde;
+import vue.enums.Decor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Edwin on 18/12/13.
  */
-public class Grille extends JPanel implements ActionListener {
+public class Grille extends JPanel {
     //private Cellule[][] grille;
     private int rows;
     private int cols;
@@ -25,7 +24,11 @@ public class Grille extends JPanel implements ActionListener {
     private Fenetre fenetre;
     private Controleur controleur;
 
-    public Grille(Fenetre fenetre, Controleur controleur, final int rows, final int cols) {
+    private boolean autoriserDeplacement;
+    private CelluleMonde deplacement;
+    private CelluleAnimal aDeplacer;
+
+    public Grille(Fenetre fenetre, Controleur controleur, int rows, int cols) {
         super();
 
         // Initialisation
@@ -46,7 +49,7 @@ public class Grille extends JPanel implements ActionListener {
         CelluleMonde tmp;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                tmp = new CelluleMonde(Monde.herbe, j, i);
+                tmp = new CelluleMonde(Decor.herbe, this, j, i);
                 mondeAL.add(tmp);
                 add(tmp);
             }
@@ -55,8 +58,16 @@ public class Grille extends JPanel implements ActionListener {
     }
 
     public boolean ajouterAnimal(Animal animal, int posX, int posY) {
-        CelluleAnimal tmp = new CelluleAnimal(animal, posX, posY);
+        CelluleAnimal tmp = new CelluleAnimal(animal, this, posX, posY);
         animalAL.add(tmp);
+        add(tmp);
+
+        return true;
+    }
+
+    public boolean ajouterDecor(Decor decor, int posX, int posY) {
+        CelluleMonde tmp = new CelluleMonde(decor, this, posX, posY);
+        mondeAL.add(tmp);
         add(tmp);
 
         return true;
@@ -149,19 +160,45 @@ public class Grille extends JPanel implements ActionListener {
         return cols;
     }
 
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
-
-    public void setCols(int cols) {
-        this.cols = cols;
-    }
-
     public ArrayList<CelluleAnimal> getAnimalAL() {
         return animalAL;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    // En cours de réalisation
+    // Une idée de génie arrive
+    public boolean deplacer(CelluleAnimal celluleAnimal) {
+        deplacement = null;
+        autoriserDeplacement = true;
+        Iterator<CelluleAnimal> it = animalAL.iterator();
+        while (it.hasNext()) {
+            aDeplacer = it.next();
+            if (aDeplacer.equals(celluleAnimal))
+                break;
+        }
+        Deplacement run = new Deplacement();
+        Thread thread = new Thread(run);
+        thread.start();
+        return true;
+    }
+
+    private class Deplacement implements Runnable {
+        @Override
+        public void run() {
+            while (deplacement == null) {
+
+            }
+            aDeplacer.setPosX(deplacement.getPosX());
+            aDeplacer.setPosY(deplacement.getPosY());
+            autoriserDeplacement = false;
+            repaint();
+        }
+    }
+
+    public boolean isAutoriserDeplacement() {
+        return autoriserDeplacement;
+    }
+
+    public void setDeplacement(CelluleMonde deplacement) {
+        this.deplacement = deplacement;
     }
 }
