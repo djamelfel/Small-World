@@ -56,10 +56,11 @@ public class Fenetre extends JFrame {
         toolBar = new ToolBar(this, controleur);
         panelDroit.add(toolBar, BorderLayout.NORTH);
 
-        grille = new Grille(this, controleur, 15, 25);
-        scrollPaneGrille = new JScrollPane(grille);
+        scrollPaneGrille = new JScrollPane();
         scrollPaneGrille.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPaneGrille.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPaneGrille.getVerticalScrollBar().setUnitIncrement(15);
+        scrollPaneGrille.getHorizontalScrollBar().setUnitIncrement(15);
         panelDroit.add(scrollPaneGrille);
 
         barreEtat = new BarreEtat(this, controleur);
@@ -77,7 +78,7 @@ public class Fenetre extends JFrame {
         setVisible(true);
 
         // Test grille
-        grille.ajouterAnimal(Animal.lion, 0, 0);
+        /*grille.ajouterAnimal(Animal.lion, 0, 0);
         grille.ajouterAnimal(Animal.lion, 0, 1);
         grille.ajouterAnimal(Animal.lion, 1, 0);
         grille.ajouterAnimal(Animal.lion, 0, 14);
@@ -86,11 +87,11 @@ public class Fenetre extends JFrame {
         grille.ajouterAnimal(Animal.lion, 24, 1);
         grille.ajouterAnimal(Animal.lion, 23, 10);
         grille.ajouterAnimal(Animal.lion, 22, 9);
-        grille.ajouterAnimal(Animal.lamasticot, 14, 5);
+        grille.ajouterAnimal(Animal.lamasticot, 14, 5);*/
     }
 
     // Utiliser un observateur ça serait Tip-Top !
-    public void activate() {
+    private void activate() {
         panelDroit.setVisible(true);
         scrollPaneArbre.setVisible(true);
         menuBar.activate();
@@ -98,9 +99,12 @@ public class Fenetre extends JFrame {
 
     // Modifie la taille de la grille
     public void setTailleGrille(int rows, int cols) {
-        grille.setRows(rows);
-        grille.setCols(cols);
-        grille.repaint();
+        grille = new Grille(this, controleur, rows, cols);
+        scrollPaneGrille.setViewportView(grille);
+        activate();
+        grille.ajouterAnimal(Animal.lion, 5, 10);
+        grille.ajouterAnimal(Animal.lion, 10, 3);
+        grille.ajouterAnimal(Animal.lamasticot, 14, 5);
     }
 
     public Grille getGrille() {

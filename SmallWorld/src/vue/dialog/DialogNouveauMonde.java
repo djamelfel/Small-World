@@ -2,7 +2,7 @@ package vue.dialog;
 
 import controleur.Controleur;
 import vue.Fenetre;
-import vue.enums.Animal;
+import vue.enums.Decor;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -10,38 +10,36 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
 
 /**
- * Created by Edwin on 19/12/13.
+ * Created by Edwin on 26/12/13.
  */
-public class DialogNouveauAnimal extends JDialog implements ActionListener {
+public class DialogNouveauMonde extends JDialog implements ActionListener {
     private Fenetre fenetre;
     private Controleur controleur;
-    private Animal animal;
+    private Decor monde;
 
     private JPanel caracteristiques;
     private JPanel boutons;
+    private JTextField largeur;
+    private JTextField hauteur;
     private JButton valider;
     private JButton annuler;
-    private JTextField nom;
-    private JRadioButton male;
-    private JRadioButton femelle;
-    private JRadioButton leaderOui;
-    private JRadioButton leaderNon;
     private MiniGrille position;
-    private JLabel positionAnimal;
+    private JLabel positionMonde;
 
-    public DialogNouveauAnimal(Fenetre fenetre, Controleur controleur, Animal animal) {
+    public DialogNouveauMonde(Fenetre fenetre, Controleur controleur, Decor monde) {
         super();
 
         this.fenetre = fenetre;
         this.controleur = controleur;
-        this.animal = animal;
+        this.monde = monde;
 
         // Initialisation de la fenêtre
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
-        setTitle("Nouvel Animal - " + animal.getNom());
+        setTitle("Nouveau décor - " + monde.getNom());
         setLocation(fenetre.getLocation());
         setSize(350, 450);
         setPreferredSize(getSize());
@@ -51,12 +49,12 @@ public class DialogNouveauAnimal extends JDialog implements ActionListener {
         // JPanel principal
         caracteristiques = new JPanel();
         LineBorder bordure = new LineBorder(Color.BLACK, 1, true);
-        TitledBorder titre = new TitledBorder(bordure, "Caractéristiques animal");
+        TitledBorder titre = new TitledBorder(bordure, "Caractéristiques décor");
         caracteristiques.setBorder(titre);
         caracteristiques.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        // Nom
+        // Largeur
         gbc.gridx = gbc.gridy = 0;
         gbc.gridwidth = gbc.gridheight = 1;
         gbc.weightx = 1;
@@ -64,106 +62,57 @@ public class DialogNouveauAnimal extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.BASELINE_LEADING;
         gbc.insets = new Insets(10, 15, 0, 0);
-        caracteristiques.add(new JLabel("Nom :"), gbc);
+        caracteristiques.add(new JLabel("Largeur (cases) :"), gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 0;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.gridheight = 1;
-        gbc.weightx = 1;
-        gbc.weighty = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.BASELINE;
         gbc.insets = new Insets(0, 15, 0, 10);
-        nom = new JTextField();
-        nom.setText("Roger");
-        caracteristiques.add(nom, gbc);
+        largeur = new JTextField();
+        largeur.setText("5");
+        caracteristiques.add(largeur, gbc);
 
-        // Sexe
+        // Hauteur
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = gbc.gridheight = 1;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.BASELINE_LEADING;
         gbc.insets = new Insets(10, 15, 0, 0);
-        caracteristiques.add(new JLabel("Sexe :"), gbc);
+        caracteristiques.add(new JLabel("Hauteur (cases) :"), gbc);
 
-        male = new JRadioButton("Male");
-        femelle = new JRadioButton("Femelle");
-        JPanel radio = new JPanel();
-        radio.setLayout(new GridLayout(1, 2));
-        radio.add(male);
-        radio.add(femelle);
-        male.setSelected(true);
-        male.addActionListener(this);
-        femelle.addActionListener(this);
         gbc.gridx = 1;
-        gbc.gridy = 1;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.gridheight = 1;
-        gbc.weightx = 1;
-        gbc.weighty = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.BASELINE;
         gbc.insets = new Insets(0, 15, 0, 10);
-        caracteristiques.add(radio, gbc);
-
-        // Leader
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = gbc.gridheight = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.BASELINE_LEADING;
-        gbc.insets = new Insets(10, 15, 0, 0);
-        caracteristiques.add(new JLabel("Leader :"), gbc);
-
-        leaderOui = new JRadioButton("Oui");
-        leaderNon = new JRadioButton("Non");
-        JPanel leader = new JPanel();
-        leader.setLayout(new GridLayout(1, 2));
-        leader.add(leaderOui);
-        leader.add(leaderNon);
-        leaderNon.setSelected(true);
-        leaderOui.addActionListener(this);
-        leaderNon.addActionListener(this);
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.gridheight = 1;
-        gbc.weightx = 1;
-        gbc.weighty = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.BASELINE;
-        gbc.insets = new Insets(0, 15, 0, 10);
-        caracteristiques.add(leader, gbc);
+        hauteur = new JTextField();
+        hauteur.setText("5");
+        caracteristiques.add(hauteur, gbc);
 
         // Position
         gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
+        gbc.gridy = 2;
+        gbc.gridwidth = gbc.gridheight = 1;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.BASELINE_LEADING;
         gbc.insets = new Insets(10, 15, 0, 0);
         caracteristiques.add(new JLabel("Position :"), gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 3;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.gridheight = 1;
-        gbc.weightx = 1;
-        gbc.weighty = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.BASELINE;
         gbc.insets = new Insets(0, 15, 0, 10);
         JPanel panelPosition = new JPanel();
         panelPosition.setLayout(new GridLayout(1, 1));
-        positionAnimal = new JLabel("Aucune cellule sélectionnée!");
-        panelPosition.add(positionAnimal);
+        positionMonde = new JLabel("Aucune cellule sélectionnée!");
+        panelPosition.add(positionMonde);
         caracteristiques.add(panelPosition, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 3;
         gbc.gridwidth = 0;
         gbc.gridheight = 1;
         gbc.weightx = gbc.weighty = 0;
@@ -194,57 +143,42 @@ public class DialogNouveauAnimal extends JDialog implements ActionListener {
         setVisible(true);
     }
 
-    public JLabel getPositionAnimal() {
-        return positionAnimal;
+    public JTextField getLargeur() {
+        return largeur;
+    }
+
+    public JTextField getHauteur() {
+        return hauteur;
+    }
+
+    public JLabel getPositionMonde() {
+        return positionMonde;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(valider)) {
-            if (nom.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Veuillez saisir un nom!");
+            if (largeur.getText().equals("") || !Pattern.matches("\\d*", largeur.getText()) ||
+                    Integer.parseInt(largeur.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "Veuillez saisir une largeur valide!");
                 return;
             }
-            char sexe;
-            if (male.isSelected())
-                sexe = 'M';
-            else
-                sexe = 'F';
-            char leader;
-            if (leaderOui.isSelected())
-                leader = 'O';
-            else
-                leader = 'N';
+            if (hauteur.getText().equals("") || !Pattern.matches("\\d*", hauteur.getText()) ||
+                    Integer.parseInt(hauteur.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "Veuillez saisir une hauteur valide!");
+                return;
+            }
             if (position.getCoordonnees() == null) {
                 JOptionPane.showMessageDialog(this, "Veuillez choisir une cellule valide!");
                 return;
             }
 
-            controleur.ajouterAnimal(animal, nom.getText(), sexe, leader, position.getCoordonnees());
+            controleur.ajouterMonde(monde, Integer.parseInt(largeur.getText()), Integer.parseInt(hauteur.getText()),
+                    position.getCoordonnees());
             dispose();
         }
         else if (e.getSource().equals(annuler)) {
             dispose();
-        }
-        else if (e.getSource().equals(male)) {
-            femelle.setSelected(false);
-            if (!male.isSelected())
-                male.setSelected(true);
-        }
-        else if (e.getSource().equals(femelle)) {
-            male.setSelected(false);
-            if (!femelle.isSelected())
-                femelle.setSelected(true);
-        }
-        else if (e.getSource().equals(leaderOui)) {
-            leaderNon.setSelected(false);
-            if (!leaderOui.isSelected())
-                leaderOui.setSelected(true);
-        }
-        else if (e.getSource().equals(leaderNon)) {
-            leaderOui.setSelected(false);
-            if (!leaderNon.isSelected())
-                leaderNon.setSelected(true);
         }
     }
 }

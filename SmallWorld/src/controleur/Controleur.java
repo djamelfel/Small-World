@@ -1,9 +1,11 @@
 package controleur;
 
+import modele.monde.Monde;
 import utilitaires.Charger;
 import utilitaires.Sauvegarder;
 import vue.Fenetre;
 import vue.enums.Animal;
+import vue.enums.Decor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +13,7 @@ import java.io.File;
 
 public class Controleur {
     private Fenetre fenetre;
+    private Monde monde;
 
     public Controleur() {
         fenetre = new Fenetre(this);
@@ -19,7 +22,6 @@ public class Controleur {
     // Méthode appelé lors de la création d'une nouvelle partie
     public boolean creerPartie(String nomJoueur, int rows, int cols) {
         System.out.println("My name is " + nomJoueur);
-        fenetre.activate();
         fenetre.setTailleGrille(rows, cols);
         return true;
     }
@@ -32,7 +34,6 @@ public class Controleur {
     // Méthode appelé lors d'un chargement de partie
     public boolean charger(File file) {
         if (Charger.chargerXML(file)) {
-            fenetre.activate();
             return true;
         }
         return false;
@@ -41,6 +42,12 @@ public class Controleur {
     // Méthode appelé pour ajouter un nouvel animal
     public boolean ajouterAnimal(Animal animal, String nom, char sexe, char leader, Point position) {
         System.out.println("Animal => " + animal.getNom() + " : " + nom + ", " + sexe + ", " + leader + ", " + position);
+        return true;
+    }
+
+    // Méthode appelé pour ajouter un décor
+    public boolean ajouterMonde(Decor monde, int largeur, int hauteur, Point position) {
+        System.out.println("Décor => " + monde.getNom() + " : " + largeur + ", " + hauteur + ", " + position);
         return true;
     }
 

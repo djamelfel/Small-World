@@ -1,22 +1,21 @@
 package vue;
 
 import controleur.Controleur;
-import vue.cellule.Cellule;
 import vue.cellule.CelluleAnimal;
 import vue.cellule.CelluleMonde;
 import vue.enums.Animal;
+import vue.enums.Decor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Edwin on 18/12/13.
  */
-public class Grille extends JPanel implements ActionListener {
-    private Cellule[][] grille;
+public class Grille extends JPanel {
+    //private Cellule[][] grille;
     private int rows;
     private int cols;
     private ArrayList<CelluleAnimal> animalAL;
@@ -24,6 +23,10 @@ public class Grille extends JPanel implements ActionListener {
 
     private Fenetre fenetre;
     private Controleur controleur;
+
+    private boolean autoriserDeplacement;
+    private CelluleMonde deplacement;
+    private CelluleAnimal aDeplacer;
 
     public Grille(Fenetre fenetre, Controleur controleur, int rows, int cols) {
         super();
@@ -33,17 +36,38 @@ public class Grille extends JPanel implements ActionListener {
         this.controleur = controleur;
         this.rows = rows;
         this.cols = cols;
-        grille = new Cellule[rows][cols];
+        //grille = new Cellule[rows][cols];
         animalAL = new ArrayList<>();
         mondeAL = new ArrayList<>();
+        initMonde();
 
         setLayout(null);
-        setBackground(Color.GREEN);
+        setBackground(Color.BLACK);
+    }
+
+    public boolean initMonde() {
+        CelluleMonde tmp;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                tmp = new CelluleMonde(Decor.herbe, this, j, i);
+                mondeAL.add(tmp);
+                add(tmp);
+            }
+        }
+        return true;
     }
 
     public boolean ajouterAnimal(Animal animal, int posX, int posY) {
-        CelluleAnimal tmp = new CelluleAnimal(animal, posX, posY);
+        CelluleAnimal tmp = new CelluleAnimal(animal, this, posX, posY);
         animalAL.add(tmp);
+        add(tmp);
+
+        return true;
+    }
+
+    public boolean ajouterDecor(Decor decor, int posX, int posY) {
+        CelluleMonde tmp = new CelluleMonde(decor, this, posX, posY);
+        mondeAL.add(tmp);
         add(tmp);
 
         return true;
@@ -64,11 +88,31 @@ public class Grille extends JPanel implements ActionListener {
         setSize(wdOfRow * cols, htOfRow * rows);
         setPreferredSize(getSize());
 
+        double wdOfCell;
+        double htOfCell;
+
+        // Affichage du monde
+        for (CelluleMonde celluleMonde : mondeAL) {
+            // Optimiser l'affichage des cases pour éviter de superposer une ligne ou une colonne
+            wdOfCell = wdOfRow;
+            htOfCell = htOfRow;
+            if (celluleMonde.getPosX() == cols - 1)
+                wdOfCell--;
+            if (celluleMonde.getPosY() == rows - 1)
+                htOfCell--;
+            celluleMonde.setBounds(celluleMonde.getPosX() * wdOfRow + 1, celluleMonde.getPosY() * htOfRow + 1,
+                    (int) wdOfCell - 1, (int) htOfCell - 1);
+            celluleMonde.setSize(celluleMonde.getBounds().width, celluleMonde.getBounds().height);
+            celluleMonde.setPreferredSize(celluleMonde.getSize());
+            setComponentZOrder(celluleMonde, 1);
+            //celluleMonde.repaint();
+        }
+
         // Affichage des animaux
         for (CelluleAnimal celluleAnimal : animalAL) {
             // Optimiser l'affichage des cases pour éviter de superposer une ligne ou une colonne
-            double wdOfCell = wdOfRow;
-            double htOfCell = htOfRow;
+            wdOfCell = wdOfRow;
+            htOfCell = htOfRow;
             if (celluleAnimal.getPosX() == cols - 1)
                 wdOfCell--;
             if (celluleAnimal.getPosY() == rows - 1)
@@ -77,7 +121,8 @@ public class Grille extends JPanel implements ActionListener {
                     (int) wdOfCell - 1, (int) htOfCell - 1);
             celluleAnimal.setSize(celluleAnimal.getBounds().width, celluleAnimal.getBounds().height);
             celluleAnimal.setPreferredSize(celluleAnimal.getSize());
-            celluleAnimal.repaint();
+            setComponentZOrder(celluleAnimal, 0);
+            //celluleAnimal.repaint();
         }
 
         int i;
@@ -115,19 +160,45 @@ public class Grille extends JPanel implements ActionListener {
         return cols;
     }
 
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
-
-    public void setCols(int cols) {
-        this.cols = cols;
-    }
-
     public ArrayList<CelluleAnimal> getAnimalAL() {
         return animalAL;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    // En cours de réalisation
+    // Une idée de génie arrive
+    public boolean deplacer(CelluleAnimal celluleAnimal) {
+        deplacement = null;
+        autoriserDeplacement = true;
+        Iterator<CelluleAnimal> it = animalAL.iterator();
+        while (it.hasNext()) {
+            aDeplacer = it.next();
+            if (aDeplacer.equals(celluleAnimal))
+                break;
+        }
+        Deplacement run = new Deplacement();
+        Thread thread = new Thread(run);
+        thread.start();
+        return true;
+    }
+
+    private class Deplacement implements Runnable {
+        @Override
+        public void run() {
+            while (deplacement == null) {
+
+            }
+            aDeplacer.setPosX(deplacement.getPosX());
+            aDeplacer.setPosY(deplacement.getPosY());
+            autoriserDeplacement = false;
+            repaint();
+        }
+    }
+
+    public boolean isAutoriserDeplacement() {
+        return autoriserDeplacement;
+    }
+
+    public void setDeplacement(CelluleMonde deplacement) {
+        this.deplacement = deplacement;
     }
 }

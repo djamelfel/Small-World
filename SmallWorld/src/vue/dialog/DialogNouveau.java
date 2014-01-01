@@ -151,8 +151,8 @@ public class DialogNouveau extends JDialog implements ActionListener, KeyListene
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(valider)) {
             if (nom.getText().equals("") || rows.getText().equals("") || cols.getText().equals("") ||
-                    !Pattern.matches("\\d*", rows.getText()) || Integer.parseInt(rows.getText()) < 0 ||
-                    !Pattern.matches("\\d*", cols.getText()) || Integer.parseInt(cols.getText()) < 0) {
+                    !Pattern.matches("\\d*", rows.getText()) || Integer.parseInt(rows.getText()) <= 0 ||
+                    !Pattern.matches("\\d*", cols.getText()) || Integer.parseInt(cols.getText()) <= 0) {
                 JOptionPane.showMessageDialog(fenetre, "Eggs are not supposed to be green.");
                 return;
             }
