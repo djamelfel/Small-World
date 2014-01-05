@@ -59,12 +59,4 @@ public class Case {
         public void setNourriture(Nourriture nourriture) {
             _nourriture = nourriture;
         }
-
-		public void setPosX(int posX) {
-			_posX = posX;
-		}
-		
-		public void setPosY(int posY) {
-			_posY = posY;
-		}
 }

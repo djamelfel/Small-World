@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import modele.especes.Espece;
 
 /**
  * Created by Edwin on 19/12/13.
@@ -18,9 +19,13 @@ public class CelluleAnimal extends Cellule implements ActionListener {
     JMenuItem combattre;
     JMenuItem modifier;
     JMenuItem supprimer;
+    
+    private Espece _instanceEspece;
 
-    public CelluleAnimal(Animal animal, Grille grille, int posX, int posY) {
-        super(grille, posX, posY);
+    public CelluleAnimal(Espece instanceEspece, Grille grille) {
+        super(grille, instanceEspece.getPosition().getPosX(), instanceEspece.getPosition().getPosY());
+        
+        _instanceEspece = instanceEspece;
 
         // Initialisation
         menu = new JPopupMenu();
@@ -39,8 +44,24 @@ public class CelluleAnimal extends Cellule implements ActionListener {
         modifier.addActionListener(this);
         supprimer.addActionListener(this);
         setComponentPopupMenu(menu);
-        image = animal.getGrille();
+        
+        
+        image = _instanceEspece.getGraphics().getGrille();
     }
+    
+   
+    
+    @Override
+    public int getPosX() {
+        return _instanceEspece.getPosition().getPosX();
+    }
+    
+    @Override
+    public int getPosY() {
+        return _instanceEspece.getPosition().getPosY();
+    }
+    
+    
 
     @Override
     public void mouseClicked(MouseEvent e) {

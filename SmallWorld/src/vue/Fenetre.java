@@ -102,9 +102,7 @@ public class Fenetre extends JFrame {
         grille = new Grille(this, controleur, rows, cols);
         scrollPaneGrille.setViewportView(grille);
         activate();
-        grille.ajouterAnimal(Animal.lion, 5, 10);
-        grille.ajouterAnimal(Animal.lion, 10, 3);
-        grille.ajouterAnimal(Animal.lamasticot, 14, 5);
+        
     }
 
     public Grille getGrille() {

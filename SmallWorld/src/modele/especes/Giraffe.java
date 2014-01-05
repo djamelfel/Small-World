@@ -1,8 +1,5 @@
-package modele.especes.animaux;
+package modele.especes;
 
-import modele.especes.Espece;
-import modele.especes.EspeceTer;
-import modele.especes.Herbivore;
 import modele.utils.Utils;
 
 public class Giraffe extends EspeceTer implements Herbivore {
@@ -16,7 +13,16 @@ public class Giraffe extends EspeceTer implements Herbivore {
         super("Giraffe", 35, 80, 20, 40, 20, Math.random() < 0.2, false, 65, 25, Utils.getRand(3));
     }
 
-    @Override
+    public void verifierEtatJournee() {
+        if (getSommeil()) {
+            if (getSommeil() == true)
+                reveiller();
+            activite();
+        }
+        else if (getSommeil() == true)
+            dormir();
+    }
+
     public void chuteCapacite() {
         if (getSommeil() == true)
             setForce(getForce() - 40);
@@ -27,7 +33,6 @@ public class Giraffe extends EspeceTer implements Herbivore {
         }
     }
 
-    @Override
     public void retrouveCapacite() {
         if (getSommeil() == true)
             setForce(getForce() + 40);
@@ -39,7 +44,16 @@ public class Giraffe extends EspeceTer implements Herbivore {
     }
 
     @Override
+    public void fuir(Espece espece) {
+        // TODO Auto-generated method stub
+        super.fuir(espece);
+    }
+
     public String toString() {
         return "nom - leader - repro - " + getNom() + getEstLeader() + getNbReproductions() + super.toString();
+    }
+
+    public String sauvegarder() {
+        return null;
     }
 }

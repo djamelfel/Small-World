@@ -4,6 +4,8 @@ package modele.monde;
 import modele.especes.Espece;
 import modele.nourriture.Nourriture;
 import java.util.ArrayList;
+import modele.especes.animaux.Giraffe;
+import vue.enums.Animal;
 
 public class Monde {
 
@@ -18,31 +20,36 @@ public class Monde {
   private int _temperature;
 
   private Temps _temps;
-
-	/* 	public Nourriture 1;
-		public Decors Posseder;
-		public Map Appartenir;
-		public Espece Comporter;
-		public Temps Contenir;
-		public InterfaceMonde myInterfaceMonde;
-		public Nourriture Contenir;
-	*/
+  
   public Monde()
   {
-      _map = new Map(1920,1080);
-      
       _listeAnimaux = new ArrayList<>();
       _listeElementsDecors = new ArrayList<>();
       _listeNourriture = new ArrayList<>();
       
       
-      ArrayList<Case> _casesVoisines = getVoisins(_map.getCase(1917,500), 10, 1);
-      System.out.println("nbCases : "+_casesVoisines.size());
-      
-      
-      ajoutDecors("montagne1", 1500,1000);
+      //System.out.println("nbCases : "+_casesVoisines.size());
+      //ajoutDecors("montagne1", 1500,1000);
   }
-
+  
+  public void initialiser(int rows, int cols)
+  {
+      _map = new Map(cols,rows);
+  }
+  
+ 
+  public void deplacerAnimaux() {
+      
+       int lg = _listeAnimaux.size();
+       Espece tmpAnimal;
+       for(int i = 0; i < lg; i++)
+       {
+           tmpAnimal = _listeAnimaux.get(i);
+           tmpAnimal.seDeplacer();
+       }
+   }
+ 
+ 
   public static ArrayList<Case> getVoisins(Case caseDepart, int champVision, int sens) {
       
       ArrayList<Case> _casesVoisines = new ArrayList();
@@ -65,19 +72,33 @@ public class Monde {
     return _casesVoisines;
   }
 
-  public Espece ajoutAnimaux(String nom, int posX, int posY) {
+  public Espece ajoutAnimaux(Animal animal, int posX, int posY) {
       
       Espece tmpEspece = null;
-      
-      switch(nom)
+      System.out.println(animal.getNom());
+      switch(animal.getNom())
       {
-          case "":
+          case "Lion":
+              System.out.println("JE SUIS UN LION");
+              tmpEspece = new Giraffe();
+              tmpEspece.setGraphics(Animal.lion);
+              
+             break;
+          case "Lamasticot":
+              System.out.println("JE SUIS UN LAMA");
+              tmpEspece = new Giraffe();
+              tmpEspece.setGraphics(Animal.lamasticot);
              break;
           
-          
       }
+     // tmpEspece = new Giraffe();
       
+      tmpEspece.setPosition(_map.getCase(posX, posY));
       
+      if(tmpEspece != null)
+      {
+         _listeAnimaux.add(tmpEspece);
+      }
       
      return tmpEspece;
   }
@@ -145,5 +166,7 @@ public class Monde {
     public Temps getTemps() {
         return _temps;
     }
+
+   
 
 }

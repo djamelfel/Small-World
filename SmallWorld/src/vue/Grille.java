@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import modele.especes.Espece;
 
 /**
  * Created by Edwin on 18/12/13.
@@ -57,11 +58,11 @@ public class Grille extends JPanel {
         return true;
     }
 
-    public boolean ajouterAnimal(Animal animal, int posX, int posY) {
-        CelluleAnimal tmp = new CelluleAnimal(animal, this, posX, posY);
+    public boolean ajouterAnimal(Espece instanceEspece) {
+        CelluleAnimal tmp = new CelluleAnimal(instanceEspece, this);
         animalAL.add(tmp);
         add(tmp);
-
+        repaint(); // refresh la grille
         return true;
     }
 
@@ -69,12 +70,12 @@ public class Grille extends JPanel {
         CelluleMonde tmp = new CelluleMonde(decor, this, posX, posY);
         mondeAL.add(tmp);
         add(tmp);
-
+        repaint();// refresh la grille
         return true;
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {   
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
