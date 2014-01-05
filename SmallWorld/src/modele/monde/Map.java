@@ -1,6 +1,5 @@
 package modele.monde;
 
-import modele.monde.Monde;
 import java.util.ArrayList;
 import modele.nourriture.Nourriture;
 

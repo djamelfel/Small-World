@@ -29,7 +29,7 @@ public class Controleur {
         
         
         
-        ajouterAnimal(Animal.lamasticot, "roger", 'F','O', new Point(10, 10));
+        ajouterAnimal(Animal.lamasticot, "roger", 'F','O', new Point(3, 3));
         
       /*  ajouterAnimal(Animal.lamasticot, "roger", 'F','O', new Point(16, 4));
         ajouterAnimal(Animal.lion, "roger", 'F','O', new Point(5, 10));
