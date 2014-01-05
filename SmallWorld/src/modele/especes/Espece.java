@@ -439,7 +439,7 @@ public class Espece {
             }
         }
 
-        sens(x, y);                            //gestion du sens du regard des especes
+       sens(x, y);                            //gestion du sens du regard des especes
 
        setPosition(Monde.getMap().getCase(x, y));
        /*_position.setPosX(x);
