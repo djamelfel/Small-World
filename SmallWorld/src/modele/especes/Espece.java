@@ -361,7 +361,7 @@ public class Espece {
         else
             x = Utils.getRand(_position.getPosX(), x);
 
-        vitesse -= x;                            //soustrait le deplacement x a deplacer
+        vitesse -= Math.abs(_position.getPosX() - x);		//soustrait le deplacement x a deplacer
 
 //Gestion point Y			
         if (Math.abs(posY - _position.getPosY()) < vitesse)
@@ -423,7 +423,7 @@ public class Espece {
 		else
 		    x = Utils.getRand((_position.getPosX() + vitesse), (_position.getPosX() - vitesse));
             }
-            vitesse -= x;
+	    vitesse -= Math.abs(_position.getPosX() - x);		//soustrait le deplacement x a deplacer
 
             //Gestion point Y
             var = _meute.getLeader().getPosition().getPosY() - _position.getPosY();
@@ -465,6 +465,7 @@ public class Espece {
             else                        //fuite à gauche
                 x = Utils.getRand((_position.getPosX() + vitesse), _position.getPosX());
         }
+	vitesse -= Math.abs(_position.getPosX() - x);		//soustrait le deplacement x a deplacer
         //Gestion point X
         if ((_position.getPosY() + vitesse) >= Monde.getMap().getHauteur())        //sorti tableau droite
             y = Utils.getRand((Monde.getMap().getHauteur() - _position.getPosX()), _position.getPosX());
