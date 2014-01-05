@@ -350,7 +350,7 @@ public class Espece {
         if (_course == true)                        //definie le nombre de case dont il peut se deplacer
             vitesse += _vitesseCourse;
 
-//Gestion point X	
+//Gestion point X        
         if (Math.abs(posX - _position.getPosX()) < vitesse)        //permet de ne pas depasser le point X
             x = Math.abs(posX - _position.getPosX());
         else
@@ -361,9 +361,9 @@ public class Espece {
         else
             x = Utils.getRand(_position.getPosX(), x);
 
-        vitesse -= x;                            //soustrait le deplacement x a deplacer
+        vitesse -= Math.abs(_position.getPosX() - x);                //soustrait le deplacement x a deplacer
 
-//Gestion point Y			
+//Gestion point Y                        
         if (Math.abs(posY - _position.getPosY()) < vitesse)
             y = Math.abs(posY - _position.getPosY());
         else
@@ -374,76 +374,78 @@ public class Espece {
             y = Utils.getRand(_position.getPosX(), y);
 
         sens(x, y);
-
-        /*_position.setPosX(x);
-        _position.setPosY(y);*/
+        setPosition(Monde.getMap().getCase(x, y));
     }
 
     public void seDeplacer() {                        //deplacement aleatoire
         int x, y, vitesse = _vitesse;
-        
-        //setPosition(Monde.getMap().getCase(_position.getPosX()-1, _position.getPosY()));
 
         if (_meute == null || _estLeader) {                //si l'espece est sans meute ou si il est leader
             //Gestion point X
-            if ((_position.getPosX() + vitesse) > Monde.getMap().getLargeur())        //sorti tableau droite
-                x = Utils.getRand((Monde.getMap().getLargeur() - _position.getPosX()), (_position.getPosX() - vitesse));
+            if ( (_position.getPosX() + vitesse) > (Monde.getMap().getLargeur() - 1)  && (_position.getPosX() - vitesse) < 0)   //sorti tableau droite et gauche
+                x = Utils.getRand(Monde.getMap().getLargeur() - 1);
             else if ((_position.getPosX() - vitesse) < 0)        //sorti tableau gauche
                 x = Utils.getRand(_position.getPosX() + vitesse);
+            else if ((_position.getPosX() + vitesse) > (Monde.getMap().getLargeur() - 1) )                //sorti du tableau a droite
+                x = Utils.getRand((Monde.getMap().getLargeur() - 1), (_position.getPosX() - vitesse));
             else
                 x = Utils.getRand((_position.getPosX() + vitesse), (_position.getPosX() - vitesse));
 
-            vitesse -= x;                        //soustrait le deplacement x a deplacer
+            vitesse -= Math.abs(_position.getPosX() - x);                //soustrait le deplacement x a deplacer
 
             //Gestion point Y
-            if ((_position.getPosY() + vitesse) > Monde.getMap().getHauteur())        //sorti tableau bas
-                y = Utils.getRand((Monde.getMap().getHauteur() - _position.getPosY()), (_position.getPosY() - vitesse));
+            if ( (_position.getPosY() + vitesse) >= Monde.getMap().getHauteur()  && (_position.getPosY() - vitesse) < 0)   //sorti tableau bat et haut
+                y = Utils.getRand(Monde.getMap().getHauteur() - 1);
+            else if ((_position.getPosY() + vitesse) >= Monde.getMap().getHauteur() )                //sorti du tableau bas
+                y = Utils.getRand((Monde.getMap().getHauteur() - 1), (_position.getPosY() - vitesse));
             else if ((_position.getPosY() - vitesse) < 0)        //sorti tableau haut
                 y = Utils.getRand(_position.getPosY() + vitesse);
             else
                 y = Utils.getRand((_position.getPosY() + vitesse), (_position.getPosY() - vitesse));
         }
         else {                                //sinon
-            //Gestion point X					//calcul de la distance sur l'axe x entre l'espece et son chef de meute
-            int var = _meute.getLeader().getPosition().getPosX() - _position.getPosX();
-            if (Math.abs(var) > 50) {                //si la distance est supérieur à 50 unités alors
+            //Gestion point X                        
+            int var = _meute.getLeader().getPosition().getPosX() - _position.getPosX();                //calcul de la distance sur l'axe x entre l'espece et son chef de meute
+            
+            if (Math.abs(var) > 5) {                //si la distance est supérieur à 50 unités alors
                 if (var < 0)                    //si espece s'éloigne par la droite
                     x = Utils.getRand((_position.getPosX() + vitesse), _position.getPosX());
                 else                        //si espece s'éloigne par la gauche
                     x = Utils.getRand(_position.getPosX(), (_position.getPosX() - vitesse));
             }
             else {
-                if ((_position.getPosX() + vitesse) > Monde.getMap().getLargeur())        //sorti tableau droite
-                    x = Utils.getRand((Monde.getMap().getLargeur() - _position.getPosX()), (_position.getPosX() - vitesse));
+                if ( (_position.getPosX() + vitesse) > (Monde.getMap().getLargeur() - 1)  && (_position.getPosX() - vitesse) < 0)   //sorti tableau droite et gauche
+                    x = Utils.getRand(Monde.getMap().getLargeur() - 1);
                 else if ((_position.getPosX() - vitesse) < 0)        //sorti tableau gauche
                     x = Utils.getRand(_position.getPosX() + vitesse);
+                else if ((_position.getPosX() + vitesse) > (Monde.getMap().getLargeur() - 1) )                //sorti du tableau a droite
+                    x = Utils.getRand((Monde.getMap().getLargeur() - 1), (_position.getPosX() - vitesse));
                 else
                     x = Utils.getRand((_position.getPosX() + vitesse), (_position.getPosX() - vitesse));
             }
-            vitesse -= x;
+            vitesse -= Math.abs(_position.getPosX() - x);                //soustrait le deplacement x a deplacer
+
             //Gestion point Y
             var = _meute.getLeader().getPosition().getPosY() - _position.getPosY();
-            if (Math.abs(var) > 50) {                //si la distance est supérieur à 50 unités alors
+            if (Math.abs(var) > 5) {                //si la distance est supérieur à 50 unités alors
                 if (var < 0)                    //si espece s'éloigne par le bas
                     y = Utils.getRand(_position.getPosY(), (_position.getPosY() - vitesse));
                 else
                     y = Utils.getRand((_position.getPosY() + vitesse), _position.getPosY());
             }
             else {
-                if ((_position.getPosY() + vitesse) > Monde.getMap().getHauteur())        //sorti tableau bas
-                    y = Utils.getRand((Monde.getMap().getHauteur() - _position.getPosY()), (_position.getPosY() - vitesse));
+                if ( (_position.getPosY() + vitesse) >= Monde.getMap().getHauteur()  && (_position.getPosY() - vitesse) < 0)   //sorti tableau bat et haut
+                    y = Utils.getRand(Monde.getMap().getHauteur() - 1);
+                else if ((_position.getPosY() + vitesse) >= Monde.getMap().getHauteur() )                //sorti du tableau bas
+                    y = Utils.getRand((Monde.getMap().getHauteur() - 1), (_position.getPosY() - vitesse));
                 else if ((_position.getPosY() - vitesse) < 0)        //sorti tableau haut
                     y = Utils.getRand(_position.getPosY() + vitesse);
                 else
                     y = Utils.getRand((_position.getPosY() + vitesse), (_position.getPosY() - vitesse));
             }
         }
-
-       sens(x, y);                            //gestion du sens du regard des especes
-
-       setPosition(Monde.getMap().getCase(x, y));
-       /*_position.setPosX(x);
-        _position.setPosY(y);*/
+        sens(x, y);                            //gestion du sens du regard des especes
+        setPosition(Monde.getMap().getCase(x, y));
     }
 
     public void fuir(Espece espece) {
@@ -463,6 +465,7 @@ public class Espece {
             else                        //fuite à gauche
                 x = Utils.getRand((_position.getPosX() + vitesse), _position.getPosX());
         }
+        vitesse -= Math.abs(_position.getPosX() - x);                //soustrait le deplacement x a deplacer
         //Gestion point X
         if ((_position.getPosY() + vitesse) >= Monde.getMap().getHauteur())        //sorti tableau droite
             y = Utils.getRand((Monde.getMap().getHauteur() - _position.getPosX()), _position.getPosX());

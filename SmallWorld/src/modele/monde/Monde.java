@@ -83,13 +83,13 @@ public class Monde {
       {
           case "Lion":
               System.out.println("JE SUIS UN LION");
-              tmpEspece = new EspeceTer("Lion", 35, 80, 20, 40, 20, estLeader, false, 65, 25, Utils.getRand(3));
+              tmpEspece = new EspeceTer("Lion", 35, 80, 1, 40, 20, estLeader, false, 65, 25, Utils.getRand(3));
               tmpEspece.setGraphics(Animal.lion);
               
              break;
           case "Lamasticot":
               System.out.println("JE SUIS UN LAMA");
-              tmpEspece = new EspeceTer("Lamasticot", 35, 80, 20, 40, 20, estLeader, false, 65, 25, Utils.getRand(3));
+              tmpEspece = new EspeceTer("Lamasticot", 35, 80, 1, 40, 20, estLeader, false, 65, 25, Utils.getRand(3));
               tmpEspece.setGraphics(Animal.lamasticot);
              break;
           
