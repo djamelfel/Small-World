@@ -1,5 +1,7 @@
 package modele.monde;
 
+import vue.enums.Decor;
+
 public class Decors {
 
     private int _type;
@@ -7,6 +9,8 @@ public class Decors {
     private int _posY;
     private int _largeur;
     private int _hauteur;
+    
+    private Decor _graphics; // contient les graphismes
 
     public Decors(int type, int posX, int posY, int largeur, int hauteur) {
         this._type = type;
@@ -38,6 +42,15 @@ public class Decors {
 
     public int getHauteur() {
         return _hauteur;
+    }
+    
+    
+    public void setGraphics(Decor decor) {
+        _graphics = decor;
+    }
+    
+    public Decor getGraphics() {
+        return _graphics;
     }
 
 

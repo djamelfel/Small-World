@@ -11,6 +11,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import modele.especes.Espece;
+import modele.monde.Decors;
+import modele.monde.Map;
 
 /**
  * Created by Edwin on 18/12/13.
@@ -28,15 +30,17 @@ public class Grille extends JPanel {
     private boolean autoriserDeplacement;
     private CelluleMonde deplacement;
     private CelluleAnimal aDeplacer;
+    private final Map _map;
 
-    public Grille(Fenetre fenetre, Controleur controleur, int rows, int cols) {
+    public Grille(Fenetre fenetre, Controleur controleur, Map map) {
         super();
 
         // Initialisation
         this.fenetre = fenetre;
         this.controleur = controleur;
-        this.rows = rows;
-        this.cols = cols;
+        this._map = map;
+        this.rows = _map.getHauteur();
+        this.cols = _map.getLargeur();
         //grille = new Cellule[rows][cols];
         animalAL = new ArrayList<>();
         mondeAL = new ArrayList<>();
@@ -50,7 +54,7 @@ public class Grille extends JPanel {
         CelluleMonde tmp;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                tmp = new CelluleMonde(Decor.herbe, this, j, i);
+                tmp = new CelluleMonde(_map.getCase(j, i), this);
                 mondeAL.add(tmp);
                 add(tmp);
             }
@@ -66,10 +70,10 @@ public class Grille extends JPanel {
         return true;
     }
 
-    public boolean ajouterDecor(Decor decor, int posX, int posY) {
-        CelluleMonde tmp = new CelluleMonde(decor, this, posX, posY);
+    public boolean ajouterDecor(Decors decors) {
+        /*CelluleMonde tmp = new CelluleMonde(decors, this);
         mondeAL.add(tmp);
-        add(tmp);
+        add(tmp);*/
         repaint();// refresh la grille
         return true;
     }

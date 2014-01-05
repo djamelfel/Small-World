@@ -4,8 +4,11 @@ package modele.monde;
 import modele.especes.Espece;
 import modele.nourriture.Nourriture;
 import java.util.ArrayList;
+import modele.especes.EspeceTer;
 import modele.especes.animaux.Giraffe;
+import modele.utils.Utils;
 import vue.enums.Animal;
+import vue.enums.Decor;
 
 public class Monde {
 
@@ -72,7 +75,7 @@ public class Monde {
     return _casesVoisines;
   }
 
-  public Espece ajoutAnimaux(Animal animal, int posX, int posY) {
+  public Espece ajoutAnimaux(Animal animal, boolean estLeader, char sexe, int posX, int posY) {
       
       Espece tmpEspece = null;
       System.out.println(animal.getNom());
@@ -80,19 +83,18 @@ public class Monde {
       {
           case "Lion":
               System.out.println("JE SUIS UN LION");
-              tmpEspece = new Giraffe();
+              tmpEspece = new EspeceTer("Lion", 35, 80, 20, 40, 20, estLeader, false, 65, 25, Utils.getRand(3));
               tmpEspece.setGraphics(Animal.lion);
               
              break;
           case "Lamasticot":
               System.out.println("JE SUIS UN LAMA");
-              tmpEspece = new Giraffe();
+              tmpEspece = new EspeceTer("Lamasticot", 35, 80, 20, 40, 20, estLeader, false, 65, 25, Utils.getRand(3));
               tmpEspece.setGraphics(Animal.lamasticot);
              break;
           
       }
      // tmpEspece = new Giraffe();
-      
       tmpEspece.setPosition(_map.getCase(posX, posY));
       
       if(tmpEspece != null)
@@ -103,18 +105,23 @@ public class Monde {
      return tmpEspece;
   }
 
-  public Decors ajoutDecors(String nom, int posX, int posY) {
+  public Decors ajoutDecors(Decor decor, int largeur, int hauteur, int posX, int posY) {
       Decors tmpDecors = null;
       
-      switch(nom)
+      switch(decor.getNom())
       {
-          case "montagne1":
-              tmpDecors = new Decors(TypeDecors.BASE, 1918, 1076, 5, 5);
+          case "Eau":
+              tmpDecors = new Decors(TypeDecors.EAU, posX, posY, largeur, hauteur);
               break;
-          
+              
+          case "Sable":
+              tmpDecors = new Decors(TypeDecors.SABLE, posX, posY, largeur, hauteur);
+              break;     
+          default:
+              tmpDecors = new Decors(TypeDecors.BASE, posX, posY, largeur, hauteur);
           
       }
-      
+      tmpDecors.setGraphics(decor);
       if(tmpDecors != null)
       {
          _map.ajouterDecors(tmpDecors);

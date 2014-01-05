@@ -36,8 +36,8 @@ public class Map {
 			tmpCase.setNourriture(nourriture);
 	}
    
-    public void ajouterDecors(Decors elementDecors)
-    {
+        public void ajouterDecors(Decors elementDecors)
+        {
 		Case tmpCase;
 		for(int i = 0; i < elementDecors.getHauteur(); i++)
 		{
@@ -51,12 +51,12 @@ public class Map {
 			} 
 			System.out.println("");
 		}
-    }
+      }
 
-    public Case getCase(Integer posX, Integer posY) {
+     public Case getCase(Integer posX, Integer posY) {
 		if(posX < 0 || posY < 0 || posX >= _largeur || posY >= _hauteur) return null; // Sort du tableau !
 			return _listeCase[posY][posX];
-    }
+       }
   
 	public int getLargeur() {
         return _largeur;

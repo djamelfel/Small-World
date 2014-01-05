@@ -173,7 +173,7 @@ public class DialogNouveauMonde extends JDialog implements ActionListener {
                 return;
             }
 
-            controleur.ajouterMonde(monde, Integer.parseInt(largeur.getText()), Integer.parseInt(hauteur.getText()),
+            controleur.ajouterDecor(monde, Integer.parseInt(largeur.getText()), Integer.parseInt(hauteur.getText()),
                     position.getCoordonnees());
             dispose();
         }

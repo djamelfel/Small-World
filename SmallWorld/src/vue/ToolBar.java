@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Created by Edwin on 19/12/13.
@@ -20,17 +21,22 @@ public class ToolBar extends JToolBar implements ActionListener {
 
     private JButton addMonde;
     private JButton addAnimal;
-    private JButton addHerbe;
     private JButton retour;
     private JButton addLion;
     private JButton addLamasticot;
-    private JButton addTerre;
+    
+    
+    private ArrayList<JButton> _listeBoutonsAnimaux;
+    private ArrayList<JButton> _listeBoutonsDecor;
+    
 
-    public ToolBar(Fenetre fenetre, Controleur controleur) {
+    public ToolBar(final Fenetre fenetre, final Controleur controleur) {
         super();
 
         this.fenetre = fenetre;
         this.controleur = controleur;
+        this._listeBoutonsAnimaux = new ArrayList<>();
+        this._listeBoutonsDecor = new ArrayList<>();
 
         // Initialisation de la toolbar
         setFloatable(false);
@@ -57,39 +63,56 @@ public class ToolBar extends JToolBar implements ActionListener {
         add(addAnimal);
 
         // Initialisation du deuxième niveau
+        
+        JButton tmpBtn;
+        
+        
+        // ajout de tous les animaux
+        Animal[] resourcesAnimaux = Animal.values(); // Récupération des valeurs de l'énumération
+        int valuesNumber = resourcesAnimaux.length;
+        for (int i = 0 ; i < valuesNumber ; i++) {
+          final Animal type = resourcesAnimaux[i];
+          image = type.getToolbar();
+          tmpBtn = new JButton(image);
+         // tmpBtn.addActionListener(this);
+          tmpBtn.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                     new DialogNouveauAnimal(fenetre, controleur, type);
+                }
+            });
+          tmpBtn.setToolTipText(type.getPhraseToolbar());
+          add(tmpBtn);
+          tmpBtn.setVisible(false);
+          _listeBoutonsAnimaux.add(tmpBtn);
+          
+        }
+        
+        // ajout de tous les éléments de décors
+        Decor[] resourcesDecors = Decor.values(); // Récupération des valeurs  de l'énumération
+        valuesNumber = resourcesDecors.length;
+        for (int i = 0 ; i < valuesNumber ; i++) {
+          final Decor type = resourcesDecors[i];
+          image = type.getToolbar();
+          tmpBtn = new JButton(image);
+         // tmpBtn.addActionListener(this);
+          tmpBtn.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                     new DialogNouveauMonde(fenetre, controleur, type);
+                }
+            });
+          tmpBtn.setToolTipText(type.getPhraseToolbar());
+          add(tmpBtn);
+          tmpBtn.setVisible(false);
+          _listeBoutonsDecor.add(tmpBtn);
+          
+        }
+        
 
-        // Ajout lion
-        image = Animal.lion.getToolbar();
-        addLion = new JButton(image);
-        addLion.addActionListener(this);
-        addLion.setToolTipText("Ajouter un lion");
-        add(addLion);
-        addLion.setVisible(false);
-
-        // Ajout lamasticot
-        image = Animal.lamasticot.getToolbar();
-        addLamasticot = new JButton(image);
-        addLamasticot.addActionListener(this);
-        addLamasticot.setToolTipText("Ajouter un lamasticot");
-        add(addLamasticot);
-        addLamasticot.setVisible(false);
-
-        // Ajout herbe
-        image = Decor.herbe.getToolbar();
-        addHerbe = new JButton(image);
-        addHerbe.addActionListener(this);
-        addHerbe.setToolTipText("Ajouter de l'herbe");
-        add(addHerbe);
-        addHerbe.setVisible(false);
-
-        // Ajout terre
-        image = Decor.terre.getToolbar();
-        addTerre = new JButton(image);
-        addTerre.addActionListener(this);
-        addTerre.setToolTipText("Ajouter de la terre");
-        add(addTerre);
-        addTerre.setVisible(false);
-
+        
+        
+        
+        
+        
         // Retour
         image = new ImageIcon(this.getClass().getResource("../images/toolbar/retour.png"));
         retour = new JButton(image);
@@ -114,37 +137,26 @@ public class ToolBar extends JToolBar implements ActionListener {
         if (e.getSource().equals(addMonde)) {
             addMonde.setVisible(false);
             addAnimal.setVisible(false);
-            addHerbe.setVisible(true);
-            addTerre.setVisible(true);
+            for(JButton tmpBtn : _listeBoutonsDecor)
+               tmpBtn.setVisible(true);
             retour.setVisible(true);
 
         }
         else if (e.getSource().equals(addAnimal)) {
             addMonde.setVisible(false);
             addAnimal.setVisible(false);
-            addLion.setVisible(true);
-            addLamasticot.setVisible(true);
+            for(JButton tmpBtn : _listeBoutonsAnimaux)
+               tmpBtn.setVisible(true);
             retour.setVisible(true);
-        }
-        else if (e.getSource().equals(addHerbe)) {
-            new DialogNouveauMonde(fenetre, controleur, Decor.herbe);
-        }
-        else if (e.getSource().equals(addTerre)) {
-            new DialogNouveauMonde(fenetre, controleur, Decor.terre);
-        }
-        else if (e.getSource().equals(addLion)) {
-            new DialogNouveauAnimal(fenetre, controleur, Animal.lion);
-        }
-        else if (e.getSource().equals(addLamasticot)) {
-            new DialogNouveauAnimal(fenetre, controleur, Animal.lamasticot);
         }
         else if (e.getSource().equals(retour)) {
             addMonde.setVisible(true);
             addAnimal.setVisible(true);
-            addHerbe.setVisible(false);
-            addTerre.setVisible(false);
-            addLamasticot.setVisible(false);
-            addLion.setVisible(false);
+            for(JButton tmpBtn : _listeBoutonsDecor)
+               tmpBtn.setVisible(false);
+            for(JButton tmpBtn : _listeBoutonsAnimaux)
+               tmpBtn.setVisible(false);
+            
             retour.setVisible(false);
         }
     }

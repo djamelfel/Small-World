@@ -11,12 +11,15 @@ public class Case {
 	private Decors _decors;
 	private Espece _espece;
 	private Nourriture _nourriture;
+        
 	
         
         public Case(int posX, int posY)
         {
             _posX = posX;
             _posY = posY;
+            
+            //_decors = ;
         }
         
 	public Boolean estVide() {
@@ -36,7 +39,7 @@ public class Case {
             return _posY;
         }
 
-        public Decors getDecorst() {
+        public Decors getDecors() {
             return _decors;
         }
 

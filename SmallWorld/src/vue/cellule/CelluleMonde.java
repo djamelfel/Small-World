@@ -1,18 +1,41 @@
 package vue.cellule;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import vue.Grille;
-import vue.enums.Decor;
 
 import java.awt.event.MouseEvent;
+import modele.monde.Case;
+import vue.enums.Decor;
 
-/**
- * Created by Edwin on 19/12/13.
- */
+
 public class CelluleMonde extends Cellule {
-    public CelluleMonde(Decor monde, Grille grille, int posX, int posY) {
-        super(grille, posX, posY);
-
-        image = monde.getGrille();
+    private final Case _case;
+    
+    protected Image imageDecors;
+    protected Image imageNourriture;
+    
+    public CelluleMonde(Case _case, Grille grille) {
+        super(grille, _case.getPosX(), _case.getPosY());
+        this._case = _case;
+    }
+    
+     public void update() {
+         
+     }
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        if(_case.getDecors() == null)
+            imageDecors = Decor.herbe.getGrille();
+        else
+            imageDecors = _case.getDecors().getGraphics().getGrille();
+        
+        g2.drawImage(imageDecors, 0, 0, getSize().width, getSize().height, null);
+        g2.drawImage(imageNourriture, 0, 0, getSize().width, getSize().height, null);
     }
 
     @Override
