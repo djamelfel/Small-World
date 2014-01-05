@@ -232,12 +232,13 @@ public class Espece {
     }
 
     public void verifierEtatJournee() {
-        if (Temps.getJournee() < _sommeilDeb && Temps.getJournee() > _sommeilFin) {
+        System.out.println("verifierEtatJournee() : "+Temps.getJournee()+" "+_sommeilDeb+" "+_sommeilFin);
+        if (Temps.getJournee() > _sommeilDeb && Temps.getJournee() < _sommeilFin) {
             if (getSommeil() == true)
                 reveiller();
             activite();
         }
-        else if (getSommeil() == true)
+        else if (getSommeil() == false)
             dormir();
     }
 
@@ -248,17 +249,20 @@ public class Espece {
     }
 
     public void dormir() {
+        System.out.println("dormir()");
         setSommeil(true);
         setEnergie(100);
         chuteCapacite();
     }
 
     public void reveiller() {
+        System.out.println("reveiller()");
         retrouveCapacite();
         setSommeil(false);
     }
 
     public void tuer() {
+        System.out.println("tuer()");
         if (_estLeader == true)
             _meute.detruire();
         else if (_meute != null)
@@ -268,6 +272,7 @@ public class Espece {
     }
 
     public void rejoindreMeute(Meute meute) {
+        System.out.println("rejoindreMeute()");
         setMeute(meute);
         _meute.rejoindre(this);
     }
@@ -288,6 +293,7 @@ public class Espece {
     }
 
     public boolean aFaim() {
+        System.out.println("A faim : "+(_energie<20)+" "+_energie);
         return _energie < 20;
     }
 
@@ -320,13 +326,21 @@ public class Espece {
     }
 
     public void activite() {
+        System.out.println("activite()");
         if (Temps.getJeux() % 20 == 0) {                //temps à comfirmer
             setEnergie(_energie - 5);                //baisse d'énergie à confimer
             setFaim(_faim - 20);                    //baisse de faim à confirmer
         }
         if (getEnergie() <= 0)
             tuer();
+        
+        
+        
         seDeplacer();
+        
+        // On vérifie si il a faim et effectue manger si il trouve de la nourriture
+        if(aFaim())
+            manger();
     }
 
     public void sens(int x, int y) {

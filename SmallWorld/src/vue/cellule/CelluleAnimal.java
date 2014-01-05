@@ -27,6 +27,7 @@ public class CelluleAnimal extends Cellule implements ActionListener {
     
     private static ImageIcon ressourceCadre = new ImageIcon(CelluleAnimal.class.getResource("../../images/animaux/cadre.png"));
     private static ImageIcon ressourceLeader = new ImageIcon(CelluleAnimal.class.getResource("../../images/animaux/leader.png"));
+    private static ImageIcon ressourceDormir = new ImageIcon(CelluleAnimal.class.getResource("../../images/animaux/dormir.png"));
     
     public CelluleAnimal(Espece instanceEspece, Grille grille) {
         super(grille, instanceEspece.getPosition().getPosX(), instanceEspece.getPosition().getPosY());
@@ -70,6 +71,13 @@ public class CelluleAnimal extends Cellule implements ActionListener {
         { 
             // dessine l'étoile indiquant qu'il est le leader de la meute
             g.drawImage(ressourceLeader.getImage(), 0, 0, 50, 49, null);
+        }
+        
+        
+        if(_instanceEspece.getSommeil())
+        { 
+            // dessine l'étoile indiquant qu'il est le leader de la meute
+            g.drawImage(ressourceDormir.getImage(), 0, 0, 50, 50, null);
         }
             
     }

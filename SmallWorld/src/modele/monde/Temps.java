@@ -7,11 +7,17 @@ public class Temps {
 	public static long getJeux() {
 		return _jeux;
 	}
-	public void setJeux(int jeux) {
+        
+        
+        public static void incrementer() {
+		_jeux++;
+	}
+        
+	public static void setJeux(int jeux) {
 		_jeux = jeux;
 	}
 	public static int getJournee() {
-		return _journee;
+		return (int)(_jeux%100);//86400);
 	}
 	public void setJournee(int journee) {
 		_journee = journee;

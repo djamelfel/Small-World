@@ -49,7 +49,14 @@ public class Monde {
        for(int i = 0; i < lg; i++)
        {
            tmpAnimal = _listeAnimaux.get(i);
-           tmpAnimal.seDeplacer();
+           
+           
+           tmpAnimal.verifierEtatJournee();
+           
+           
+           
+           
+           //tmpAnimal.seDeplacer();
        }
    }
  
@@ -84,13 +91,13 @@ public class Monde {
       {
           case "Lion":
               System.out.println("JE SUIS UN LION");
-              tmpEspece = new EspeceTer("Lion", 35, 80, 1, 40, 20, estLeader, false, 65, 25, Utils.getRand(3));
+              tmpEspece = new EspeceTer("Lion", 10, 80, 1, 40, 20, estLeader, false, 65, 25, Utils.getRand(3));
               tmpEspece.setGraphics(Animal.lion);
               
              break;
           case "Lamasticot":
               System.out.println("JE SUIS UN LAMA");
-              tmpEspece = new EspeceTer("Lamasticot", 35, 80, 1, 40, 20, estLeader, false, 65, 25, Utils.getRand(3));
+              tmpEspece = new EspeceTer("Lamasticot", 2, 80, 1, 40, 20, estLeader, false, 65, 25, Utils.getRand(3));
               tmpEspece.setGraphics(Animal.lamasticot);
              break;
           

@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.monde.Monde;
+import modele.monde.Temps;
 
 
 /**
@@ -50,6 +51,8 @@ public class ManagerAnimaux implements Runnable{
             catch (InterruptedException e) {e.printStackTrace();}
 				
             long currentTime = System.currentTimeMillis();
+            
+            Temps.incrementer();
 		
             _monde.deplacerAnimaux();
             
