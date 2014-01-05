@@ -11,6 +11,8 @@ import java.awt.*;
 import java.io.File;
 import modele.especes.Espece;
 import modele.monde.Decors;
+import modele.nourriture.Nourriture;
+import vue.enums.NourrituresEnum;
 
 public class Controleur {
     private Fenetre fenetre;
@@ -33,7 +35,7 @@ public class Controleur {
         
         
         ajouterAnimal(Animal.lamasticot, "roger", 'F','O', new Point(10, 10));
-        
+        ajouterNourriture(NourrituresEnum.banane, new Point(11,10));
       /*  ajouterAnimal(Animal.lamasticot, "roger", 'F','O', new Point(16, 4));
         ajouterAnimal(Animal.lion, "roger", 'F','O', new Point(5, 10));
         ajouterAnimal(Animal.lion, "roger", 'F','O', new Point(10, 3));*/
@@ -77,6 +79,13 @@ public class Controleur {
         return true;
     }
     
+    public boolean ajouterNourriture(NourrituresEnum nourriture, Point position) {
+        Nourriture tmpNourriture;
+        tmpNourriture = _managerAnimaux.getMonde().ajoutNourriture(nourriture, position.x, position.y);
+        
+       return true;
+    }
+    
     
     public Fenetre getFenetre() {
         return fenetre;
@@ -91,6 +100,8 @@ public class Controleur {
         //GUI must start on EventDispatchThread:
         SwingUtilities.invokeLater(gui);
     }
+
+    
     
     
     

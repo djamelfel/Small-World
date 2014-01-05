@@ -9,6 +9,7 @@ import modele.especes.animaux.Giraffe;
 import modele.utils.Utils;
 import vue.enums.Animal;
 import vue.enums.Decor;
+import vue.enums.NourrituresEnum;
 
 public class Monde {
 
@@ -132,16 +133,19 @@ public class Monde {
      return tmpDecors;
   }
 
-  public Nourriture ajoutNourriture(String nom, int posX, int posY) {
+  public Nourriture ajoutNourriture(NourrituresEnum nourriture, int posX, int posY) {
     Nourriture tmpNourriture = null;
       
-      switch(nom)
+      switch(nourriture.getNom())
       {
           case "":
               break;
-          
-          
+          default:
+              tmpNourriture = new Nourriture(5);
       }
+      tmpNourriture.setGraphics(nourriture);
+      tmpNourriture.setPosX(posX);
+      tmpNourriture.setPosY(posY);
       
       if(tmpNourriture != null)
       { 

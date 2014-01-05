@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import vue.dialog.DialogNouveauNourriture;
+import vue.enums.NourrituresEnum;
 
 /**
  * Created by Edwin on 19/12/13.
@@ -21,14 +23,13 @@ public class ToolBar extends JToolBar implements ActionListener {
 
     private JButton addMonde;
     private JButton addAnimal;
+    private JButton addNourriture;
     private JButton retour;
-    private JButton addLion;
-    private JButton addLamasticot;
     
     
     private ArrayList<JButton> _listeBoutonsAnimaux;
     private ArrayList<JButton> _listeBoutonsDecor;
-    
+    private ArrayList<JButton> _listeBoutonsNourriture;
 
     public ToolBar(final Fenetre fenetre, final Controleur controleur) {
         super();
@@ -37,6 +38,7 @@ public class ToolBar extends JToolBar implements ActionListener {
         this.controleur = controleur;
         this._listeBoutonsAnimaux = new ArrayList<>();
         this._listeBoutonsDecor = new ArrayList<>();
+        this._listeBoutonsNourriture = new ArrayList<>();
 
         // Initialisation de la toolbar
         setFloatable(false);
@@ -61,6 +63,14 @@ public class ToolBar extends JToolBar implements ActionListener {
         addAnimal.addActionListener(this);
         addAnimal.setToolTipText("Ajouter un animal...");
         add(addAnimal);
+        
+        
+        // Ajout animal
+        image = new ImageIcon(this.getClass().getResource("../images/toolbar/animal.png"));
+        addNourriture = new JButton(image);
+        addNourriture.addActionListener(this);
+        addNourriture.setToolTipText("Ajouter de la nourriture...");
+        add(addNourriture);
 
         // Initialisation du deuxième niveau
         
@@ -84,7 +94,6 @@ public class ToolBar extends JToolBar implements ActionListener {
           add(tmpBtn);
           tmpBtn.setVisible(false);
           _listeBoutonsAnimaux.add(tmpBtn);
-          
         }
         
         // ajout de tous les éléments de décors
@@ -105,6 +114,25 @@ public class ToolBar extends JToolBar implements ActionListener {
           tmpBtn.setVisible(false);
           _listeBoutonsDecor.add(tmpBtn);
           
+        }
+        
+        // ajout de toutes les nourritures
+        NourrituresEnum[] resourcesNourriture = NourrituresEnum.values(); // Récupération des valeurs de l'énumération
+        valuesNumber = resourcesNourriture.length;
+        for (int i = 0 ; i < valuesNumber ; i++) {
+          final NourrituresEnum type = resourcesNourriture[i];
+          image = type.getToolbar();
+          tmpBtn = new JButton(image);
+         // tmpBtn.addActionListener(this);
+          tmpBtn.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                     new DialogNouveauNourriture(fenetre, controleur, type);
+                }
+            });
+          tmpBtn.setToolTipText(type.getPhraseToolbar());
+          add(tmpBtn);
+          tmpBtn.setVisible(false);
+          _listeBoutonsNourriture.add(tmpBtn);
         }
         
 
@@ -137,24 +165,43 @@ public class ToolBar extends JToolBar implements ActionListener {
         if (e.getSource().equals(addMonde)) {
             addMonde.setVisible(false);
             addAnimal.setVisible(false);
+            addNourriture.setVisible(false);
             for(JButton tmpBtn : _listeBoutonsDecor)
                tmpBtn.setVisible(true);
+            for(JButton tmpBtn : _listeBoutonsNourriture)
+               tmpBtn.setVisible(false);
             retour.setVisible(true);
 
         }
         else if (e.getSource().equals(addAnimal)) {
             addMonde.setVisible(false);
             addAnimal.setVisible(false);
+            addNourriture.setVisible(false);
             for(JButton tmpBtn : _listeBoutonsAnimaux)
+               tmpBtn.setVisible(true);
+            for(JButton tmpBtn : _listeBoutonsNourriture)
+               tmpBtn.setVisible(false);
+            retour.setVisible(true);
+        }
+        else if (e.getSource().equals(addNourriture)) {
+            addMonde.setVisible(false);
+            addAnimal.setVisible(false);
+            addNourriture.setVisible(false);
+            for(JButton tmpBtn : _listeBoutonsAnimaux)
+               tmpBtn.setVisible(false);
+            for(JButton tmpBtn : _listeBoutonsNourriture)
                tmpBtn.setVisible(true);
             retour.setVisible(true);
         }
         else if (e.getSource().equals(retour)) {
             addMonde.setVisible(true);
             addAnimal.setVisible(true);
+            addNourriture.setVisible(true);
             for(JButton tmpBtn : _listeBoutonsDecor)
                tmpBtn.setVisible(false);
             for(JButton tmpBtn : _listeBoutonsAnimaux)
+               tmpBtn.setVisible(false);
+            for(JButton tmpBtn : _listeBoutonsNourriture)
                tmpBtn.setVisible(false);
             
             retour.setVisible(false);

@@ -1,12 +1,16 @@
 package modele.nourriture;
 import modele.especes.Espece;
+import vue.enums.NourrituresEnum;
 
 public class Nourriture {
         
     private int _posX;
-	private int _posY; 
-	private int _energieRendue;
-	private Boolean _mangeable; // indique si la nourriture a deja ete mangee par un animal et doit donc etre supprimee par le Monde
+    private int _posY; 
+    private int _energieRendue;
+    private Boolean _mangeable; // indique si la nourriture a deja ete mangee par un animal et doit donc etre supprimee par le Monde
+        
+        
+    private NourrituresEnum _graphics; // contient les graphismes
         
     public Nourriture(int energieRendue)
     {
@@ -50,6 +54,14 @@ public class Nourriture {
 
     public void setPosY(int _posY) {
         this._posY = _posY;
+    }
+    
+    public void setGraphics(NourrituresEnum nourriture) {
+        _graphics = nourriture;
+    }
+    
+    public NourrituresEnum getGraphics() {
+        return _graphics;
     }
 
 }

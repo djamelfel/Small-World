@@ -35,6 +35,11 @@ public class CelluleMonde extends Cellule {
             imageDecors = _case.getDecors().getGraphics().getGrille();
         
         g2.drawImage(imageDecors, 0, 0, getSize().width, getSize().height, null);
+        
+        if(_case.getNourriture() != null)
+            imageNourriture = _case.getNourriture().getGraphics().getGrille();
+        else 
+            imageNourriture = null;
         g2.drawImage(imageNourriture, 0, 0, getSize().width, getSize().height, null);
     }
 
