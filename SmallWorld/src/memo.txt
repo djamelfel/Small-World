@@ -1,0 +1,9 @@
+lancer un while(estVivant) sur verifierEtatJournee()
+
+pas besoin d'argument pour la methode seReproduire
+
+revoir methode activite
+
+combat ==> si vol ou non
+
+deplacement partie d'une meute
