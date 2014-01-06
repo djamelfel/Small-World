@@ -57,9 +57,6 @@ public class Monde {
 		   //créer nourriture == Gerer temps de décomposition
 		   _listeNourriture.add(new Cadavre(tmpAnimal, 10));
 	   }
-           
-           
-           
            //tmpAnimal.seDeplacer();
        }
    }
