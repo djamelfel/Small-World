@@ -10,6 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import modele.especes.Espece;
+import modele.monde.Decors;
+import modele.nourriture.Nourriture;
+import vue.enums.NourrituresEnum;
 
 public class Controleur {
     private Fenetre fenetre;
@@ -24,13 +27,15 @@ public class Controleur {
     // Méthode appelé lors de la création d'une nouvelle partie
     public boolean creerPartie(String nomJoueur, int rows, int cols) {
         System.out.println("My name is " + nomJoueur);
-        fenetre.setTailleGrille(rows, cols);
+        
         _managerAnimaux.initialiser(rows, cols);
+        fenetre.setTailleGrille(_managerAnimaux.getMonde().getMap());
         
         
         
-        ajouterAnimal(Animal.lamasticot, "roger", 'F','O', new Point(3, 3));
         
+        ajouterAnimal(Animal.lamasticot, "roger", 'F','O', new Point(10, 10));
+        ajouterNourriture(NourrituresEnum.banane, new Point(11,10));
       /*  ajouterAnimal(Animal.lamasticot, "roger", 'F','O', new Point(16, 4));
         ajouterAnimal(Animal.lion, "roger", 'F','O', new Point(5, 10));
         ajouterAnimal(Animal.lion, "roger", 'F','O', new Point(10, 3));*/
@@ -55,18 +60,30 @@ public class Controleur {
 
     // Méthode appelé pour ajouter un nouvel animal
     public boolean ajouterAnimal(Animal animal, String nom, char sexe, char leader, Point position) {
-        System.out.println("Animal => " + animal.getNom() + " : " + nom + ", " + sexe + ", " + leader + ", " + position);
+        System.out.println("Animal => " + animal.getNom() + " : " + nom + ", " + sexe + ", " + leader + ", " + position+ ", "+(leader == 'O'));
         Espece tmpAnimal;    
-        tmpAnimal = _managerAnimaux.getMonde().ajoutAnimaux(animal, position.x, position.y);
+        tmpAnimal = _managerAnimaux.getMonde().ajoutAnimaux(animal, leader == 'O', sexe, position.x, position.y);
         fenetre.getGrille().ajouterAnimal(tmpAnimal);
         
         return true;
     }
 
     // Méthode appelé pour ajouter un décor
-    public boolean ajouterMonde(Decor monde, int largeur, int hauteur, Point position) {
-        System.out.println("Décor => " + monde.getNom() + " : " + largeur + ", " + hauteur + ", " + position);
+    public boolean ajouterDecor(Decor decor, int largeur, int hauteur, Point position) {
+        System.out.println("Décor => " + decor.getNom() + " : " + largeur + ", " + hauteur + ", " + position);
+        
+        Decors tmpDecor;    
+        tmpDecor = _managerAnimaux.getMonde().ajoutDecors(decor, largeur, hauteur, position.x, position.y);
+        fenetre.getGrille().ajouterDecor(tmpDecor);
+        
         return true;
+    }
+    
+    public boolean ajouterNourriture(NourrituresEnum nourriture, Point position) {
+        Nourriture tmpNourriture;
+        tmpNourriture = _managerAnimaux.getMonde().ajoutNourriture(nourriture, position.x, position.y);
+        
+       return true;
     }
     
     
@@ -83,6 +100,8 @@ public class Controleur {
         //GUI must start on EventDispatchThread:
         SwingUtilities.invokeLater(gui);
     }
+
+    
     
     
     

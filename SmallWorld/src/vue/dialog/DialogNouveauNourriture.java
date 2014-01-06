@@ -11,35 +11,34 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Pattern;
+import vue.enums.NourrituresEnum;
 
 /**
  * Created by Edwin on 26/12/13.
  */
-public class DialogNouveauMonde extends JDialog implements ActionListener {
+public class DialogNouveauNourriture extends JDialog implements ActionListener {
     private Fenetre fenetre;
     private Controleur controleur;
-    private Decor monde;
+    private NourrituresEnum nourriture;
 
     private JPanel caracteristiques;
     private JPanel boutons;
-    private JTextField largeur;
-    private JTextField hauteur;
     private JButton valider;
     private JButton annuler;
     private MiniGrille position;
     private JLabel positionMonde;
 
-    public DialogNouveauMonde(Fenetre fenetre, Controleur controleur, Decor monde) {
+    public DialogNouveauNourriture(Fenetre fenetre, Controleur controleur, NourrituresEnum nourriture) {
         super();
 
         this.fenetre = fenetre;
         this.controleur = controleur;
-        this.monde = monde;
+        this.nourriture = nourriture;
 
         // Initialisation de la fenêtre
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
-        setTitle("Nouveau décor - " + monde.getNom());
+        setTitle("Nouvelle nourriture - " + nourriture.getNom());
         setLocation(fenetre.getLocation());
         setSize(350, 450);
         setPreferredSize(getSize());
@@ -49,47 +48,10 @@ public class DialogNouveauMonde extends JDialog implements ActionListener {
         // JPanel principal
         caracteristiques = new JPanel();
         LineBorder bordure = new LineBorder(Color.BLACK, 1, true);
-        TitledBorder titre = new TitledBorder(bordure, "Caractéristiques décor");
+        TitledBorder titre = new TitledBorder(bordure, "Caractéristiques nourriture");
         caracteristiques.setBorder(titre);
         caracteristiques.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
-        // Largeur
-        gbc.gridx = gbc.gridy = 0;
-        gbc.gridwidth = gbc.gridheight = 1;
-        gbc.weightx = 1;
-        gbc.weighty = 0;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.BASELINE_LEADING;
-        gbc.insets = new Insets(10, 15, 0, 0);
-        caracteristiques.add(new JLabel("Largeur (cases) :"), gbc);
-
-        gbc.gridx = 1;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.BASELINE;
-        gbc.insets = new Insets(0, 15, 0, 10);
-        largeur = new JTextField();
-        largeur.setText("5");
-        caracteristiques.add(largeur, gbc);
-
-        // Hauteur
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = gbc.gridheight = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.BASELINE_LEADING;
-        gbc.insets = new Insets(10, 15, 0, 0);
-        caracteristiques.add(new JLabel("Hauteur (cases) :"), gbc);
-
-        gbc.gridx = 1;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.BASELINE;
-        gbc.insets = new Insets(0, 15, 0, 10);
-        hauteur = new JTextField();
-        hauteur.setText("5");
-        caracteristiques.add(hauteur, gbc);
 
         // Position
         gbc.gridx = 0;
@@ -143,13 +105,6 @@ public class DialogNouveauMonde extends JDialog implements ActionListener {
         setVisible(true);
     }
 
-    public JTextField getLargeur() {
-        return largeur;
-    }
-
-    public JTextField getHauteur() {
-        return hauteur;
-    }
 
     public JLabel getPositionMonde() {
         return positionMonde;
@@ -158,23 +113,12 @@ public class DialogNouveauMonde extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(valider)) {
-            if (largeur.getText().equals("") || !Pattern.matches("\\d*", largeur.getText()) ||
-                    Integer.parseInt(largeur.getText()) <= 0) {
-                JOptionPane.showMessageDialog(this, "Veuillez saisir une largeur valide!");
-                return;
-            }
-            if (hauteur.getText().equals("") || !Pattern.matches("\\d*", hauteur.getText()) ||
-                    Integer.parseInt(hauteur.getText()) <= 0) {
-                JOptionPane.showMessageDialog(this, "Veuillez saisir une hauteur valide!");
-                return;
-            }
             if (position.getCoordonnees() == null) {
                 JOptionPane.showMessageDialog(this, "Veuillez choisir une cellule valide!");
                 return;
             }
 
-            controleur.ajouterDecor(monde, Integer.parseInt(largeur.getText()), Integer.parseInt(hauteur.getText()),
-                    position.getCoordonnees());
+            controleur.ajouterNourriture(nourriture, position.getCoordonnees());
             dispose();
         }
         else if (e.getSource().equals(annuler)) {

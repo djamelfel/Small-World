@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.monde.Monde;
+import modele.monde.Temps;
 
 
 /**
@@ -14,7 +15,7 @@ public class ManagerAnimaux implements Runnable{
     private Controleur _controleur;
     private Monde _monde;
 
-    private int _duree = 4000; // Contient la duree d'endormissement du Thread entre chaque tour de boucle en ms
+    private int _duree = 500; // Contient la duree d'endormissement du Thread entre chaque tour de boucle en ms
     
     private boolean _pause = false;
     
@@ -22,7 +23,6 @@ public class ManagerAnimaux implements Runnable{
     {
         _controleur = controleur;
         _monde = new Monde();
-        _pause = false;
     }
     
     public void initialiser(int rows, int cols)
@@ -51,6 +51,8 @@ public class ManagerAnimaux implements Runnable{
             catch (InterruptedException e) {e.printStackTrace();}
 				
             long currentTime = System.currentTimeMillis();
+            
+            Temps.incrementer();
 		
             _monde.deplacerAnimaux();
             

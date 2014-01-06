@@ -1,15 +1,18 @@
 package modele.especes;
 
 import java.util.ArrayList;
+import modele.utils.Utils;
 
 public class Meute {
 
 	private Espece _leader;
 	private ArrayList<Espece> _membres;
-	
+        private int _color;
+
 	Meute(Espece espece){
 		_leader = espece;
 		_membres = new ArrayList();
+                _color = Utils.getRand(Integer.MAX_VALUE);
 	}
 
 	public Espece getLeader() {
@@ -37,4 +40,9 @@ public class Meute {
 			_membres.get(i).setMeute(null);
 		_membres.clear();
 	}
+        
+        
+        public int getColor() {
+        return _color;
+    }
 }

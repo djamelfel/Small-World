@@ -5,6 +5,7 @@ import vue.enums.Animal;
 
 import javax.swing.*;
 import java.awt.*;
+import modele.monde.Map;
 
 /**
  * Created by Edwin on 17/12/13.
@@ -98,8 +99,8 @@ public class Fenetre extends JFrame {
     }
 
     // Modifie la taille de la grille
-    public void setTailleGrille(int rows, int cols) {
-        grille = new Grille(this, controleur, rows, cols);
+    public void setTailleGrille(Map map) {
+        grille = new Grille(this, controleur, map);
         scrollPaneGrille.setViewportView(grille);
         activate();
         

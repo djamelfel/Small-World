@@ -6,5 +6,10 @@ public class Herbe extends Nourriture {
     {
         super(5);
     }
+    
+    public String sauvegarder() {
+            return "" ;//sauvegarder("Herbe");
+    }
+    
 
 }
