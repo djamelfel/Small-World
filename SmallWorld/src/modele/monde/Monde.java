@@ -5,7 +5,7 @@ import modele.especes.Espece;
 import modele.nourriture.Nourriture;
 import java.util.ArrayList;
 import modele.especes.EspeceTer;
-import modele.especes.animaux.Giraffe;
+import modele.nourriture.Cadavre;
 import modele.utils.Utils;
 import vue.enums.Animal;
 import vue.enums.Decor;
@@ -49,10 +49,14 @@ public class Monde {
        for(int i = 0; i < lg; i++)
        {
            tmpAnimal = _listeAnimaux.get(i);
-           
-           
-           tmpAnimal.verifierEtatJournee();
-           
+           if (tmpAnimal.getEstVivant() == true)
+		tmpAnimal.verifierEtatJournee();
+	   else {
+		   //detruire animal
+		   _listeAnimaux.remove(tmpAnimal);
+		   //créer nourriture == Gerer temps de décomposition
+		   _listeNourriture.add(new Cadavre(tmpAnimal, 10));
+	   }
            
            
            
