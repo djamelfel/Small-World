@@ -33,8 +33,6 @@ public class Espece {
     
     private Animal _graphics; // contient les graphismes
 
-    
-
     public String getNom() {
         return _nom;
     }
@@ -268,7 +266,6 @@ public class Espece {
         else if (_meute != null)
             _meute.quitter(this);
         setEstVivant(false);
-        //==> new Cadavre
     }
 
     public void rejoindreMeute(Meute meute) {
@@ -333,11 +330,40 @@ public class Espece {
         }
         if (getEnergie() <= 0)
             tuer();
-        
-        
-        
-        seDeplacer();
-        
+		else{
+			//si animal en fuite
+				//si danger persiste (stocké un pointeur de l'animal dangereux ?)
+						//fuire
+				//sinon ne plus fuire
+			//sinon
+				//regarde devant lui
+				//si animal dangereux
+					//se mettre en fuite
+				//sinon si zone inadapter
+					//s'échappe
+				//sinon si case animal
+					//combatre
+						//OU
+					//faire des bébés
+				//sinon si case nourriture
+					//manger
+				//sinon si faim
+					//si nourriture
+						//seDeplacer(vers Nourriture) 
+					//sinon si animal convoiter
+						//seDeplacer(vers Animal)
+				//sinon si animal même espece
+					//si animal leader et moi leader
+						//seDeplacer(vers Animal)
+					//sinon si adversaire leader et moi sans meute
+						//adhérer
+					//sinon si adversaire leader et moi meute
+						//appeler leader
+					//sinon si mal, si il peut s'accoupler et moi aussi et moi femmelle
+						//seDeplacer(vers Animal)
+				//sinon se deplace
+					seDeplacer();
+		}
         // On vérifie si il a faim et effectue manger si il trouve de la nourriture
         if(aFaim())
             manger();
