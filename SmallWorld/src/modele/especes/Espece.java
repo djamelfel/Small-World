@@ -1,5 +1,6 @@
 package modele.especes;
 
+import java.util.ArrayList;
 import modele.monde.Case;
 import modele.monde.Monde;
 import modele.monde.Temps;
@@ -18,19 +19,20 @@ public class Espece {
     private int _faim;
     private Meute _meute;
     private int _vitesseCourse;
-    private boolean _sexe;                            //false ==> femelle
-    private boolean _estLeader;                        //true ==> est un Leader
+    private boolean _sexe;								//false ==> femelle
+    private boolean _estLeader;							//true ==> est un Leader
     private long _dateNaissance;
-    private boolean _nage;                            //trouver autre terme
+    private boolean _nage;								//trouver autre terme
     private boolean _estVivant;
     private Case _position;
     private int _champVision;
-    private int _sens;                            //0 : haut, 1 : droite, 2 : bas, 3 : gauche
+    private int _sens;									//0 : haut, 1 : droite, 2 : bas, 3 : gauche
     private int _tempIdeale;
     private int _nbReproductions;
     private boolean _fuite;
     private boolean _course;
-    
+    private Espece _danger;
+
     private Animal _graphics; // contient les graphismes
 
     public String getNom() {
@@ -178,6 +180,13 @@ public class Espece {
     public void setCourse(Boolean course) {
         _course = course;
     }
+	public Espece getDanger() {
+		return _danger;
+	}
+
+	public void setDanger(Espece danger) {
+		_danger = danger;
+	}
 
     public Espece() {
     }
@@ -204,6 +213,7 @@ public class Espece {
         _tempIdeale = tempIdeale;
         _nbReproductions = nbReproductions;
         _course = false;
+		_danger = null;
     }
 
     public Espece(Espece espece) {
@@ -227,6 +237,7 @@ public class Espece {
         _tempIdeale = espece.getTempIdeale();
         _nbReproductions = espece.getNbReproductions();
         _course = espece.getCourse();
+		_danger = null;
     }
 
     public void verifierEtatJournee() {
@@ -282,8 +293,9 @@ public class Espece {
         seDeplacer(espece.getPosition().getPosX(), espece.getPosition().getPosY());
     }
 
-    public void seReproduire(Espece espece) {                //pas besoin d'argument
+    public void seReproduire() {
         _nbReproductions -= 1;
+		_position.getEspece().setNbReproductions(_position.getEspece().getNbReproductions()-1);
         if (_sexe == false) {
             //Création d'un Giraffe
         }
@@ -304,21 +316,21 @@ public class Espece {
         }
     }
 
-    public void combattre(Espece espece) {
-        if (_force < espece.getForce()) {                //perd
+    public void combattre() {
+        if (_force < _position.getEspece().getForce()) {                //perd
             if (_estLeader)                        //si leader et de la meme espece
-                if (espece.getEstLeader() && this.getClass().getName().equals(espece.getClass().getName()))            //si adversaire leader
-                    espece.getMeute().rejoindre(_meute);    //legue sa meute
+                if (_position.getEspece().getEstLeader() && this.getClass().getName().equals(_position.getEspece().getClass().getName()))            //si adversaire leader
+                    _position.getEspece().getMeute().rejoindre(_meute);    //legue sa meute
                 else                        //sinon
                     _meute.detruire();            //dissout la meute
         }
         else {                                //gagne
             if (_estLeader)                        //si leader
-                if (espece.getEstLeader())            //si adversaire est leader
-                    _meute.rejoindre(espece.getMeute());    //récupere sa meute
-            setEnergie((_force - espece.getForce()) / 2);
-            setFaim(_force - espece.getForce());
-            espece.tuer();
+                if (_position.getEspece().getEstLeader())            //si adversaire est leader
+                    _meute.rejoindre(_position.getEspece().getMeute());    //récupere sa meute
+            setEnergie((_force - _position.getEspece().getForce()) / 2);
+            setFaim(_force - _position.getEspece().getForce());
+            _position.getEspece().tuer();
         }
     }
 
@@ -328,47 +340,62 @@ public class Espece {
             setEnergie(_energie - 5);                //baisse d'énergie à confimer
             setFaim(_faim - 20);                    //baisse de faim à confirmer
         }
-        if (getEnergie() <= 0)
+        if (getEnergie() <= 0 || getFaim() < -20)
             tuer();
 		else{
-			//si animal en fuite
-				//si danger persiste (stocké un pointeur de l'animal dangereux ?)
-						//fuire
-				//sinon ne plus fuire
-			//sinon
-				//regarde devant lui
-				//si animal dangereux
-					//se mettre en fuite
-				//sinon si zone inadapter
+			if (getFuite() == true)	{	//si animal en fuite
+				if ( Math.abs(_position.getPosX() - _danger.getPosition().getPosX()) < 7 && Math.abs(_position.getPosY() - _danger.getPosition().getPosY()) < 7)//si danger persiste (stocké un pointeur de l'animal dangereux ?)
+					fuir(_danger);							//fuire
+				else{
+					setDanger(null);						//sinon ne plus fuire
+					setFuite(false);
+				}
+			}
+			else {
+				ArrayList<Espece> temp;
+				regard(temp);
+				//recupere champs vision dans tempObj
+				if () {//si animal dangereux
+					setFuite(true);
+					_danger = tempObj;
+					fuir(_danger);
+				}
+				else if (_position.getDecors().getType() == 1)					//sinon si zone inadapter
 					//s'échappe
 				//sinon si case animal
-					//combatre
-						//OU
-					//faire des bébés
-				//sinon si case nourriture
-					//manger
-				//sinon si faim
+					//si doit se battre
+						combattre();											//combatre
+					else
+						seReproduire();											//faire des bébés
+				else if (_position.getNourriture() == true)						//sinon si case nourriture
+					manger();
+				else if (aFaim())												//sinon si faim
 					//si nourriture
-						//seDeplacer(vers Nourriture) 
+						seDeplacer(tempObj.getPosition().getPosX(), tempObj.getPosition().getPosY()) ;
 					//sinon si animal convoiter
-						//seDeplacer(vers Animal)
+						seDeplacer(tempObj.getPosition().getPosX(), tempObj.getPosition().getPosY());
 				//sinon si animal même espece
-					//si animal leader et moi leader
-						//seDeplacer(vers Animal)
-					//sinon si adversaire leader et moi sans meute
-						//adhérer
-					//sinon si adversaire leader et moi meute
-						//appeler leader
-					//sinon si mal, si il peut s'accoupler et moi aussi et moi femmelle
-						//seDeplacer(vers Animal)
-				//sinon se deplace
+					if (tempObj.getEstLeader() == true && _estLeader == true)	//si animal leader et moi leader
+						seDeplacer(tempObj.getPosition().getPosX(), tempObj.getPosition().getPosY());
+					else if (tempObj.getEstLeader() == true && _meute == null)	//sinon si adversaire leader et moi sans meute
+						tempObj.getMeute().rejoindre(this);						//adhérer
+					else if (tempObj.getEstLeader() == true && _meute != null)	//sinon si adversaire leader et moi meute
+						appelLeader();											//appeler leader
+					else if (tempObj.getSexe() == true && tempObj.getNbReproductions() > 0 && _nbReproduction > 0)//sinon si male, si il peut s'accoupler et moi aussi et moi femmelle
+						seDeplacer(tempObj.getPosition().getPosX(), tempObj.getPosition().getPosY());
+				else																//sinon se deplace
 					seDeplacer();
+			}
 		}
         // On vérifie si il a faim et effectue manger si il trouve de la nourriture
         if(aFaim())
             manger();
     }
 
+	public void regard(ArrayList<Espece> temp) {
+			//met dans temp ce que vois l'animal
+	}
+	
     public void sens(int x, int y) {
         if (Utils.getRand(1) == 1) {                    //gestion du sens
             if (_position.getPosX() < x)
