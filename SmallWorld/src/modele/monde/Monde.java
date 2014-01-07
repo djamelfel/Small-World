@@ -4,9 +4,9 @@ package modele.monde;
 import modele.especes.Espece;
 import modele.nourriture.Nourriture;
 import java.util.ArrayList;
-import modele.especes.EspeceTer;
+import modele.especes.animaux.Giraffe;
+import modele.especes.animaux.GiraffeBis;
 import modele.nourriture.Cadavre;
-import modele.utils.Utils;
 import vue.enums.Animal;
 import vue.enums.Decor;
 import vue.enums.NourrituresEnum;
@@ -42,7 +42,7 @@ public class Monde {
   }
   
  
-  public void deplacerAnimaux() {
+  public void activerAnimaux() {
       
        int lg = _listeAnimaux.size();
        Espece tmpAnimal;
@@ -73,18 +73,19 @@ public class Monde {
       int posX = caseDepart.getPosX();
       int posY = caseDepart.getPosY();
       
-      for(int i = 0; i < champVision; i++)
+      for(int i = 1; i < champVision; i++)
       {
           tmpCase = _map.getCase(posX + i, posY);
-          if(tmpCase == null) continue;
-          _casesVoisines.add(tmpCase);
+		  if ( tmpCase == null ) continue;
+          if(tmpCase.getEspece() != null)
+			  _casesVoisines.add(tmpCase);
+		  if(tmpCase.getNourriture() != null)
+			  _casesVoisines.add(tmpCase);
       }
-      
-      
     return _casesVoisines;
   }
 
-  public Espece ajoutAnimaux(Animal animal, boolean estLeader, char sexe, int posX, int posY) {
+  public Espece ajoutAnimaux(Animal animal, boolean estLeader, boolean sexe, int posX, int posY) {
       
       Espece tmpEspece = null;
       System.out.println(animal.getNom());
@@ -92,13 +93,13 @@ public class Monde {
       {
           case "Lion":
               System.out.println("JE SUIS UN LION");
-              tmpEspece = new EspeceTer("Lion", 10, 80, 1, 40, 20, estLeader, false, 65, 25, Utils.getRand(3));
+              tmpEspece = new Giraffe(estLeader, sexe);
               tmpEspece.setGraphics(Animal.lion);
               
              break;
           case "Lamasticot":
               System.out.println("JE SUIS UN LAMA");
-              tmpEspece = new EspeceTer("Lamasticot", 2, 80, 1, 40, 20, estLeader, false, 65, 25, Utils.getRand(3));
+              tmpEspece = new GiraffeBis(estLeader, sexe);
               tmpEspece.setGraphics(Animal.lamasticot);
              break;
           
@@ -115,15 +116,15 @@ public class Monde {
   }
 
   public Decors ajoutDecors(Decor decor, int largeur, int hauteur, int posX, int posY) {
-      Decors tmpDecors = null;
-      
+      Decors tmpDecors;
+      System.out.println("ajout de decors");
       switch(decor.getNom())
       {
-          case "Eau":
+          case "eau":
               tmpDecors = new Decors(TypeDecors.EAU, posX, posY, largeur, hauteur);
               break;
               
-          case "Sable":
+          case "sable":
               tmpDecors = new Decors(TypeDecors.SABLE, posX, posY, largeur, hauteur);
               break;     
           default:
@@ -133,6 +134,7 @@ public class Monde {
       tmpDecors.setGraphics(decor);
       if(tmpDecors != null)
       {
+		System.out.println("AJOUT DECORS DANS MAP");
          _map.ajouterDecors(tmpDecors);
          _listeElementsDecors.add(tmpDecors);
       }

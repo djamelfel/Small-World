@@ -13,11 +13,11 @@ public class Decors {
     private Decor _graphics; // contient les graphismes
 
     public Decors(int type, int posX, int posY, int largeur, int hauteur) {
-        this._type = type;
-        this._posX = posX;
-        this._posY = posY;
-        this._largeur = largeur;
-        this._hauteur = hauteur;
+        _type = type;
+        _posX = posX;
+        _posY = posY;
+        _largeur = largeur;
+        _hauteur = hauteur;
     }
 
     public String sauvegarder() {
@@ -43,7 +43,6 @@ public class Decors {
     public int getHauteur() {
         return _hauteur;
     }
-    
     
     public void setGraphics(Decor decor) {
         _graphics = decor;

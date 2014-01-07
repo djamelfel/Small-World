@@ -1,14 +1,11 @@
 package modele.monde;
 
-import modele.monde.Monde;
-import java.util.ArrayList;
 import modele.nourriture.Nourriture;
 
 public class Map {
 
 	//public ArrayList<ArrayList<Case>> listeCase;
 	public Case[][] _listeCase;
-	private Monde _mondeActuel;
 	private int _largeur;
 	private int _hauteur;
 	//  public Case Composer;

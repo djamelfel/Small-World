@@ -29,8 +29,9 @@ public class CelluleMonde extends Cellule {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        if(_case.getDecors() == null)
+        if(_case.getDecors() == null){
             imageDecors = Decor.herbe.getGrille();
+			;}
         else
             imageDecors = _case.getDecors().getGraphics().getGrille();
         

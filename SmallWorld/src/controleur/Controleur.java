@@ -34,12 +34,11 @@ public class Controleur {
         
         
         
-        ajouterAnimal(Animal.lamasticot, "roger", 'F','O', new Point(10, 10));
+        ajouterAnimal(Animal.lamasticot, "roger", false,true, new Point(10, 10));
         ajouterNourriture(NourrituresEnum.banane, new Point(11,10));
       /*  ajouterAnimal(Animal.lamasticot, "roger", 'F','O', new Point(16, 4));
         ajouterAnimal(Animal.lion, "roger", 'F','O', new Point(5, 10));
         ajouterAnimal(Animal.lion, "roger", 'F','O', new Point(10, 3));*/
-        
         
         _managerAnimaux.start();
         return true;
@@ -59,10 +58,10 @@ public class Controleur {
     }
 
     // Méthode appelé pour ajouter un nouvel animal
-    public boolean ajouterAnimal(Animal animal, String nom, char sexe, char leader, Point position) {
-        System.out.println("Animal => " + animal.getNom() + " : " + nom + ", " + sexe + ", " + leader + ", " + position+ ", "+(leader == 'O'));
+    public boolean ajouterAnimal(Animal animal, String nom, boolean sexe, boolean leader, Point position) {
+        System.out.println("Animal => " + animal.getNom() + " : " + nom + ", Sexe (male=true) " + sexe + ", " + leader + ", " + position+ ", est Leader : "+ leader);
         Espece tmpAnimal;    
-        tmpAnimal = _managerAnimaux.getMonde().ajoutAnimaux(animal, leader == 'O', sexe, position.x, position.y);
+        tmpAnimal = _managerAnimaux.getMonde().ajoutAnimaux(animal, leader, sexe, position.x, position.y);
         fenetre.getGrille().ajouterAnimal(tmpAnimal);
         
         return true;

@@ -205,16 +205,16 @@ public class DialogNouveauAnimal extends JDialog implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Veuillez saisir un nom!");
                 return;
             }
-            char sexe;
+            boolean sexe;
             if (male.isSelected())
-                sexe = 'M';
+                sexe = true;
             else
-                sexe = 'F';
-            char leader;
+                sexe = false;
+            boolean leader;
             if (leaderOui.isSelected())
-                leader = 'O';
+                leader = true;
             else
-                leader = 'N';
+                leader = false;
             if (position.getCoordonnees() == null) {
                 JOptionPane.showMessageDialog(this, "Veuillez choisir une cellule valide!");
                 return;

@@ -18,8 +18,9 @@ public class Case {
         {
             _posX = posX;
             _posY = posY;
-            
-            //_decors = ;
+			_espece = null;
+			_nourriture = null;
+			_decors = null;
         }
         
 	public Boolean estVide() {

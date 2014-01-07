@@ -192,7 +192,7 @@ public class Espece {
     }
 
     public Espece(String nom, int sommeilDeb, int sommeilFin, int vitesse, int force, int vitesseCourse, boolean estLeader, boolean nage, int champVision,
-                  int tempIdeale, int nbReproductions) {
+                  int tempIdeale, int nbReproductions, boolean sexe) {
         _nom = nom;
         _sommeilDeb = sommeilDeb;
         _sommeilFin = sommeilFin;
@@ -202,7 +202,7 @@ public class Espece {
         _faim = 100;
         _meute = null;
         _vitesseCourse = vitesseCourse;
-        _sexe = Math.random() < 0.5;
+        _sexe = sexe;
         if (estLeader == true)
             _meute = new Meute(this);
         _estLeader = estLeader;
@@ -241,7 +241,6 @@ public class Espece {
     }
 
     public void verifierEtatJournee() {
-        System.out.println("verifierEtatJournee() : "+Temps.getJournee()+" "+_sommeilDeb+" "+_sommeilFin);
         if (Temps.getJournee() > _sommeilDeb && Temps.getJournee() < _sommeilFin) {
             if (getSommeil() == true)
                 reveiller();
@@ -302,7 +301,6 @@ public class Espece {
     }
 
     public boolean aFaim() {
-        System.out.println("A faim : "+(_energie<20)+" "+_energie);
         return _energie < 20;
     }
 
