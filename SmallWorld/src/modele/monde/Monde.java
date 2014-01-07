@@ -31,7 +31,7 @@ public class Monde {
       _listeElementsDecors = new ArrayList<>();
       _listeNourriture = new ArrayList<>();
       
-      
+	  
       //System.out.println("nbCases : "+_casesVoisines.size());
       //ajoutDecors("montagne1", 1500,1000);
   }

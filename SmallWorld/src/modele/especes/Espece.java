@@ -333,68 +333,8 @@ public class Espece {
             _position.getEspece().tuer();
         }
     }
-
-    public void activite() {
-        System.out.println("activite()");
-        if (Temps.getJeux() % 20 == 0) {                //temps à comfirmer
-            setEnergie(_energie - 5);                //baisse d'énergie à confimer
-            setFaim(_faim - 20);                    //baisse de faim à confirmer
-        }
-        if (getEnergie() <= 0 || getFaim() < -20)
-            tuer();
-		else{
-			if (getFuite() == true)	{	//si animal en fuite
-				if ( Math.abs(_position.getPosX() - _danger.getPosition().getPosX()) < 7 && Math.abs(_position.getPosY() - _danger.getPosition().getPosY()) < 7)//si danger persiste (stocké un pointeur de l'animal dangereux ?)
-					fuir(_danger);							//fuire
-				else{
-					setDanger(null);						//sinon ne plus fuire
-					setFuite(false);
-				}
-			}
-			else {
-				ArrayList<Espece> temp;
-				regard(temp);
-				//recupere champs vision dans tempObj
-				if () {//si animal dangereux
-					setFuite(true);
-					_danger = tempObj;
-					fuir(_danger);
-				}
-				else if (_position.getDecors().getType() == 1)					//sinon si zone inadapter
-					//s'échappe
-				//sinon si case animal
-					//si doit se battre
-						combattre();											//combatre
-					else
-						seReproduire();											//faire des bébés
-				else if (_position.getNourriture() == true)						//sinon si case nourriture
-					manger();
-				else if (aFaim())												//sinon si faim
-					//si nourriture
-						seDeplacer(tempObj.getPosition().getPosX(), tempObj.getPosition().getPosY()) ;
-					//sinon si animal convoiter
-						seDeplacer(tempObj.getPosition().getPosX(), tempObj.getPosition().getPosY());
-				//sinon si animal même espece
-					if (tempObj.getEstLeader() == true && _estLeader == true)	//si animal leader et moi leader
-						seDeplacer(tempObj.getPosition().getPosX(), tempObj.getPosition().getPosY());
-					else if (tempObj.getEstLeader() == true && _meute == null)	//sinon si adversaire leader et moi sans meute
-						tempObj.getMeute().rejoindre(this);						//adhérer
-					else if (tempObj.getEstLeader() == true && _meute != null)	//sinon si adversaire leader et moi meute
-						appelLeader();											//appeler leader
-					else if (tempObj.getSexe() == true && tempObj.getNbReproductions() > 0 && _nbReproduction > 0)//sinon si male, si il peut s'accoupler et moi aussi et moi femmelle
-						seDeplacer(tempObj.getPosition().getPosX(), tempObj.getPosition().getPosY());
-				else																//sinon se deplace
-					seDeplacer();
-			}
-		}
-        // On vérifie si il a faim et effectue manger si il trouve de la nourriture
-        if(aFaim())
-            manger();
-    }
-
-	public void regard(ArrayList<Espece> temp) {
-			//met dans temp ce que vois l'animal
-	}
+	
+    public void activite() {	}
 	
     public void sens(int x, int y) {
         if (Utils.getRand(1) == 1) {                    //gestion du sens
