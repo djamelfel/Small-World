@@ -15,7 +15,7 @@ public class ManagerAnimaux implements Runnable{
     private Controleur _controleur;
     private Monde _monde;
 
-    private int _duree = 500; // Contient la duree d'endormissement du Thread entre chaque tour de boucle en ms
+    private int _duree = 50; // Contient la duree d'endormissement du Thread entre chaque tour de boucle en ms
     
     private boolean _pause = false;
     
@@ -32,11 +32,10 @@ public class ManagerAnimaux implements Runnable{
 
     public void start() 
     {
-	if (_instance==null) 
-	{
-            _instance = new Thread(this);
-            _instance.start();
-	}
+		if (_instance==null) {
+				_instance = new Thread(this);
+				_instance.start();
+		}
     }
     @Override
     public void run() {
@@ -59,7 +58,7 @@ public class ManagerAnimaux implements Runnable{
             _controleur.getFenetre().getGrille().repaint();
            
             //System.out.println("> Heure = "+currentTime);
-	}
+		}
     }
     
     

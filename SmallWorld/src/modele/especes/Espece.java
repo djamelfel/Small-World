@@ -205,6 +205,8 @@ public class Espece {
         _sexe = sexe;
         if (estLeader == true)
             _meute = new Meute(this);
+		else
+			_meute = null;
         _estLeader = estLeader;
         _dateNaissance = Temps.getJeux();
         _nage = nage;
@@ -438,16 +440,17 @@ public class Espece {
                     y = Utils.getRand(_meute.getLeader().getPosition().getPosY(), _position.getPosY() );
             }
             else {
-                if ( (_position.getPosY() + vitesse) >= Monde.getMap().getHauteur()  && (_position.getPosY() - vitesse) < 0)   //sorti tableau bat et haut
-                    y = Utils.getRand(Monde.getMap().getHauteur() - 1);
-                else if ((_position.getPosY() + vitesse) >= Monde.getMap().getHauteur() )                //sorti du tableau bas
-                    y = Utils.getRand((Monde.getMap().getHauteur() - 1), (_position.getPosY() - vitesse));
-                else if ((_position.getPosY() - vitesse) < 0)        //sorti tableau haut
-                    y = Utils.getRand(_position.getPosY() + vitesse);
-                else
-                    y = Utils.getRand((_position.getPosY() + vitesse), (_position.getPosY() - vitesse));
+				if ( (_position.getPosY() + vitesse) >= Monde.getMap().getHauteur()  && (_position.getPosY() - vitesse) < 0)   //sorti tableau bat et haut
+					y = Utils.getRand(Monde.getMap().getHauteur() - 1);
+				else if ((_position.getPosY() + vitesse) >= Monde.getMap().getHauteur() )                //sorti du tableau bas
+					y = Utils.getRand((Monde.getMap().getHauteur() - 1), (_position.getPosY() - vitesse));
+				else if ((_position.getPosY() - vitesse) < 0)        //sorti tableau haut
+					y = Utils.getRand(_position.getPosY() + vitesse);
+				else
+					y = Utils.getRand((_position.getPosY() + vitesse), (_position.getPosY() - vitesse));
             }
         }
+		System.out.println((Monde.getMap().getHauteur() - 1)+" - "+_meute.getLeader().getPosition().getPosY() + " - " + y);
         sens(x, y);                            //gestion du sens du regard des especes
         setPosition(Monde.getMap().getCase(x, y));
     }
@@ -481,8 +484,7 @@ public class Espece {
             else                        //fuite en bas
                 y = Utils.getRand((_position.getPosY() + vitesse), _position.getPosY());
         }
-      /*  _position.setPosX(x);
-        _position.setPosY(y);*/
+		setPosition(Monde.getMap().getCase(x, y));
     }
 
     @Override

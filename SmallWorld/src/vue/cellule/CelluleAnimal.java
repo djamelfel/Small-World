@@ -58,8 +58,9 @@ public class CelluleAnimal extends Cellule implements ActionListener {
     
    @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        
         if(_instanceEspece.getEstVivant()) {
+			super.paintComponent(g);
 			if(_instanceEspece.getMeute() != null) {
 				// dessine le cadre correspondant à une meute
 				BufferedImage bufferedImage = Utils.toBufferedImage(ressourceCadre.getImage());
