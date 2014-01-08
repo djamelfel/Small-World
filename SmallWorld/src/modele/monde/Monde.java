@@ -4,8 +4,8 @@ package modele.monde;
 import modele.especes.Espece;
 import modele.nourriture.Nourriture;
 import java.util.ArrayList;
-import modele.especes.animaux.Giraffe;
-import modele.especes.animaux.GiraffeBis;
+import modele.especes.animaux.Lamastico;
+import modele.especes.animaux.Lion;
 import modele.nourriture.Cadavre;
 import modele.nourriture.Herbe;
 import vue.enums.Animal;
@@ -50,7 +50,7 @@ public class Monde {
 					tmpAnimal.verifierEtatJournee();
 				else {
 					//créer nourriture == Gerer temps de décomposition
-					//if (tmpAnimal instanceof Giraffe)
+					//if (tmpAnimal instanceof Lamastico)
 /*A REVOIR*/			//_listeNourriture.add(new Cadavre(60, tmpAnimal.getPosition().getPosX(), tmpAnimal.getPosition().getPosY()));
 					//detruire animal
 					aTuer.add(tmpAnimal);
@@ -93,12 +93,12 @@ public class Monde {
       {
           case "Lion":
               System.out.println("JE SUIS UN LION");
-              tmpEspece = new GiraffeBis(estLeader, sexe);
+              tmpEspece = new Lion(estLeader, sexe);
               tmpEspece.setGraphics(Animal.lion);
              break;
           case "Lamasticot":
               System.out.println("JE SUIS UN LAMA");
-              tmpEspece = new Giraffe(estLeader, sexe);
+              tmpEspece = new Lamastico(estLeader, sexe);
               tmpEspece.setGraphics(Animal.lamasticot);
              break;
           

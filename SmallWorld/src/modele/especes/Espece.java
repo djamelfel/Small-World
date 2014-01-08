@@ -313,23 +313,7 @@ public class Espece {
 		_position.getNourriture().seFaireManger();
     }
 
-    public void combattre() {
-        if (_force < _position.getEspece().getForce()) {                //perd
-            if (_estLeader)                        //si leader et de la meme espece
-                if (_position.getEspece().getEstLeader() && this.getClass().getName().equals(_position.getEspece().getClass().getName()))            //si adversaire leader
-                    _position.getEspece().getMeute().rejoindre(_meute);    //legue sa meute
-                else                        //sinon
-                    _meute.detruire();            //dissout la meute
-        }
-        else {                                //gagne
-            if (_estLeader)                        //si leader
-                if (_position.getEspece().getEstLeader())            //si adversaire est leader
-                    _meute.rejoindre(_position.getEspece().getMeute());    //récupere sa meute
-            setEnergie((_force - _position.getEspece().getForce()) / 2);
-            setFaim(_force - _position.getEspece().getForce());
-            _position.getEspece().tuer();
-        }
-    }
+    public void combattre(Espece espece) {		}
 	
     public void activite() {	}
 	

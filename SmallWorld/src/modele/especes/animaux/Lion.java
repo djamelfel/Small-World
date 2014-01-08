@@ -10,15 +10,15 @@ import modele.monde.Temps;
 import modele.monde.TypeDecors;
 import modele.utils.Utils;
 
-public class GiraffeBis extends EspeceTer implements Herbivore {
+public class Lion extends EspeceTer implements Herbivore {
 
 
-    public GiraffeBis(Espece espece) {
+    public Lion(Espece espece) {
         super(espece);
     }
 
-    public GiraffeBis(boolean estLeader, boolean sexe) {
-        super("Giraffe", 35, 80, 2, 40, 20, estLeader, false, 65, 25, Utils.getRand(3), sexe);
+    public Lion(boolean estLeader, boolean sexe) {
+        super("Lion", 35, 80, 2, 40, 20, estLeader, false, 65, 25, Utils.getRand(3), sexe);
     }
 
     @Override
@@ -42,6 +42,38 @@ public class GiraffeBis extends EspeceTer implements Herbivore {
             setVitesse(getVitesse() + 10);
             setVitesseCourse(getVitesse() + 5);
         }
+    }
+	
+	@Override
+    public void combattre(Espece espece) {
+		int resultat = 0;
+		if (getForce() < espece.getForce())										//plus faible que adversaire
+			resultat = 1;
+		else if (getForce() > espece.getForce() )								//plus fort que adversaire
+			resultat = 2;
+		else																	//aussi fort que adversaire
+			if(getEnergie() < espece.getEnergie() )								//adversaire a plus d'energie
+				resultat = 1;
+			else																//plus d'energie que adversaire
+				resultat = 2;
+		
+		switch (resultat){
+			case 1:																//perd
+				if (getEstLeader())												//si leader 
+					if (espece.getEstLeader() && espece instanceof Lion)		//si adversaire leader et de la meme espece
+						espece.getMeute().rejoindre(getMeute());				//legue ma meute
+					else														//sinon
+						getMeute().detruire();									//dissout la meute
+				break;
+			
+			case 2:																//gagne
+				setEnergie((getForce() - espece.getForce()) / 2);
+				espece.tuer();		
+				break;
+			
+			default:															//match null
+				
+		}
     }
 	
 	@Override
@@ -79,9 +111,9 @@ System.out.println("mauvaise zone");
 				else if (getPosition().getEspece() != null && getPosition().getEspece() != this)	{						//sinon si case animal
 					if ( getCourse() )											//si doit se battre
 {
-						combattre();											//combatre
+						combattre(getPosition().getEspece());											//combatre
 System.out.println("combat");}
-					else if (getPosition().getEspece() instanceof GiraffeBis && getSexe() == false && getPosition().getEspece().getSexe() != getSexe() )	//si animal meme espece de sexe different du mien et moi femelle
+					else if (getPosition().getEspece() instanceof Lion && getSexe() == false && getPosition().getEspece().getSexe() != getSexe() )	//si animal meme espece de sexe different du mien et moi femelle
 {						
 						seReproduire();											//faire des bébés
 											
@@ -116,13 +148,13 @@ System.out.println("mange");}
 								finAction = true;
 System.out.println("DANGER");
 							}
-							else if ( vision.get(i).getEspece() instanceof Giraffe ) {				//sinon si animal convoiter
+							else if ( vision.get(i).getEspece() instanceof Lamastico ) {				//sinon si animal convoiter
 								setCourse(true);
 								seDeplacer(vision.get(i).getEspece().getPosition());
 								finAction = true;
 System.out.println("à la chasse");
 							}
-							else if ( vision.get(i).getEspece() instanceof GiraffeBis ) {	//sinon si animal même espece
+							else if ( vision.get(i).getEspece() instanceof Lion ) {	//sinon si animal même espece
 								if (vision.get(i).getEspece().getEstLeader() == true && getEstLeader() == true)	{	//si animal leader et moi leader
 									seDeplacer(vision.get(i).getEspece().getPosition());
 									finAction = true;

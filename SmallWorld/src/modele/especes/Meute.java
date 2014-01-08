@@ -26,14 +26,17 @@ public class Meute {
 	public void rejoindre(Espece espece) {
 		_membres.add(espece);
 		espece.setMeute(this);
+		_leader.setForce(_leader.getForce()+5);
 	}
 	
 	public void rejoindre(Meute meute) {
 		_membres.addAll( meute.getMembres() );
+		_leader.setForce(_leader.getForce()+(meute.getMembres().size()*5));
 	}
 	
 	public void quitter(Espece espece) {
 		_membres.remove(espece);
+		_leader.setForce(_leader.getForce()-5);
 	}
 	
 	public void detruire() {
@@ -42,8 +45,7 @@ public class Meute {
 		_membres.clear();
 	}
         
-        
-        public int getColor() {
+    public int getColor() {
         return _color;
     }
 }
