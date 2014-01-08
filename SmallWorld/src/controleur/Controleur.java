@@ -10,11 +10,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import modele.especes.Espece;
-import modele.monde.Decors;
+import modele.monde.Monde;
 import modele.nourriture.Nourriture;
 import vue.enums.NourrituresEnum;
 
 public class Controleur {
+	private Monde _monde;
     private Fenetre fenetre;
     private ManagerAnimaux _managerAnimaux;
 
@@ -70,10 +71,16 @@ public class Controleur {
     // Méthode appelé pour ajouter un décor
     public boolean ajouterDecor(Decor decor, int largeur, int hauteur, Point position) {
         System.out.println("Décor => " + decor.getNom() + " : " + largeur + ", " + hauteur + ", " + position);
-        
-        Decors tmpDecor;    
-        tmpDecor = _managerAnimaux.getMonde().ajoutDecors(decor, largeur, hauteur, position.x, position.y);
-        fenetre.getGrille().ajouterDecor(tmpDecor);
+		
+		int x = (int)position.getX();
+		int y = (int)position.getY();
+//		for(int i = x; i < (x+largeur); i++) {
+//			for(int j = y; j < (y+hauteur); j++) {
+//				System.out.println(decor +" "+ j+" "+ i);
+				_monde.ajoutDecors(decor, 0, 0);
+//			} 
+//		}
+        fenetre.getGrille().ajouterDecor();
         
         return true;
     }

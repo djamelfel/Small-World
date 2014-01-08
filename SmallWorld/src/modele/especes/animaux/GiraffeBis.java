@@ -62,7 +62,7 @@ public class GiraffeBis extends EspeceTer implements Herbivore {
 				System.out.println("en fuite");
 			}
 			else {
-				System.out.println(getPosition().getDecors());// + " ou "+ TypeDecors.EAU);
+				//System.out.println(getPosition().getDecors() + " ou "+ TypeDecors.EAU);
 				//if (getPosition().getDecors().getType() == TypeDecors.EAU) {	//sinon si zone inadapter
 						//s'échappe
 				//}
@@ -101,20 +101,20 @@ System.out.println("mange");}
 								setDanger(vision.get(i).getEspece() );
 								fuir(getDanger() );
 								finAction = true;
-								System.out.println("DANGER");
+System.out.println("DANGER");
 							}
 							else if ( vision.get(i).getEspece().getClass().isInstance(Giraffe.class) ) {				//sinon si animal convoiter
 								setCourse(true);
 								seDeplacer(vision.get(i).getEspece().getPosition().getPosX(), vision.get(i).getEspece().getPosition().getPosY());
 								finAction = true;
-								System.out.println("à la chasse");
+System.out.println("à la chasse");
 							}
 							else if ( vision.get(i).getEspece() instanceof GiraffeBis ) {	//sinon si animal même espece
-								System.out.println("other");
+System.out.println("other");
 								if (vision.get(i).getEspece().getEstLeader() == true && getEstLeader() == true)	{	//si animal leader et moi leader
 									seDeplacer(vision.get(i).getEspece().getPosition().getPosX(), vision.get(i).getEspece().getPosition().getPosY());
 									finAction = true;
-									System.out.println("go bataille");
+System.out.println("go bataille");
 								}
 								else if (vision.get(i).getEspece().getEstLeader() == true && getMeute() == null)	//sinon si adversaire leader et moi sans meute
 									vision.get(i).getEspece().getMeute().rejoindre(this);						//adhérer
@@ -123,7 +123,7 @@ System.out.println("mange");}
 								else if (vision.get(i).getEspece().getSexe() == true && vision.get(i).getEspece().getNbReproductions() > 0 && getNbReproductions() > 0) {//sinon si male, si il peut s'accoupler et moi aussi et moi femmelle
 									seDeplacer(vision.get(i).getEspece().getPosition().getPosX(), vision.get(i).getEspece().getPosition().getPosY());
 									finAction = true;
-									System.out.println("direction accouplement");
+System.out.println("direction accouplement");
 								}
 							}
 						}

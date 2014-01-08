@@ -7,6 +7,7 @@ import vue.Grille;
 
 import java.awt.event.MouseEvent;
 import modele.monde.Case;
+import modele.monde.TypeDecors;
 import vue.enums.Decor;
 
 
@@ -25,21 +26,20 @@ public class CelluleMonde extends Cellule {
          
      }
     
-    @Override
+	@Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        if(_case.getDecors() == null){
-            imageDecors = Decor.herbe.getGrille();
-			;}
-        else
-            imageDecors = _case.getDecors().getGraphics().getGrille();
+		if (_case.getDecors().getType() == TypeDecors.BASE) 
+			imageDecors = Decor.herbe.getGrille();
+		else if (_case.getDecors().getType() == TypeDecors.EAU) 
+			imageDecors = Decor.eau.getGrille();
         
         g2.drawImage(imageDecors, 0, 0, getSize().width, getSize().height, null);
         
         if(_case.getNourriture() != null)
             imageNourriture = _case.getNourriture().getGraphics().getGrille();
-        else 
+        else
             imageNourriture = null;
         g2.drawImage(imageNourriture, 0, 0, getSize().width, getSize().height, null);
     }

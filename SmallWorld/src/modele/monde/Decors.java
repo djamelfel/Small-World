@@ -7,17 +7,13 @@ public class Decors {
     private int _type;
     private int _posX;
     private int _posY;
-    private int _largeur;
-    private int _hauteur;
     
     private Decor _graphics; // contient les graphismes
-
-    public Decors(int type, int posX, int posY, int largeur, int hauteur) {
+		
+	public Decors(int type, int posX, int posY) {
         _type = type;
         _posX = posX;
         _posY = posY;
-        _largeur = largeur;
-        _hauteur = hauteur;
     }
 
     public String sauvegarder() {
@@ -28,20 +24,16 @@ public class Decors {
         return _type;
     }
 
+	void setType(int type) {
+		_type = type;
+	}
+	
     public int getPosX() {
         return _posX;
     }
 
     public int getPosY() {
         return _posY;
-    }
-
-    public int getLargeur() {
-        return _largeur;
-    }
-
-    public int getHauteur() {
-        return _hauteur;
     }
     
     public void setGraphics(Decor decor) {
@@ -51,6 +43,8 @@ public class Decors {
     public Decor getGraphics() {
         return _graphics;
     }
+
+
 
 
 }

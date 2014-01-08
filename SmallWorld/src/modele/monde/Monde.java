@@ -30,10 +30,6 @@ public class Monde {
       _listeAnimaux = new ArrayList<>();
       _listeElementsDecors = new ArrayList<>();
       _listeNourriture = new ArrayList<>();
-      
-	  
-      //System.out.println("nbCases : "+_casesVoisines.size());
-      //ajoutDecors("montagne1", 1500,1000);
   }
   
   public void initialiser(int rows, int cols)
@@ -115,32 +111,18 @@ public class Monde {
      return tmpEspece;
   }
 
-  public Decors ajoutDecors(Decor decor, int largeur, int hauteur, int posX, int posY) {
-      Decors tmpDecors;
-      System.out.println("ajout de decors");
+  public void ajoutDecors(Decor decor, int posX, int posY) {
       switch(decor.getNom())
       {
-          case "eau":
-              tmpDecors = new Decors(TypeDecors.EAU, posX, posY, largeur, hauteur);
+          case "Eau":
+              _map.getCase(posX, posY).getDecors().setType(TypeDecors.EAU);
               break;
-              
-          case "sable":
-              tmpDecors = new Decors(TypeDecors.SABLE, posX, posY, largeur, hauteur);
+          case "Sable":
+              _map.getCase(posX, posY).getDecors().setType(TypeDecors.SABLE);
               break;     
           default:
-              tmpDecors = new Decors(TypeDecors.BASE, posX, posY, largeur, hauteur);
-          
+              _map.getCase(posX, posY).getDecors().setType(TypeDecors.BASE);
       }
-      tmpDecors.setGraphics(decor);
-      if(tmpDecors != null)
-      {
-		System.out.println("AJOUT DECORS DANS MAP");
-         _map.ajouterDecors(tmpDecors);
-         _listeElementsDecors.add(tmpDecors);
-      }
-        
-      
-     return tmpDecors;
   }
 
   public Nourriture ajoutNourriture(NourrituresEnum nourriture, int posX, int posY) {

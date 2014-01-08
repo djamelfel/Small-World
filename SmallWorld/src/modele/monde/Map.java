@@ -1,6 +1,7 @@
 package modele.monde;
 
 import modele.nourriture.Nourriture;
+import vue.enums.Decor;
 
 public class Map {
 
@@ -8,6 +9,7 @@ public class Map {
 	public Case[][] _listeCase;
 	private int _largeur;
 	private int _hauteur;
+	private Monde _monde;
 	//  public Case Composer;
    
 	public Map(int largeur, int hauteur)
@@ -33,22 +35,12 @@ public class Map {
 			tmpCase.setNourriture(nourriture);
 	}
    
-        public void ajouterDecors(Decors elementDecors)
-        {
+    public void ajouterDecors(Decors elementDecors)
+    {
 		Case tmpCase;
-		for(int i = 0; i < elementDecors.getHauteur(); i++)
-		{
-			for(int j = 0; j < elementDecors.getLargeur(); j++)
-			{
-				tmpCase = getCase(elementDecors.getPosX() + j, elementDecors.getPosY() + i);
-				if(tmpCase != null)
-				{
-					tmpCase.setDecors(elementDecors);
-				}
-			} 
-			System.out.println("");
-		}
-      }
+		tmpCase = getCase(elementDecors.getPosX(), elementDecors.getPosX());
+		tmpCase.setDecors(elementDecors);
+    }
 
      public Case getCase(Integer posX, Integer posY) {
 		if(posX < 0 || posY < 0 || posX >= _largeur || posY >= _hauteur) return null; // Sort du tableau !

@@ -20,7 +20,7 @@ public class Case {
             _posY = posY;
 			_espece = null;
 			_nourriture = null;
-			_decors = null;
+			_decors = new Decors(TypeDecors.BASE, posX, posY);
         }
         
 	public Boolean estVide() {

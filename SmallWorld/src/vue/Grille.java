@@ -70,10 +70,7 @@ public class Grille extends JPanel {
         return true;
     }
 
-    public boolean ajouterDecor(Decors decors) {
-        /*CelluleMonde tmp = new CelluleMonde(decors, this);
-        mondeAL.add(tmp);
-        add(tmp);*/
+    public boolean ajouterDecor() {
         repaint();// refresh la grille
         return true;
     }

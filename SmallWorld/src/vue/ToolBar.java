@@ -2,7 +2,7 @@ package vue;
 
 import controleur.Controleur;
 import vue.dialog.DialogNouveauAnimal;
-import vue.dialog.DialogNouveauMonde;
+import vue.dialog.DialogNouveauDecor;
 import vue.enums.Animal;
 import vue.enums.Decor;
 
@@ -106,7 +106,7 @@ public class ToolBar extends JToolBar implements ActionListener {
          // tmpBtn.addActionListener(this);
           tmpBtn.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
-                     new DialogNouveauMonde(fenetre, controleur, type);
+                     new DialogNouveauDecor(fenetre, controleur, type);
                 }
             });
           tmpBtn.setToolTipText(type.getPhraseToolbar());

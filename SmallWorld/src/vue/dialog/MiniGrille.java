@@ -117,8 +117,8 @@ public class MiniGrille extends JPanel implements MouseListener {
         }
 
         // Si le JDialog est pour ajouter un décor
-        if (dialogNouveau instanceof DialogNouveauMonde) {
-            DialogNouveauMonde dialogNouveauMonde = (DialogNouveauMonde) dialogNouveau;
+        if (dialogNouveau instanceof DialogNouveauDecor) {
+            DialogNouveauDecor dialogNouveauDecor = (DialogNouveauDecor) dialogNouveau;
 
             // Affichage des cases sélectionnées
             g2.setColor(Color.BLUE);
@@ -146,30 +146,30 @@ public class MiniGrille extends JPanel implements MouseListener {
                     wdOfCell--;
                 if ((y - 1) / htOfRow == rows - 1)
                     htOfCell--;
-                for (i = 0; i < Integer.parseInt(dialogNouveauMonde.getHauteur().getText()); i++) {
+                for (i = 0; i < Integer.parseInt(dialogNouveauDecor.getHauteur().getText()); i++) {
                     coordonnees = new Point((x - 1) / wdOfRow, (y - 1) / htOfRow);
                     coordonnees.y += i;
                     if (coordonnees.y == rows - 1) {
-                        dialogNouveauMonde.getHauteur().setText(String.valueOf(i + 1));
+                        dialogNouveauDecor.getHauteur().setText(String.valueOf(i + 1));
                         //i = Integer.parseInt(dialogNouveauMonde.getHauteur().getText());
                     }
-                    for (int j = 0; j < Integer.parseInt(dialogNouveauMonde.getLargeur().getText()); j++) {
+                    for (int j = 0; j < Integer.parseInt(dialogNouveauDecor.getLargeur().getText()); j++) {
                         coordonnees = new Point((x - 1) / wdOfRow, (y - 1) / htOfRow);
                         coordonnees.x += j;
                         coordonnees.y += i;
                         if (coordonnees.x == cols - 1) {
-                            dialogNouveauMonde.getLargeur().setText(String.valueOf(j + 1));
-                            j = Integer.parseInt(dialogNouveauMonde.getLargeur().getText());
+                            dialogNouveauDecor.getLargeur().setText(String.valueOf(j + 1));
+                            j = Integer.parseInt(dialogNouveauDecor.getLargeur().getText());
                         }
                         g2.fillRect(coordonnees.x * wdOfRow + 1, coordonnees.y * htOfRow + 1,
                                 wdOfCell - 1, htOfCell - 1);
                     }
                 }
                 coordonnees = new Point((x - 1) / wdOfRow, (y - 1) / htOfRow);
-                dialogNouveauMonde.getPositionMonde().setText("x = " + coordonnees.x + " y = " + coordonnees.y);
+                dialogNouveauDecor.getPositionDecor().setText("x = " + coordonnees.x + " y = " + coordonnees.y);
             }
             else {
-                dialogNouveauMonde.getPositionMonde().setText("Aucune cellule sélectionnée!");
+                dialogNouveauDecor.getPositionDecor().setText("Aucune cellule sélectionnée!");
             }
         }
     }
@@ -215,15 +215,15 @@ public class MiniGrille extends JPanel implements MouseListener {
                 repaint();
             }
         }
-        // DialogNouveauMonde
-        else if (dialogNouveau instanceof DialogNouveauMonde) {
-            if (!Pattern.matches("\\d*", ((DialogNouveauMonde) dialogNouveau).getLargeur().getText()) ||
-                    Integer.parseInt(((DialogNouveauMonde) dialogNouveau).getLargeur().getText()) <= 0) {
+        // DialogNouveauDecor
+        else if (dialogNouveau instanceof DialogNouveauDecor) {
+            if (!Pattern.matches("\\d*", ((DialogNouveauDecor) dialogNouveau).getLargeur().getText()) ||
+                    Integer.parseInt(((DialogNouveauDecor) dialogNouveau).getLargeur().getText()) <= 0) {
                 JOptionPane.showMessageDialog(getTopLevelAncestor(), "Veuillez saisir une largeur valide!");
                 caseSelectionne = null;
             }
-            else if (!Pattern.matches("\\d*", ((DialogNouveauMonde) dialogNouveau).getHauteur().getText()) ||
-                    Integer.parseInt(((DialogNouveauMonde) dialogNouveau).getHauteur().getText()) <= 0) {
+            else if (!Pattern.matches("\\d*", ((DialogNouveauDecor) dialogNouveau).getHauteur().getText()) ||
+                    Integer.parseInt(((DialogNouveauDecor) dialogNouveau).getHauteur().getText()) <= 0) {
                 JOptionPane.showMessageDialog(getTopLevelAncestor(), "Veuillez saisir une hauteur valide!");
                 caseSelectionne = null;
             }
