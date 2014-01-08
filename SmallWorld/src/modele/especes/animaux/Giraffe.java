@@ -45,35 +45,43 @@ public class Giraffe extends EspeceTer implements Herbivore {
 	
 	@Override
 	public void activite() {
-			System.out.println("activite()");
-        if (Temps.getJeux() % 20 == 0) {                //temps à comfirmer
-            setEnergie(getEnergie() - 5);                //baisse d'énergie à confimer
-            setFaim(getFaim() - 20);                    //baisse de faim à confirmer
+        if (Temps.getJeux() % 20 == 0) {										//temps à comfirmer
+            setEnergie(getEnergie() - 5);										//baisse d'énergie à confimer
+            setFaim(getFaim() - 20);											//baisse de faim à confirmer
         }
         if (getEnergie() <= 0 || getFaim() < -20)
             tuer();
 		else{
-			if (getFuite() == true)	{	//si animal en fuite
+			if (getFuite() == true)	{											//si animal en fuite
 				if ( Math.abs(getPosition().getPosX() - getDanger().getPosition().getPosX()) < 7 && Math.abs(getPosition().getPosY() - getDanger().getPosition().getPosY()) < 7)//si danger persiste (stocké un pointeur de l'animal dangereux ?)
-					fuir(getDanger());							//fuire
+					fuir(getDanger());											//fuire
 				else{
-					setDanger(null);						//sinon ne plus fuire
+					setDanger(null);											//sinon ne plus fuire
 					setFuite(false);
 				}
+System.out.println("en fuite");
 			}
 			else {
-				if (getPosition().getDecors().getType() == TypeDecors.EAU) {						//sinon si zone inadapter
-					//s'échappe
+				//System.out.println(getPosition().getDecors() + " ou "+ TypeDecors.EAU);
+				if (getPosition().getDecors().getType() == TypeDecors.EAU) {	//sinon si zone inadapter
+					chuteCapacite();
 				}
-				else if (getPosition().getEspece() != null)	{						//sinon si case animal
+				else if (getPosition().getEspece() != null && getPosition().getEspece() != this)	{						//sinon si case animal
 					if ( getCourse() )											//si doit se battre
+{
 						combattre();											//combatre
+System.out.println("combat");}
 					else
+{						
 						seReproduire();											//faire des bébés
+											
+System.out.println("bébé");}
 				}
-				else if (getPosition().getNourriture() != null)	{					//sinon si case nourriture
+				else if (getPosition().getNourriture() != null && getPosition().getNourriture().getMangeable() == true)	{				//sinon si case nourriture et mangeable
 					if ( aFaim() )
+{
 						manger();
+System.out.println("mange");}
 				}	
 				else {															//gestion des autres cas	
 					ArrayList<Case> vision;
@@ -81,32 +89,45 @@ public class Giraffe extends EspeceTer implements Herbivore {
 					setCourse(false);
 					boolean finAction = false;
 					vision = Monde.getVoisins(getPosition(), getChampVision(), getSens() );	//recupere champs vision dans tempObj
-					
-					do{
+					if ( vision.isEmpty() ) {									//se deplace rien apperçu
+							finAction = true;
+							seDeplacer();
+					}
+					while(finAction == false && i < vision.size() ){
 						if ( vision.get(i).getEspece() != null ) {				//si apperçoit animal
-							if ( vision.get(i).getEspece().getClass().isInstance(GiraffeBis.class) ) {					//si animal dangereux
+// TODO : VOIR SI ANIMAL EN QUESTION EST DANGEREUX POUR MES FESSES
+								if ( false ) {									//si animal dangereux
 								setFuite(true);
 								setDanger(vision.get(i).getEspece() );
 								fuir(getDanger() );
 								finAction = true;
+System.out.println("DANGER");
 							}
-							else if ( false ) {				//sinon si animal convoiter
+							else if ( vision.get(i).getEspece().getClass().isInstance(Giraffe.class) ) {				//sinon si animal convoiter
 								setCourse(true);
 								seDeplacer(vision.get(i).getEspece().getPosition().getPosX(), vision.get(i).getEspece().getPosition().getPosY());
 								finAction = true;
+System.out.println("à la chasse");
 							}
-/*VERIFIER INSTANCE*/		else if ( this.getClass().isInstance(vision.get(i).getEspece().getClass()) ) {										//sinon si animal même espece
+							else if ( vision.get(i).getEspece() instanceof Giraffe ) {	//sinon si animal même espece
+System.out.println("other");
 								if (vision.get(i).getEspece().getEstLeader() == true && getEstLeader() == true)	{	//si animal leader et moi leader
 									seDeplacer(vision.get(i).getEspece().getPosition().getPosX(), vision.get(i).getEspece().getPosition().getPosY());
 									finAction = true;
+System.out.println("go bataille");
 								}
 								else if (vision.get(i).getEspece().getEstLeader() == true && getMeute() == null)	//sinon si adversaire leader et moi sans meute
-									vision.get(i).getEspece().getMeute().rejoindre(this);						//adhérer
+{
+										vision.get(i).getEspece().getMeute().rejoindre(this);						//adhérer
+System.out.println("adhere meute");}
 								else if (vision.get(i).getEspece().getEstLeader() == true && getMeute() != null)	//sinon si adversaire leader et moi meute
-									appelLeader();											//appeler leader
+{
+									appelLeader();								//appeler leader
+System.out.println("appel leader");}											
 								else if (vision.get(i).getEspece().getSexe() == true && vision.get(i).getEspece().getNbReproductions() > 0 && getNbReproductions() > 0) {//sinon si male, si il peut s'accoupler et moi aussi et moi femmelle
 									seDeplacer(vision.get(i).getEspece().getPosition().getPosX(), vision.get(i).getEspece().getPosition().getPosY());
 									finAction = true;
+System.out.println("direction accouplement");
 								}
 							}
 						}
@@ -114,12 +135,12 @@ public class Giraffe extends EspeceTer implements Herbivore {
 							if ( aFaim() ) {									//si faim
 								seDeplacer(vision.get(i).getEspece().getPosition().getPosX(), vision.get(i).getEspece().getPosition().getPosY()) ;
 								finAction = true;
+System.out.println("a faim");
 							}
 						}
 						i++;
-					}while(finAction == false || i < vision.size());
-					
-					if (finAction == false)
+					}
+					if (finAction == false)									//se deplace si aucun autre deplacement a été effectué
 						seDeplacer();
 				}
 			}

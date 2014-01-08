@@ -19,13 +19,8 @@ public class Map {
        _listeCase = new Case[hauteur][largeur];
        
        for(int i = 0; i < _hauteur; i++)
-       {
           for(int j = 0; j < _largeur; j++)
-          {
               _listeCase[i][j] = new Case(j, i);
-          } 
-       }
-       
 	}
    
 	public void ajouterNouriture(Nourriture nourriture)

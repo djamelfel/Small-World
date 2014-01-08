@@ -59,27 +59,24 @@ public class CelluleAnimal extends Cellule implements ActionListener {
    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(_instanceEspece.getMeute() != null)
-        {
-            // dessine le cadre correspondant à une meute
-            BufferedImage bufferedImage = Utils.toBufferedImage(ressourceCadre.getImage());
-            bufferedImage = Utils.changeColor(bufferedImage, _instanceEspece.getMeute().getColor());
-            g.drawImage(bufferedImage, 0, 0, getSize().width, getSize().height, null);
-        }
-        
-        if(_instanceEspece.getEstLeader())
-        { 
-            // dessine l'étoile indiquant qu'il est le leader de la meute
-            g.drawImage(ressourceLeader.getImage(), 0, 0, 50, 49, null);
-        }
-        
-        
-        if(_instanceEspece.getSommeil())
-        { 
-            // dessine l'étoile indiquant qu'il est le leader de la meute
-            g.drawImage(ressourceDormir.getImage(), 0, 0, 50, 50, null);
-        }
-            
+        if(_instanceEspece.getEstVivant()) {
+			if(_instanceEspece.getMeute() != null) {
+				// dessine le cadre correspondant à une meute
+				BufferedImage bufferedImage = Utils.toBufferedImage(ressourceCadre.getImage());
+				bufferedImage = Utils.changeColor(bufferedImage, _instanceEspece.getMeute().getColor());
+				g.drawImage(bufferedImage, 0, 0, getSize().width, getSize().height, null);
+			}
+
+			if(_instanceEspece.getEstLeader()) { 
+				// dessine l'étoile indiquant qu'il est le leader de la meute
+					g.drawImage(ressourceLeader.getImage(), 0, 0, 50, 49, null);
+			}
+
+			if(_instanceEspece.getSommeil()) { 
+				// dessine l'étoile indiquant qu'il est le leader de la meute
+				g.drawImage(ressourceDormir.getImage(), 0, 0, 50, 50, null);
+			}
+		}   
     }
     
     @Override

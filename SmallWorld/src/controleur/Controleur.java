@@ -31,13 +31,8 @@ public class Controleur {
         fenetre.setTailleGrille(_managerAnimaux.getMonde().getMap());
         
         
-        
-        
         ajouterAnimal(Animal.lamasticot, "roger", false,true, new Point(10, 10));
         ajouterNourriture(NourrituresEnum.banane, new Point(11,10));
-      /*  ajouterAnimal(Animal.lamasticot, "roger", 'F','O', new Point(16, 4));
-        ajouterAnimal(Animal.lion, "roger", 'F','O', new Point(5, 10));
-        ajouterAnimal(Animal.lion, "roger", 'F','O', new Point(10, 3));*/
         
         _managerAnimaux.start();
         return true;

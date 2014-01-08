@@ -78,17 +78,6 @@ public class Fenetre extends JFrame {
         pack();
         setVisible(true);
 
-        // Test grille
-        /*grille.ajouterAnimal(Animal.lion, 0, 0);
-        grille.ajouterAnimal(Animal.lion, 0, 1);
-        grille.ajouterAnimal(Animal.lion, 1, 0);
-        grille.ajouterAnimal(Animal.lion, 0, 14);
-        grille.ajouterAnimal(Animal.lion, 24, 0);
-        grille.ajouterAnimal(Animal.lion, 24, 14);
-        grille.ajouterAnimal(Animal.lion, 24, 1);
-        grille.ajouterAnimal(Animal.lion, 23, 10);
-        grille.ajouterAnimal(Animal.lion, 22, 9);
-        grille.ajouterAnimal(Animal.lamasticot, 14, 5);*/
     }
 
     // Utiliser un observateur ça serait Tip-Top !

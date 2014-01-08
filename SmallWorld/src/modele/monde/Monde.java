@@ -39,7 +39,7 @@ public class Monde {
   
  
   public void activerAnimaux() {
-      
+       ArrayList<Espece> aTuer = new ArrayList<>();
        int lg = _listeAnimaux.size();
        Espece tmpAnimal;
        if (lg != 0) {
@@ -51,10 +51,11 @@ public class Monde {
 					//créer nourriture == Gerer temps de décomposition
 					_listeNourriture.add(new Cadavre(tmpAnimal, 10));
 					//detruire animal
-					_listeAnimaux.remove(tmpAnimal);
+					aTuer.add(tmpAnimal);
 				}
 			}
 		}
+	    _listeAnimaux.removeAll(aTuer);
    }
  
  
