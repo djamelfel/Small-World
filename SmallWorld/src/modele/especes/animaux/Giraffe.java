@@ -48,10 +48,15 @@ public class Giraffe extends EspeceTer implements Herbivore {
 	public void activite() {
         
 		if (Temps.getJeux() % 20 == 0) {										//temps à comfirmer
-            setEnergie(getEnergie() - 5);										//baisse d'énergie à confimer
+            setEnergie(getEnergie() - 30);										//baisse d'énergie à confimer
             setFaim(getFaim() - 20);											//baisse de faim à confirmer
+System.out.println("grrr" + getFaim() + " - " + getEnergie() );
         }
-        if (getEnergie() <= 0 || getFaim() < -20)
+		if( getFaim() < 20)														//si trop faim perte de vie
+{
+			setEnergie(getEnergie() - 10);
+System.out.println("J4AI TROP FAIM");}
+        if (getEnergie() <= 0)													//si plus d'energie animal meurt
             tuer();
 		else{
 			if (getFuite() == true)	{											//si animal en fuite
@@ -115,13 +120,13 @@ System.out.println("DANGER");
 							}
 							else if ( vision.get(i).getEspece().getClass().isInstance(Giraffe.class) ) {				//sinon si animal convoiter
 								setCourse(true);
-								seDeplacer(vision.get(i).getEspece().getPosition().getPosX(), vision.get(i).getEspece().getPosition().getPosY());
+								seDeplacer(vision.get(i).getEspece().getPosition());
 								finAction = true;
 System.out.println("à la chasse");
 							}
 							else if ( vision.get(i).getEspece() instanceof Giraffe ) {	//sinon si animal même espece
 								if (vision.get(i).getEspece().getEstLeader() == true && getEstLeader() == true)	{	//si animal leader et moi leader
-									seDeplacer(vision.get(i).getEspece().getPosition().getPosX(), vision.get(i).getEspece().getPosition().getPosY());
+									seDeplacer(vision.get(i).getEspece().getPosition());
 									finAction = true;
 System.out.println("go bataille");
 								}
@@ -135,7 +140,7 @@ System.out.println("adhere meute");}
 										appelLeader();							//appeler leader
 System.out.println("appel leader");}											
 								else if (vision.get(i).getEspece().getSexe() == true && vision.get(i).getEspece().getNbReproductions() > 0 && getNbReproductions() > 0) {//sinon si male, si il peut s'accoupler et moi aussi et moi femmelle
-									seDeplacer(vision.get(i).getEspece().getPosition().getPosX(), vision.get(i).getEspece().getPosition().getPosY());
+									seDeplacer(vision.get(i).getEspece().getPosition());
 									finAction = true;
 System.out.println("direction accouplement");
 								}
@@ -143,7 +148,7 @@ System.out.println("direction accouplement");
 						}
 						if ( vision.get(i).getNourriture() != null ) {			//si nourriture
 							if ( aFaim() ) {									//si faim
-								seDeplacer(vision.get(i).getEspece().getPosition().getPosX(), vision.get(i).getEspece().getPosition().getPosY()) ;
+								seDeplacer(vision.get(i).getNourriture().getPosition()) ;
 								finAction = true;
 System.out.println("a faim");
 							}

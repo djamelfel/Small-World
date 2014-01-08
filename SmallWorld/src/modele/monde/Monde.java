@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import modele.especes.animaux.Giraffe;
 import modele.especes.animaux.GiraffeBis;
 import modele.nourriture.Cadavre;
+import modele.nourriture.Herbe;
 import vue.enums.Animal;
 import vue.enums.Decor;
 import vue.enums.NourrituresEnum;
@@ -49,9 +50,11 @@ public class Monde {
 					tmpAnimal.verifierEtatJournee();
 				else {
 					//créer nourriture == Gerer temps de décomposition
-					_listeNourriture.add(new Cadavre(tmpAnimal, 10));
+					//if (tmpAnimal instanceof Giraffe)
+/*A REVOIR*/			//_listeNourriture.add(new Cadavre(60, tmpAnimal.getPosition().getPosX(), tmpAnimal.getPosition().getPosY()));
 					//detruire animal
 					aTuer.add(tmpAnimal);
+					tmpAnimal.getPosition().setEspece(null);
 				}
 			}
 		}
@@ -82,17 +85,16 @@ public class Monde {
     return _casesVoisines;
   }
 
-  public Espece ajoutAnimaux(Animal animal, boolean estLeader, boolean sexe, int posX, int posY) {
+  public Espece ajoutAnimaux(String animal, boolean estLeader, boolean sexe, int posX, int posY) {
       
       Espece tmpEspece = null;
-      System.out.println(animal.getNom());
-      switch(animal.getNom())
+      System.out.println(animal);
+      switch(animal)
       {
           case "Lion":
               System.out.println("JE SUIS UN LION");
               tmpEspece = new GiraffeBis(estLeader, sexe);
               tmpEspece.setGraphics(Animal.lion);
-              
              break;
           case "Lamasticot":
               System.out.println("JE SUIS UN LAMA");
@@ -101,13 +103,8 @@ public class Monde {
              break;
           
       }
-     // tmpEspece = new Giraffe();
       tmpEspece.setPosition(_map.getCase(posX, posY));
-      
-      if(tmpEspece != null)
-      {
-         _listeAnimaux.add(tmpEspece);
-      }
+      _listeAnimaux.add(tmpEspece);
       
      return tmpEspece;
   }
@@ -115,7 +112,7 @@ public class Monde {
   public void ajoutDecors(Decor decor, int posX, int posY) {
       switch(decor.getNom())
       {
-//TODO : AJOUTER TOUS LES AUTRES DECORS
+//TODO : AJOUTER TOUS LES AUTRES TYPE DE DECORS
 			  case "Eau":
               _map.getCase(posX, posY).getDecors().setType(TypeDecors.EAU);
               break;
@@ -125,30 +122,21 @@ public class Monde {
           default:
               _map.getCase(posX, posY).getDecors().setType(TypeDecors.BASE);
       }
+	  _listeElementsDecors.add(_map.getCase(posX, posY).getDecors());
   }
 
-  public Nourriture ajoutNourriture(NourrituresEnum nourriture, int posX, int posY) {
-    Nourriture tmpNourriture = null;
-      
-      switch(nourriture.getNom())
+  public void ajoutNourriture(String nourriture, int posX, int posY) {
+      Nourriture tmpNourriture = null;
+      switch(nourriture)
       {
-          case "":
+          case "Banane":
+			  tmpNourriture = new Herbe(_map.getCase(posX, posY));
+			  tmpNourriture.setGraphics(NourrituresEnum.banane);
               break;
           default:
-              tmpNourriture = new Nourriture(5);
       }
-      tmpNourriture.setGraphics(nourriture);
-      tmpNourriture.setPosX(posX);
-      tmpNourriture.setPosY(posY);
-      
-      if(tmpNourriture != null)
-      { 
-        _map.ajouterNouriture(tmpNourriture);
-        _listeNourriture.add(tmpNourriture);
-      }
-        
-      
-     return tmpNourriture;
+      _map.ajouterNouriture(tmpNourriture);
+      _listeNourriture.add(tmpNourriture);
   }
 
   public String sauvegarder() {

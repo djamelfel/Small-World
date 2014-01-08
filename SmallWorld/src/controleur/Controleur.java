@@ -31,10 +31,14 @@ public class Controleur {
         fenetre.setTailleGrille(_managerAnimaux.getMonde().getMap());
         
         
-        ajouterAnimal(Animal.lamasticot, "roger", false,false, new Point(10, 10));
-		ajouterAnimal(Animal.lamasticot, "roger", false,true, new Point(11, 10));
-        ajouterNourriture(NourrituresEnum.banane, new Point(11,10));
-        
+        ajouterAnimal("Lamasticot", "roger", false,false, new Point(10, 10));
+		ajouterAnimal("Lamasticot", "roger", false,true, new Point(11, 10));
+        ajouterNourriture("Banane", new Point(21,0));
+        ajouterNourriture("Banane", new Point(21,3));
+		ajouterNourriture("Banane", new Point(21,6));
+		ajouterNourriture("Banane", new Point(21,9));
+		ajouterNourriture("Banane", new Point(21,11));
+		ajouterNourriture("Banane", new Point(21,13));
         _managerAnimaux.start();
         return true;
     }
@@ -53,8 +57,8 @@ public class Controleur {
     }
 
     // Méthode appelé pour ajouter un nouvel animal
-    public boolean ajouterAnimal(Animal animal, String nom, boolean sexe, boolean leader, Point position) {
-        System.out.println("Animal => " + animal.getNom() + " : " + nom + ", Sexe (male=true) " + sexe + ", " + leader + ", " + position+ ", est Leader : "+ leader);
+    public boolean ajouterAnimal(String animal, String nom, boolean sexe, boolean leader, Point position) {
+        System.out.println("Animal => " + animal + " : " + nom + ", Sexe (male=true) " + sexe + ", " + leader + ", " + position+ ", est Leader : "+ leader);
         Espece tmpAnimal;    
         tmpAnimal = _managerAnimaux.getMonde().ajoutAnimaux(animal, leader, sexe, position.x, position.y);
         fenetre.getGrille().ajouterAnimal(tmpAnimal);
@@ -78,11 +82,8 @@ public class Controleur {
         return true;
     }
     
-    public boolean ajouterNourriture(NourrituresEnum nourriture, Point position) {
-        Nourriture tmpNourriture;
-        tmpNourriture = _managerAnimaux.getMonde().ajoutNourriture(nourriture, position.x, position.y);
-        
-       return true;
+    public void ajouterNourriture(String nourriture, Point position) {
+		_managerAnimaux.getMonde().ajoutNourriture(nourriture, position.x, position.y);
     }
     
     

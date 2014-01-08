@@ -15,9 +15,9 @@ import java.awt.event.ActionListener;
  * Created by Edwin on 19/12/13.
  */
 public class DialogNouveauAnimal extends JDialog implements ActionListener {
-    private Fenetre fenetre;
-    private Controleur controleur;
-    private Animal animal;
+    private Fenetre _fenetre;
+    private Controleur _controleur;
+    private String _animal;
 
     private JPanel caracteristiques;
     private JPanel boutons;
@@ -31,18 +31,18 @@ public class DialogNouveauAnimal extends JDialog implements ActionListener {
     private MiniGrille position;
     private JLabel positionAnimal;
 
-    public DialogNouveauAnimal(Fenetre fenetre, Controleur controleur, Animal animal) {
+    public DialogNouveauAnimal(Fenetre fenetre, Controleur controleur, String animal) {
         super();
 
-        this.fenetre = fenetre;
-        this.controleur = controleur;
-        this.animal = animal;
+        _fenetre = fenetre;
+        _controleur = controleur;
+        _animal = animal;
 
         // Initialisation de la fenêtre
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
-        setTitle("Nouvel Animal - " + animal.getNom());
-        setLocation(fenetre.getLocation());
+        setTitle("Nouvel Animal - " + _animal);
+        setLocation(_fenetre.getLocation());
         setSize(350, 450);
         setPreferredSize(getSize());
         setMinimumSize(getPreferredSize());
@@ -170,7 +170,7 @@ public class DialogNouveauAnimal extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.BASELINE_LEADING;
         gbc.insets = new Insets(10, 15, 15, 10);
-        position = new MiniGrille(fenetre.getGrille(), this);
+        position = new MiniGrille(_fenetre.getGrille(), this);
         gbc.ipadx = (int) position.getSize().getWidth();
         gbc.ipady = (int) position.getSize().getHeight();
         caracteristiques.add(position, gbc);
@@ -220,7 +220,7 @@ public class DialogNouveauAnimal extends JDialog implements ActionListener {
                 return;
             }
 
-            controleur.ajouterAnimal(animal, nom.getText(), sexe, leader, position.getCoordonnees());
+            _controleur.ajouterAnimal(_animal, nom.getText(), sexe, leader, position.getCoordonnees());
             dispose();
         }
         else if (e.getSource().equals(annuler)) {

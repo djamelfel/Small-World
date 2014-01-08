@@ -87,7 +87,7 @@ public class ToolBar extends JToolBar implements ActionListener {
          // tmpBtn.addActionListener(this);
           tmpBtn.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
-                     new DialogNouveauAnimal(fenetre, controleur, type);
+                     new DialogNouveauAnimal(fenetre, controleur, type.getNom());
                 }
             });
           tmpBtn.setToolTipText(type.getPhraseToolbar());
@@ -126,7 +126,7 @@ public class ToolBar extends JToolBar implements ActionListener {
          // tmpBtn.addActionListener(this);
           tmpBtn.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
-                     new DialogNouveauNourriture(fenetre, controleur, type);
+                     new DialogNouveauNourriture(fenetre, controleur, type.getNom());
                 }
             });
           tmpBtn.setToolTipText(type.getPhraseToolbar());

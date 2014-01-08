@@ -17,9 +17,9 @@ import vue.enums.NourrituresEnum;
  * Created by Edwin on 26/12/13.
  */
 public class DialogNouveauNourriture extends JDialog implements ActionListener {
-    private Fenetre fenetre;
-    private Controleur controleur;
-    private NourrituresEnum nourriture;
+    private Fenetre _fenetre;
+    private Controleur _controleur;
+    private String _nourriture;
 
     private JPanel caracteristiques;
     private JPanel boutons;
@@ -28,18 +28,18 @@ public class DialogNouveauNourriture extends JDialog implements ActionListener {
     private MiniGrille position;
     private JLabel positionMonde;
 
-    public DialogNouveauNourriture(Fenetre fenetre, Controleur controleur, NourrituresEnum nourriture) {
+    public DialogNouveauNourriture(Fenetre fenetre, Controleur controleur, String nourriture) {
         super();
 
-        this.fenetre = fenetre;
-        this.controleur = controleur;
-        this.nourriture = nourriture;
+        _fenetre = fenetre;
+        _controleur = controleur;
+        _nourriture = nourriture;
 
         // Initialisation de la fenêtre
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
-        setTitle("Nouvelle nourriture - " + nourriture.getNom());
-        setLocation(fenetre.getLocation());
+        setTitle("Nouvelle nourriture - " + _nourriture);
+        setLocation(_fenetre.getLocation());
         setSize(350, 450);
         setPreferredSize(getSize());
         setMinimumSize(getPreferredSize());
@@ -118,7 +118,7 @@ public class DialogNouveauNourriture extends JDialog implements ActionListener {
                 return;
             }
 
-            controleur.ajouterNourriture(nourriture, position.getCoordonnees());
+            _controleur.ajouterNourriture(_nourriture, position.getCoordonnees());
             dispose();
         }
         else if (e.getSource().equals(annuler)) {

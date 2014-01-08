@@ -25,7 +25,7 @@ public class Map {
    
 	public void ajouterNouriture(Nourriture nourriture)
 	{
-		Case tmpCase = getCase(nourriture.getPosX(), nourriture.getPosY());
+		Case tmpCase = getCase(nourriture.getPosition().getPosX(), nourriture.getPosition().getPosY());
 		if(tmpCase != null &&  tmpCase.getNourriture() == null) 
 			tmpCase.setNourriture(nourriture);
 	}

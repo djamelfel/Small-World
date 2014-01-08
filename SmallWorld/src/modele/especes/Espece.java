@@ -287,11 +287,11 @@ public class Espece {
     }
 
     public void appelLeader() {
-        _meute.getLeader().seDeplacer(_position.getPosX(), _position.getPosY());
+        _meute.getLeader().seDeplacer(_position);
     }
 
     public void chasser(Espece espece) {
-        seDeplacer(espece.getPosition().getPosX(), espece.getPosition().getPosY());
+        seDeplacer(espece.getPosition());
     }
 
     public void seReproduire() {
@@ -303,17 +303,18 @@ public class Espece {
     }
 
     public boolean aFaim() {
-        return _energie < 20;
+        if (_faim < 20)
+			System.out.println("JAI FAIM !!");
+		return _faim < 20;
+		
     }
 
     public void manger() {
-        if (_position.getNourriture() != null) {
-            if (_position.getNourriture().getEnergieRendue() + _energie > 100)
-                setEnergie(100);                    //energie maximum 100
-            else
-                setEnergie(_position.getNourriture().getEnergieRendue() + _energie);
-            _position.getNourriture().seFaireManger(this);
-        }
+		if (_position.getNourriture().getEnergieRendue() + _faim > 100)
+			setFaim(100);                    //energie maximum 100
+		else
+			setFaim(_position.getNourriture().getEnergieRendue() + _faim);
+		_position.getNourriture().seFaireManger();
     }
 
     public void combattre() {
@@ -351,34 +352,37 @@ public class Espece {
         }
     }
 
-    public void seDeplacer(int posX, int posY) {
+    public void seDeplacer(Case position) {
         int x, y, vitesse = _vitesse;
+		int posX = position.getPosX();
+		int posY = position.getPosY();
 
-        if (_course == true)                        //definie le nombre de case dont il peut se deplacer
+        if (_course == true)													//definie le nombre de case dont il peut se deplacer
             vitesse += _vitesseCourse;
 
 //Gestion point X        
-        if (Math.abs(posX - _position.getPosX()) < vitesse)        //permet de ne pas depasser le point X
+        if (Math.abs(posX - _position.getPosX()) < vitesse)						//permet de ne pas depasser le point X
             x = Math.abs(posX - _position.getPosX());
         else
             x = vitesse;
 
-        if (x > _position.getPosX())                    //choisi aleatoirement un nombre compris dans son champ de deplacement
-            x = Utils.getRand(x, _position.getPosX());
+        if (posX > _position.getPosX())											//choisi aleatoirement un nombre compris dans son champ de deplacement
+            x = Utils.getRand(_position.getPosX()+x, _position.getPosX());
         else
-            x = Utils.getRand(_position.getPosX(), x);
+            x = Utils.getRand(_position.getPosX(), _position.getPosX()-x);
 
-        vitesse -= Math.abs(_position.getPosX() - x);                //soustrait le deplacement x a deplacer
+        vitesse -= x;															//soustrait le deplacement x a deplacer
 
-//Gestion point Y                        
-        if (Math.abs(posY - _position.getPosY()) < vitesse)
+//Gestion point Y        
+        if (Math.abs(posY - _position.getPosY()) < vitesse)						//permet de ne pas depasser le point X
             y = Math.abs(posY - _position.getPosY());
         else
             y = vitesse;
-        if (y > _position.getPosX())
-            y = Utils.getRand(y, _position.getPosX());
+
+        if (posY > _position.getPosY())											//choisi aleatoirement un nombre compris dans son champ de deplacement
+            y = Utils.getRand(_position.getPosY()+y, _position.getPosY());
         else
-            y = Utils.getRand(_position.getPosX(), y);
+            y = Utils.getRand(_position.getPosY(), _position.getPosY()-y);
 
         sens(x, y);
         setPosition(Monde.getMap().getCase(x, y));
@@ -450,7 +454,7 @@ public class Espece {
 					y = Utils.getRand((_position.getPosY() + vitesse), (_position.getPosY() - vitesse));
             }
         }
-		System.out.println((Monde.getMap().getHauteur() - 1)+" - "+_meute.getLeader().getPosition().getPosY() + " - " + y);
+//System.out.println((Monde.getMap().getHauteur() - 1)+" - "+_meute.getLeader().getPosition().getPosY() + " - " + y);
         sens(x, y);                            //gestion du sens du regard des especes
         setPosition(Monde.getMap().getCase(x, y));
     }
