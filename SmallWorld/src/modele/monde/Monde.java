@@ -42,42 +42,42 @@ public class Monde {
       
        int lg = _listeAnimaux.size();
        Espece tmpAnimal;
-       for(int i = 0; i < lg; i++)
-       {
-           tmpAnimal = _listeAnimaux.get(i);
-           if (tmpAnimal.getEstVivant() == true)
-		tmpAnimal.verifierEtatJournee();
-	   else {
-		   //detruire animal
-		   _listeAnimaux.remove(tmpAnimal);
-		   //créer nourriture == Gerer temps de décomposition
-		   _listeNourriture.add(new Cadavre(tmpAnimal, 10));
-	   }
-           //tmpAnimal.seDeplacer();
-       }
+       if (lg != 0) {
+			for(int i = 0; i < lg; i++) {
+				tmpAnimal = _listeAnimaux.get(i);
+				if (tmpAnimal.getEstVivant() == true)
+					tmpAnimal.verifierEtatJournee();
+				else {
+					//créer nourriture == Gerer temps de décomposition
+					_listeNourriture.add(new Cadavre(tmpAnimal, 10));
+					//detruire animal
+					_listeAnimaux.remove(tmpAnimal);
+				}
+			}
+		}
    }
  
  
   public static ArrayList<Case> getVoisins(Case caseDepart, int champVision, int sens) {
       
-      ArrayList<Case> _casesVoisines = new ArrayList();
+		ArrayList<Case> _casesVoisines = new ArrayList();
       
       // TODO : prendre en compte le sens
-      // TODO : retourner une zone en cone et non en ligne
       
-      Case tmpCase;
-      int posX = caseDepart.getPosX();
-      int posY = caseDepart.getPosY();
-      
-      for(int i = 1; i < champVision; i++)
-      {
-          tmpCase = _map.getCase(posX + i, posY);
-		  if ( tmpCase == null ) continue;
-          if(tmpCase.getEspece() != null)
-			  _casesVoisines.add(tmpCase);
-		  if(tmpCase.getNourriture() != null)
-			  _casesVoisines.add(tmpCase);
-      }
+		Case tmpCase;
+		int posX = caseDepart.getPosX();
+		int posY = caseDepart.getPosY();
+		
+		for(int i = 1; i < champVision; i++) {
+				for (int j = posY - i+2; j< posY + i-1 ; j++) {
+					tmpCase = _map.getCase( (posX+i-1) , j);
+					if ( tmpCase == null ) continue;
+					if(tmpCase.getEspece() != null)
+						_casesVoisines.add(tmpCase);
+					if(tmpCase.getNourriture() != null)
+						_casesVoisines.add(tmpCase);
+				}
+		  }
     return _casesVoisines;
   }
 
@@ -114,7 +114,8 @@ public class Monde {
   public void ajoutDecors(Decor decor, int posX, int posY) {
       switch(decor.getNom())
       {
-          case "Eau":
+//TODO : AJOUTER TOUS LES AUTRES DECORS
+			  case "Eau":
               _map.getCase(posX, posY).getDecors().setType(TypeDecors.EAU);
               break;
           case "Sable":
