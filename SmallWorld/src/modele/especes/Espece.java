@@ -408,15 +408,14 @@ public class Espece {
             else
                 y = Utils.getRand((_position.getPosY() + vitesse), (_position.getPosY() - vitesse));
         }
-        else {                                //sinon
+        else {                                //sinon espece pas leader et appartient a une meute
             //Gestion point X                        
             int var = _meute.getLeader().getPosition().getPosX() - _position.getPosX();                //calcul de la distance sur l'axe x entre l'espece et son chef de meute
-            
             if (Math.abs(var) > 5) {                //si la distance est supérieur à 50 unités alors
                 if (var < 0)                    //si espece s'éloigne par la droite
-                    x = Utils.getRand((_position.getPosX() + vitesse), _position.getPosX());
+                    x = Utils.getRand((_position.getPosX()), _meute.getLeader().getPosition().getPosX());
                 else                        //si espece s'éloigne par la gauche
-                    x = Utils.getRand(_position.getPosX(), (_position.getPosX() - vitesse));
+                    x = Utils.getRand(_meute.getLeader().getPosition().getPosX(), _position.getPosX());
             }
             else {
                 if ( (_position.getPosX() + vitesse) > (Monde.getMap().getLargeur() - 1)  && (_position.getPosX() - vitesse) < 0)   //sorti tableau droite et gauche
@@ -434,9 +433,9 @@ public class Espece {
             var = _meute.getLeader().getPosition().getPosY() - _position.getPosY();
             if (Math.abs(var) > 5) {                //si la distance est supérieur à 50 unités alors
                 if (var < 0)                    //si espece s'éloigne par le bas
-                    y = Utils.getRand(_position.getPosY(), (_position.getPosY() - vitesse));
+                    y = Utils.getRand(_position.getPosY(), _meute.getLeader().getPosition().getPosY());
                 else
-                    y = Utils.getRand((_position.getPosY() + vitesse), _position.getPosY());
+                    y = Utils.getRand(_meute.getLeader().getPosition().getPosY(), _position.getPosY() );
             }
             else {
                 if ( (_position.getPosY() + vitesse) >= Monde.getMap().getHauteur()  && (_position.getPosY() - vitesse) < 0)   //sorti tableau bat et haut

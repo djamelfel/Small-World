@@ -90,13 +90,13 @@ public class Monde {
       {
           case "Lion":
               System.out.println("JE SUIS UN LION");
-              tmpEspece = new Giraffe(estLeader, sexe);
+              tmpEspece = new GiraffeBis(estLeader, sexe);
               tmpEspece.setGraphics(Animal.lion);
               
              break;
           case "Lamasticot":
               System.out.println("JE SUIS UN LAMA");
-              tmpEspece = new GiraffeBis(estLeader, sexe);
+              tmpEspece = new Giraffe(estLeader, sexe);
               tmpEspece.setGraphics(Animal.lamasticot);
              break;
           

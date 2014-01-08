@@ -120,7 +120,7 @@ System.out.println("go bataille");
 {
 										vision.get(i).getEspece().getMeute().rejoindre(this);						//adhérer
 System.out.println("adhere meute");}
-								else if (vision.get(i).getEspece().getEstLeader() == true && getMeute() != null)	//sinon si adversaire leader et moi meute
+								else if (vision.get(i).getEspece() != getMeute().getLeader() && vision.get(i).getEspece().getEstLeader() == true && getMeute() != null)	//sinon si adversaire est leader mais pas le mien et moi meute
 {
 									appelLeader();								//appeler leader
 System.out.println("appel leader");}											

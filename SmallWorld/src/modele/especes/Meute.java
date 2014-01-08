@@ -25,6 +25,7 @@ public class Meute {
 	
 	public void rejoindre(Espece espece) {
 		_membres.add(espece);
+		espece.setMeute(this);
 	}
 	
 	public void rejoindre(Meute meute) {
