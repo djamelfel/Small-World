@@ -173,8 +173,7 @@ public class DialogNouveauDecor extends JDialog implements ActionListener {
                 return;
             }
 
-            controleur.ajouterDecor(_decor, Integer.parseInt(largeur.getText()), Integer.parseInt(hauteur.getText()),
-                    position.getCoordonnees());
+            controleur.ajouterDecor(_decor, Integer.parseInt(largeur.getText()), Integer.parseInt(hauteur.getText()), position.getCoordonnees());
             dispose();
         }
         else if (e.getSource().equals(annuler)) {

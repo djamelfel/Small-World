@@ -10,12 +10,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import modele.especes.Espece;
-import modele.monde.Monde;
 import modele.nourriture.Nourriture;
 import vue.enums.NourrituresEnum;
 
 public class Controleur {
-	private Monde _monde;
     private Fenetre fenetre;
     private ManagerAnimaux _managerAnimaux;
 
@@ -74,12 +72,11 @@ public class Controleur {
 		
 		int x = (int)position.getX();
 		int y = (int)position.getY();
-//		for(int i = x; i < (x+largeur); i++) {
-//			for(int j = y; j < (y+hauteur); j++) {
-//				System.out.println(decor +" "+ j+" "+ i);
-				_monde.ajoutDecors(decor, 0, 0);
-//			} 
-//		}
+		for(int i = x; i < (x+largeur); i++) {
+			for(int j = y; j < (y+hauteur); j++) {
+				_managerAnimaux.getMonde().ajoutDecors(decor, i, j);
+			} 
+		}
         fenetre.getGrille().ajouterDecor();
         
         return true;
