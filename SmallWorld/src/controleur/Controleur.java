@@ -11,6 +11,7 @@ import java.awt.*;
 import java.io.File;
 import modele.especes.Espece;
 import modele.nourriture.Nourriture;
+import modele.utils.Utils;
 import vue.enums.NourrituresEnum;
 
 public class Controleur {
