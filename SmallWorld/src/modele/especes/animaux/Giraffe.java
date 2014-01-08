@@ -116,7 +116,7 @@ System.out.println("mange");}
 								finAction = true;
 System.out.println("DANGER");
 							}
-							else if ( vision.get(i).getEspece().getClass().isInstance(Giraffe.class) ) {				//sinon si animal convoiter
+							else if ( vision.get(i).getEspece() instanceof GiraffeBis ) {				//sinon si animal convoiter
 								setCourse(true);
 								seDeplacer(vision.get(i).getEspece().getPosition());
 								finAction = true;

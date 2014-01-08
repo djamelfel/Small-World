@@ -50,12 +50,10 @@ public class GiraffeBis extends EspeceTer implements Herbivore {
 		if (Temps.getJeux() % 20 == 0) {										//temps à comfirmer
             setEnergie(getEnergie() - 30);										//baisse d'énergie à confimer
             setFaim(getFaim() - 20);											//baisse de faim à confirmer
-System.out.println("grrr" + getFaim() + " - " + getEnergie() );
+System.out.println("energie" + getFaim() + " - " + getEnergie() );
         }
-		if( getFaim() < 20)														//si trop faim perte de vie
-{
-			setEnergie(getEnergie() - 10);
-System.out.println("J4AI TROP FAIM");}
+		if( getFaim() < 40)														//si trop faim perte de vie
+			setEnergie(getEnergie() - 1);
         if (getEnergie() <= 0)													//si plus d'energie animal meurt
             tuer();
 		else{
@@ -118,7 +116,7 @@ System.out.println("mange");}
 								finAction = true;
 System.out.println("DANGER");
 							}
-							else if ( vision.get(i).getEspece().getClass().isInstance(GiraffeBis.class) ) {				//sinon si animal convoiter
+							else if ( vision.get(i).getEspece() instanceof Giraffe ) {				//sinon si animal convoiter
 								setCourse(true);
 								seDeplacer(vision.get(i).getEspece().getPosition());
 								finAction = true;
@@ -150,7 +148,6 @@ System.out.println("direction accouplement");
 							if ( aFaim() ) {									//si faim
 								seDeplacer(vision.get(i).getNourriture().getPosition()) ;
 								finAction = true;
-System.out.println("a faim");
 							}
 						}
 						i++;
