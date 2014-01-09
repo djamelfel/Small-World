@@ -22,7 +22,7 @@ public class ManagerAnimaux implements Runnable{
     public ManagerAnimaux(Controleur controleur)
     {
         _controleur = controleur;
-        _monde = new Monde();
+        _monde = new Monde(_controleur);
     }
     
     public void initialiser(int rows, int cols)

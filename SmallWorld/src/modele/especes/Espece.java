@@ -434,6 +434,7 @@ public class Espece {
             }
         }
         sens(x, y);                            //gestion du sens du regard des especes
+System.out.println(vitesse + " " + x +" "+y+" "+toString());
         setPosition(Monde.getMap().getCase(x, y));
     }
 

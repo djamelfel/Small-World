@@ -2,6 +2,7 @@ package modele.monde;
 
 import modele.especes.Espece;
 import modele.nourriture.Nourriture;
+import vue.enums.Decor;
 
 
 
@@ -20,7 +21,7 @@ public class Case {
             _posY = posY;
 			_espece = null;
 			_nourriture = null;
-			_decors = new Decors(TypeDecors.BASE, posX, posY);
+			_decors = new Decors(posX, posY);
         }
         
 	public Boolean estVide() {

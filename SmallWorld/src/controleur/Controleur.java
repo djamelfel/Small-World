@@ -3,16 +3,12 @@ package controleur;
 import utilitaires.Charger;
 import utilitaires.Sauvegarder;
 import vue.Fenetre;
-import vue.enums.Animal;
 import vue.enums.Decor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import modele.especes.Espece;
-import modele.nourriture.Nourriture;
-import modele.utils.Utils;
-import vue.enums.NourrituresEnum;
 
 public class Controleur {
     private Fenetre fenetre;
@@ -86,6 +82,11 @@ public class Controleur {
     public void ajouterNourriture(String nourriture, Point position) {
 		_managerAnimaux.getMonde().ajoutNourriture(nourriture, position.x, position.y);
     }
+	
+	public void supprimerEspece(Espece espece) {
+		espece.getPosition().setEspece(null);
+		fenetre.getGrille().supprimerAnimal(espece);
+	}
     
     
     public Fenetre getFenetre() {

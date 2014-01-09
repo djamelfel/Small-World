@@ -7,8 +7,8 @@ import modele.especes.Herbivore;
 import modele.monde.Case;
 import modele.monde.Monde;
 import modele.monde.Temps;
-import modele.monde.TypeDecors;
 import modele.utils.Utils;
+import vue.enums.Decor;
 
 public class Lamastico extends EspeceTer implements Herbivore {
 
@@ -90,19 +90,19 @@ System.out.println("energie" + getFaim() + " - " + getEnergie() );
             tuer();
 		else{
 			if (getFuite() == true)	{											//si animal en fuite
-				if ( Math.abs(getPosition().getPosX() - getDanger().getPosition().getPosX()) < 7 && Math.abs(getPosition().getPosY() - getDanger().getPosition().getPosY()) < 7) { //si danger persiste (stocké un pointeur de l'animal dangereux ?)
+				if(getDanger() == null) {
+					setDanger(null);											//sinon ne plus fuire
+					setFuite(false);	
+				}
+				else if ( Math.abs(getPosition().getPosX() - getDanger().getPosition().getPosX()) < 7 && Math.abs(getPosition().getPosY() - getDanger().getPosition().getPosY()) < 7) { //si danger persiste (stocké un pointeur de l'animal dangereux ?)
 					fuir(getDanger());											//fuire
 System.out.println("en fuite");
 				}
-				else{
-					setDanger(null);											//sinon ne plus fuire
-					setFuite(false);
 System.out.println("fin fuite");
-				}
 			}
 			else {
 				//System.out.println(getPosition().getDecors() + " ou "+ TypeDecors.EAU);
-				if (getPosition().getDecors().getType() == TypeDecors.EAU) {	//sinon si zone inadapter
+				if (getPosition().getDecors().getGraphics() == Decor.eau) {	//sinon si zone inadapter
 					setFuite(true);
 					chuteCapacite();
 					seDeplacer();

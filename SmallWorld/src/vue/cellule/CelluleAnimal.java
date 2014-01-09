@@ -1,7 +1,6 @@
 package vue.cellule;
 
 import vue.Grille;
-import vue.enums.Animal;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import modele.especes.Espece;
 import modele.utils.Utils;
-import vue.enums.Decor;
 
 /**
  * Created by Edwin on 19/12/13.
@@ -90,7 +88,9 @@ public class CelluleAnimal extends Cellule implements ActionListener {
         return _instanceEspece.getPosition().getPosY();
     }
     
-    
+    public Espece getEspece() {
+		return _instanceEspece;
+	}
 
     @Override
     public void mouseClicked(MouseEvent e) {

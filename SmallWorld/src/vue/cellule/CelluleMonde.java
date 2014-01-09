@@ -30,10 +30,8 @@ public class CelluleMonde extends Cellule {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-		if (_case.getDecors().getType() == TypeDecors.BASE) 
-			imageDecors = Decor.herbe.getGrille();
-		else if (_case.getDecors().getType() == TypeDecors.EAU) 
-			imageDecors = Decor.eau.getGrille();
+		
+		imageDecors = _case.getDecors().getGraphics().getGrille();
         
         g2.drawImage(imageDecors, 0, 0, getSize().width, getSize().height, null);
         

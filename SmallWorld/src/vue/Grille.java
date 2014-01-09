@@ -69,6 +69,17 @@ public class Grille extends JPanel {
         repaint(); // refresh la grille
         return true;
     }
+	
+	public void supprimerAnimal(Espece espece) {
+		CelluleAnimal tmp;
+		int lg = animalAL.size();
+		for(int i = 0; i < lg; i++)
+			if ( espece == animalAL.get(i).getEspece() ) {
+				animalAL.remove(i);
+				break;
+			}
+        repaint(); // refresh la grille
+	}
 
     public boolean ajouterDecor() {
         repaint();// refresh la grille

@@ -9,6 +9,7 @@ import modele.monde.Monde;
 import modele.monde.Temps;
 import modele.monde.TypeDecors;
 import modele.utils.Utils;
+import vue.enums.Decor;
 
 public class Lion extends EspeceTer implements Herbivore {
 
@@ -102,7 +103,7 @@ System.out.println("fin fuite");
 			}
 			else {
 				//System.out.println(getPosition().getDecors() + " ou "+ TypeDecors.EAU);
-				if (getPosition().getDecors().getType() == TypeDecors.EAU) {	//sinon si zone inadapter
+				if (getPosition().getDecors().getGraphics() == Decor.eau) {	//sinon si zone inadapter
 					setFuite(true);
 					chuteCapacite();
 					seDeplacer();
