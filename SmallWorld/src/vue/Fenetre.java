@@ -1,7 +1,7 @@
 package vue;
 
 import controleur.Controleur;
-import vue.enums.Animal;
+import modele.monde.Map;
 
 import javax.swing.*;
 import java.awt.*;
@@ -77,17 +77,6 @@ public class Fenetre extends JFrame {
         pack();
         setVisible(true);
 
-        // Test grille
-        /*grille.ajouterAnimal(Animal.lion, 0, 0);
-        grille.ajouterAnimal(Animal.lion, 0, 1);
-        grille.ajouterAnimal(Animal.lion, 1, 0);
-        grille.ajouterAnimal(Animal.lion, 0, 14);
-        grille.ajouterAnimal(Animal.lion, 24, 0);
-        grille.ajouterAnimal(Animal.lion, 24, 14);
-        grille.ajouterAnimal(Animal.lion, 24, 1);
-        grille.ajouterAnimal(Animal.lion, 23, 10);
-        grille.ajouterAnimal(Animal.lion, 22, 9);
-        grille.ajouterAnimal(Animal.lamasticot, 14, 5);*/
     }
 
     // Utiliser un observateur ça serait Tip-Top !
@@ -98,13 +87,11 @@ public class Fenetre extends JFrame {
     }
 
     // Modifie la taille de la grille
-    public void setTailleGrille(int rows, int cols) {
-        grille = new Grille(this, controleur, rows, cols);
+    public void setTailleGrille(Map map) {
+        grille = new Grille(this, controleur, map);
         scrollPaneGrille.setViewportView(grille);
         activate();
-        grille.ajouterAnimal(Animal.lion, 5, 10);
-        grille.ajouterAnimal(Animal.lion, 10, 3);
-        grille.ajouterAnimal(Animal.lamasticot, 14, 5);
+
     }
 
     public Grille getGrille() {

@@ -32,7 +32,8 @@ public abstract class Cellule extends JComponent implements MouseListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(image, 0, 0, getSize().width, getSize().height, null);
+        if (image != null)
+            g2.drawImage(image, 0, 0, getSize().width, getSize().height, null);
     }
 
     public int getPosY() {

@@ -1,10 +1,10 @@
 package vue;
 
 import controleur.Controleur;
+import modele.especes.Espece;
+import modele.monde.Map;
 import vue.cellule.CelluleAnimal;
 import vue.cellule.CelluleMonde;
-import vue.enums.Animal;
-import vue.enums.Decor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,15 +27,17 @@ public class Grille extends JPanel {
     private boolean autoriserDeplacement;
     private CelluleMonde deplacement;
     private CelluleAnimal aDeplacer;
+    private final Map _map;
 
-    public Grille(Fenetre fenetre, Controleur controleur, int rows, int cols) {
+    public Grille(Fenetre fenetre, Controleur controleur, Map map) {
         super();
 
         // Initialisation
         this.fenetre = fenetre;
         this.controleur = controleur;
-        this.rows = rows;
-        this.cols = cols;
+        this._map = map;
+        this.rows = _map.getHauteur();
+        this.cols = _map.getLargeur();
         //grille = new Cellule[rows][cols];
         animalAL = new ArrayList<>();
         mondeAL = new ArrayList<>();
@@ -49,7 +51,7 @@ public class Grille extends JPanel {
         CelluleMonde tmp;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                tmp = new CelluleMonde(Decor.herbe, this, j, i);
+                tmp = new CelluleMonde(_map.getCase(j, i), this);
                 mondeAL.add(tmp);
                 add(tmp);
             }
@@ -57,19 +59,16 @@ public class Grille extends JPanel {
         return true;
     }
 
-    public boolean ajouterAnimal(Animal animal, int posX, int posY) {
-        CelluleAnimal tmp = new CelluleAnimal(animal, this, posX, posY);
+    public boolean ajouterAnimal(Espece instanceEspece) {
+        CelluleAnimal tmp = new CelluleAnimal(instanceEspece, this);
         animalAL.add(tmp);
         add(tmp);
-
+        repaint(); // refresh la grille
         return true;
     }
 
-    public boolean ajouterDecor(Decor decor, int posX, int posY) {
-        CelluleMonde tmp = new CelluleMonde(decor, this, posX, posY);
-        mondeAL.add(tmp);
-        add(tmp);
-
+    public boolean ajouterDecor() {
+        repaint();// refresh la grille
         return true;
     }
 

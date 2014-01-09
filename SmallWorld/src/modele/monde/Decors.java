@@ -1,19 +1,19 @@
 package modele.monde;
 
+import vue.enums.Decor;
+
 public class Decors {
 
     private int _type;
     private int _posX;
     private int _posY;
-    private int _largeur;
-    private int _hauteur;
 
-    public Decors(int type, int posX, int posY, int largeur, int hauteur) {
-        this._type = type;
-        this._posX = posX;
-        this._posY = posY;
-        this._largeur = largeur;
-        this._hauteur = hauteur;
+    private Decor _graphics; // contient les graphismes
+
+    public Decors(int type, int posX, int posY) {
+        _type = type;
+        _posX = posX;
+        _posY = posY;
     }
 
     public String sauvegarder() {
@@ -24,6 +24,10 @@ public class Decors {
         return _type;
     }
 
+    void setType(int type) {
+        _type = type;
+    }
+
     public int getPosX() {
         return _posX;
     }
@@ -32,12 +36,12 @@ public class Decors {
         return _posY;
     }
 
-    public int getLargeur() {
-        return _largeur;
+    public void setGraphics(Decor decor) {
+        _graphics = decor;
     }
 
-    public int getHauteur() {
-        return _hauteur;
+    public Decor getGraphics() {
+        return _graphics;
     }
 
 

@@ -1,55 +1,60 @@
 package modele.nourriture;
-import modele.especes.Espece;
+
+import modele.monde.Case;
+import vue.enums.NourrituresEnum;
 
 public class Nourriture {
-        
-    private int _posX;
-	private int _posY; 
-	private int _energieRendue;
-	private Boolean _mangeable; // indique si la nourriture a deja ete mangee par un animal et doit donc etre supprimee par le Monde
-        
-    public Nourriture(int energieRendue)
-    {
+
+    private Case _position;
+    private int _energieRendue;
+    private Boolean _mangeable; // indique si la nourriture a deja ete mangee par un animal et doit donc etre supprimee par le Monde
+
+
+    private NourrituresEnum _graphics; // contient les graphismes
+
+    public Nourriture(int energieRendue, Case position) {
         _energieRendue = energieRendue;
         _mangeable = true;
-        
-        _posX = -1;
-        _posY = -1;
+        _position = position;
     }
 
-	public void seFaireManger(Espece espece) {
-            _mangeable = false;
-	}
-	
-	public void detruire() {
-	}
-	
-	public String sauvegarder() {
-		return null;
-	}
-        
-    public int getPosX() {
-        return _posX;
+    public void seFaireManger() {
+        _mangeable = false;
     }
 
-    public int getPosY() {
-        return _posY;
+    public void detruire() {
+    }
+
+    public String sauvegarder() {
+        return null;
+    }
+
+    public boolean getMangeable() {
+        return _mangeable;
+    }
+
+    public void setMeangable(boolean mangeable) {
+        _mangeable = mangeable;
+    }
+
+    public Case getPosition() {
+        return _position;
     }
 
     public int getEnergieRendue() {
         return _energieRendue;
     }
 
-    public Boolean getMangeable() {
-        return _mangeable;
-    }
-    
-     public void setPosX(int _posX) {
-        this._posX = _posX;
+    public void setPosition(Case position) {
+        _position = position;
     }
 
-    public void setPosY(int _posY) {
-        this._posY = _posY;
+    public void setGraphics(NourrituresEnum nourriture) {
+        _graphics = nourriture;
+    }
+
+    public NourrituresEnum getGraphics() {
+        return _graphics;
     }
 
 }
