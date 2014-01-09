@@ -19,6 +19,7 @@ public class Lamastico extends EspeceTer implements Herbivore {
 
     public Lamastico(boolean estLeader, boolean sexe) {
         super("Lamastico", 35, 80, 2, 40, 20, estLeader, false, 65, 25, Utils.getRand(3), sexe);
+		getDangeureux().add("Lion");
     }
 
     @Override
@@ -145,15 +146,14 @@ System.out.println("mange");}
 					}
 					while(finAction == false && i < vision.size() ){
 						if ( vision.get(i).getEspece() != null ) {				//si apperçoit animal
-// TODO : VOIR SI ANIMAL EN QUESTION EST DANGEREUX POUR MES FESSES
-								if ( false ) {									//si animal dangereux
+								if ( getDangeureux().contains(vision.get(i).getEspece().getNom()) ) {									//si animal dangereux
 								setFuite(true);
 								setDanger( vision.get(i).getEspece() );
 								fuir(getDanger() );
 								finAction = true;
 System.out.println("DANGER");
 							}
-							else if ( vision.get(i).getEspece() instanceof Lion ) {				//sinon si animal convoiter
+							else if ( getConvoiter().contains(vision.get(i).getEspece().getNom()) ) {				//sinon si animal convoiter
 								setCourse(true);
 								seDeplacer(vision.get(i).getEspece().getPosition());
 								finAction = true;

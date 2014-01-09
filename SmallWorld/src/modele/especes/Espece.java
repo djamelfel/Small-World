@@ -1,5 +1,6 @@
 package modele.especes;
 
+import java.util.ArrayList;
 import modele.monde.Case;
 import modele.monde.Monde;
 import modele.monde.Temps;
@@ -31,12 +32,24 @@ public class Espece {
     private boolean _fuite;
     private boolean _course;
     private Espece _danger;
+	private ArrayList<String> _convoiter;
+
+
+	private ArrayList<String> _dangeureux;
 
     private Animal _graphics; // contient les graphismes
 
     public String getNom() {
         return _nom;
     }
+	
+	public ArrayList<String> getConvoiter() {
+		return _convoiter;
+	}
+
+	public ArrayList<String> getDangeureux() {
+		return _dangeureux;
+	}
 
     public boolean setSommeil(boolean sommeil) {
         return _sommeil = sommeil;

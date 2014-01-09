@@ -18,7 +18,8 @@ public class Lion extends EspeceTer implements Herbivore {
     }
 
     public Lion(boolean estLeader, boolean sexe) {
-        super("Lamastico", 35, 80, 2, 40, 20, estLeader, false, 65, 25, Utils.getRand(3), sexe);
+        super("Lion", 35, 80, 2, 40, 20, estLeader, false, 65, 25, Utils.getRand(3), sexe);
+		getConvoiter().add("Lamasticot");
     }
 
     @Override
@@ -116,7 +117,7 @@ System.out.println("mauvaise zone");
 				else if (getPosition().getEspece() != null && getPosition().getEspece() != this)	{						//sinon si case animal
 					if ( getCourse() )											//si doit se battre
 {
-						combattre(getPosition().getEspece());											//combatre
+						combattre(getPosition().getEspece());					//combatre
 System.out.println("combat");}
 					else if (getPosition().getEspece() instanceof Lion && getSexe() == false && getPosition().getEspece().getSexe() != getSexe() )	//si animal meme espece de sexe different du mien et moi femelle
 {						
@@ -145,15 +146,14 @@ System.out.println("mange");}
 					}
 					while(finAction == false && i < vision.size() ){
 						if ( vision.get(i).getEspece() != null ) {				//si apperçoit animal
-// TODO : VOIR SI ANIMAL EN QUESTION EST DANGEREUX POUR MES FESSES
-								if ( false ) {									//si animal dangereux
+								if ( getDangeureux().contains(vision.get(i).getEspece().getNom()) ) {									//si animal dangereux
 								setFuite(true);
 								setDanger( vision.get(i).getEspece() );
 								fuir(getDanger() );
 								finAction = true;
 System.out.println("DANGER");
 							}
-							else if ( vision.get(i).getEspece() instanceof Lamastico ) {				//sinon si animal convoiter
+							else if ( getConvoiter().contains(vision.get(i).getEspece().getNom()) ) {				//sinon si animal convoiter
 								setCourse(true);
 								seDeplacer(vision.get(i).getEspece().getPosition());
 								finAction = true;
