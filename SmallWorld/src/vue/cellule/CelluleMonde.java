@@ -7,8 +7,6 @@ import vue.Grille;
 
 import java.awt.event.MouseEvent;
 import modele.monde.Case;
-import modele.monde.TypeDecors;
-import vue.enums.Decor;
 
 
 public class CelluleMonde extends Cellule {

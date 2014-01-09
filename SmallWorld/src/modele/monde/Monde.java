@@ -51,12 +51,11 @@ public class Monde {
 				aTuer.add(tmpAnimal);
 			}
 		}
-		lg = _listeAnimaux.size();
+		lg = aTuer.size();
 		for(int i=0; i< lg; i++)
-			_controleur.supprimerEspece(_listeAnimaux.get(i));
-	    _listeAnimaux.removeAll(aTuer);
+			_controleur.supprimerEspece(aTuer.get(i));
+	    aTuer.removeAll(aTuer);
    }
- 
  
   public static ArrayList<Case> getVoisins(Case caseDepart, int champVision, int sens) {
       

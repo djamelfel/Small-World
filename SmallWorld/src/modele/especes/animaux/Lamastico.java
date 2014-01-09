@@ -27,7 +27,6 @@ public class Lamastico extends EspeceTer implements Herbivore {
             setForce(getForce() - 40);
 		else if (getFuite() == true) {
             setForce(getForce() - 30);
-            setVitesse(getVitesse() - 10);
             setVitesseCourse(getVitesse() - 5);
         }
 		setFuite(false);
@@ -39,7 +38,6 @@ public class Lamastico extends EspeceTer implements Herbivore {
             setForce(getForce() + 40);
         else {
             setForce(getForce() + 30);
-            setVitesse(getVitesse() + 10);
             setVitesseCourse(getVitesse() + 5);
         }
     }
@@ -91,20 +89,27 @@ System.out.println("energie" + getFaim() + " - " + getEnergie() );
 		else{
 			if (getFuite() == true)	{											//si animal en fuite
 				if(getDanger() == null) {
-					setDanger(null);											//sinon ne plus fuire
-					setFuite(false);	
+					setFuite(false);
+					seDeplacer();
+					retrouveCapacite();
 				}
 				else if ( Math.abs(getPosition().getPosX() - getDanger().getPosition().getPosX()) < 7 && Math.abs(getPosition().getPosY() - getDanger().getPosition().getPosY()) < 7) { //si danger persiste (stocké un pointeur de l'animal dangereux ?)
 					fuir(getDanger());											//fuire
 System.out.println("en fuite");
 				}
+				else {
 System.out.println("fin fuite");
+					setDanger(null);											//sinon ne plus fuire
+					setFuite(false);
+					retrouveCapacite();
+					seDeplacer();
+				}
 			}
 			else {
 				//System.out.println(getPosition().getDecors() + " ou "+ TypeDecors.EAU);
 				if (getPosition().getDecors().getGraphics() == Decor.eau) {	//sinon si zone inadapter
 					setFuite(true);
-					chuteCapacite();
+chuteCapacite();
 					seDeplacer();
 System.out.println("mauvaise zone");
 				}
@@ -143,7 +148,7 @@ System.out.println("mange");}
 // TODO : VOIR SI ANIMAL EN QUESTION EST DANGEREUX POUR MES FESSES
 								if ( false ) {									//si animal dangereux
 								setFuite(true);
-								setDanger(vision.get(i).getEspece() );
+								setDanger( vision.get(i).getEspece() );
 								fuir(getDanger() );
 								finAction = true;
 System.out.println("DANGER");

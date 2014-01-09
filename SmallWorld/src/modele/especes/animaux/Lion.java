@@ -7,7 +7,6 @@ import modele.especes.Herbivore;
 import modele.monde.Case;
 import modele.monde.Monde;
 import modele.monde.Temps;
-import modele.monde.TypeDecors;
 import modele.utils.Utils;
 import vue.enums.Decor;
 
@@ -19,7 +18,7 @@ public class Lion extends EspeceTer implements Herbivore {
     }
 
     public Lion(boolean estLeader, boolean sexe) {
-        super("Lion", 35, 80, 2, 40, 20, estLeader, false, 65, 25, Utils.getRand(3), sexe);
+        super("Lamastico", 35, 80, 2, 40, 20, estLeader, false, 65, 25, Utils.getRand(3), sexe);
     }
 
     @Override
@@ -28,7 +27,6 @@ public class Lion extends EspeceTer implements Herbivore {
             setForce(getForce() - 40);
 		else if (getFuite() == true) {
             setForce(getForce() - 30);
-            setVitesse(getVitesse() - 10);
             setVitesseCourse(getVitesse() - 5);
         }
 		setFuite(false);
@@ -40,7 +38,6 @@ public class Lion extends EspeceTer implements Herbivore {
             setForce(getForce() + 40);
         else {
             setForce(getForce() + 30);
-            setVitesse(getVitesse() + 10);
             setVitesseCourse(getVitesse() + 5);
         }
     }
@@ -91,21 +88,28 @@ System.out.println("energie" + getFaim() + " - " + getEnergie() );
             tuer();
 		else{
 			if (getFuite() == true)	{											//si animal en fuite
-				if ( Math.abs(getPosition().getPosX() - getDanger().getPosition().getPosX()) < 7 && Math.abs(getPosition().getPosY() - getDanger().getPosition().getPosY()) < 7) { //si danger persiste (stocké un pointeur de l'animal dangereux ?)
+				if(getDanger() == null) {
+					setFuite(false);
+					seDeplacer();
+					retrouveCapacite();
+				}
+				else if ( Math.abs(getPosition().getPosX() - getDanger().getPosition().getPosX()) < 7 && Math.abs(getPosition().getPosY() - getDanger().getPosition().getPosY()) < 7) { //si danger persiste (stocké un pointeur de l'animal dangereux ?)
 					fuir(getDanger());											//fuire
 System.out.println("en fuite");
 				}
-				else{
+				else {
+System.out.println("fin fuite");
 					setDanger(null);											//sinon ne plus fuire
 					setFuite(false);
-System.out.println("fin fuite");
+					retrouveCapacite();
+					seDeplacer();
 				}
 			}
 			else {
 				//System.out.println(getPosition().getDecors() + " ou "+ TypeDecors.EAU);
 				if (getPosition().getDecors().getGraphics() == Decor.eau) {	//sinon si zone inadapter
 					setFuite(true);
-					chuteCapacite();
+chuteCapacite();
 					seDeplacer();
 System.out.println("mauvaise zone");
 				}
@@ -144,7 +148,7 @@ System.out.println("mange");}
 // TODO : VOIR SI ANIMAL EN QUESTION EST DANGEREUX POUR MES FESSES
 								if ( false ) {									//si animal dangereux
 								setFuite(true);
-								setDanger(vision.get(i).getEspece() );
+								setDanger( vision.get(i).getEspece() );
 								fuir(getDanger() );
 								finAction = true;
 System.out.println("DANGER");
