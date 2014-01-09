@@ -3,19 +3,19 @@ package vue.cellule;
 import modele.monde.Case;
 import modele.monde.TypeDecors;
 import vue.Grille;
-import vue.enums.Decor;
+import vue.enums.EnumDecor;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
 
-public class CelluleMonde extends Cellule {
+public class CelluleDecor extends Cellule {
     private final Case _case;
 
     protected Image imageDecors;
     protected Image imageNourriture;
 
-    public CelluleMonde(Case _case, Grille grille) {
+    public CelluleDecor(Case _case, Grille grille) {
         super(grille, _case.getPosX(), _case.getPosY());
         this._case = _case;
     }
@@ -29,17 +29,11 @@ public class CelluleMonde extends Cellule {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         if (_case.getDecors().getType() == TypeDecors.BASE)
-            imageDecors = Decor.herbe.getGrille();
+            imageDecors = EnumDecor.herbe.getGrille();
         else if (_case.getDecors().getType() == TypeDecors.EAU)
-            imageDecors = Decor.eau.getGrille();
+            imageDecors = EnumDecor.eau.getGrille();
 
         g2.drawImage(imageDecors, 0, 0, getSize().width, getSize().height, null);
-
-        if (_case.getNourriture() != null)
-            imageNourriture = _case.getNourriture().getGraphics().getGrille();
-        else
-            imageNourriture = null;
-        g2.drawImage(imageNourriture, 0, 0, getSize().width, getSize().height, null);
     }
 
     @Override

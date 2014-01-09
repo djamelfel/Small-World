@@ -4,7 +4,7 @@ import controleur.Controleur;
 import modele.especes.Espece;
 import modele.monde.Map;
 import vue.cellule.CelluleAnimal;
-import vue.cellule.CelluleMonde;
+import vue.cellule.CelluleDecor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,13 +19,13 @@ public class Grille extends JPanel {
     private int rows;
     private int cols;
     private ArrayList<CelluleAnimal> animalAL;
-    private ArrayList<CelluleMonde> mondeAL;
+    private ArrayList<CelluleDecor> mondeAL;
 
     private Fenetre fenetre;
     private Controleur controleur;
 
     private boolean autoriserDeplacement;
-    private CelluleMonde deplacement;
+    private CelluleDecor deplacement;
     private CelluleAnimal aDeplacer;
     private final Map _map;
 
@@ -48,10 +48,10 @@ public class Grille extends JPanel {
     }
 
     public boolean initMonde() {
-        CelluleMonde tmp;
+        CelluleDecor tmp;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                tmp = new CelluleMonde(_map.getCase(j, i), this);
+                tmp = new CelluleDecor(_map.getCase(j, i), this);
                 mondeAL.add(tmp);
                 add(tmp);
             }
@@ -91,7 +91,7 @@ public class Grille extends JPanel {
         double htOfCell;
 
         // Affichage du monde
-        for (CelluleMonde celluleMonde : mondeAL) {
+        for (CelluleDecor celluleMonde : mondeAL) {
             // Optimiser l'affichage des cases pour éviter de superposer une ligne ou une colonne
             wdOfCell = wdOfRow;
             htOfCell = htOfRow;
@@ -197,7 +197,7 @@ public class Grille extends JPanel {
         return autoriserDeplacement;
     }
 
-    public void setDeplacement(CelluleMonde deplacement) {
+    public void setDeplacement(CelluleDecor deplacement) {
         this.deplacement = deplacement;
     }
 }

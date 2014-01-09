@@ -17,6 +17,7 @@ public class MiniGrille extends JPanel implements MouseListener {
     private Grille grille;
     private JDialog dialogNouveau;
     private ArrayList<CelluleAnimal> animalAL;
+    //private ArrayList<Cellule>
     private Point caseSelectionne;
     private Point coordonnees;
 
@@ -171,6 +172,11 @@ public class MiniGrille extends JPanel implements MouseListener {
             else {
                 dialogNouveauDecor.getPositionDecor().setText("Aucune cellule sélectionnée!");
             }
+        }
+        // Si le JDialog est pour ajouter de la nourriture
+        else if (dialogNouveau instanceof DialogNouveauNourriture) {
+            DialogNouveauNourriture dialogNouveauNourriture = (DialogNouveauNourriture) dialogNouveau;
+
         }
     }
 

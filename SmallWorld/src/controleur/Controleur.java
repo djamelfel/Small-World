@@ -4,7 +4,8 @@ import modele.especes.Espece;
 import utilitaires.Charger;
 import utilitaires.Sauvegarder;
 import vue.Fenetre;
-import vue.enums.Decor;
+import vue.enums.EnumDecor;
+import vue.enums.EnumNourriture;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,12 +31,12 @@ public class Controleur {
 
         ajouterAnimal("Lamasticot", "roger", false, false, new Point(10, 10));
         ajouterAnimal("Lamasticot", "roger", false, true, new Point(11, 10));
-        ajouterNourriture("Banane", new Point(21, 0));
+        /*ajouterNourriture("Banane", new Point(21, 0));
         ajouterNourriture("Banane", new Point(21, 3));
         ajouterNourriture("Banane", new Point(21, 6));
         ajouterNourriture("Banane", new Point(21, 9));
         ajouterNourriture("Banane", new Point(21, 11));
-        ajouterNourriture("Banane", new Point(21, 13));
+        ajouterNourriture("Banane", new Point(21, 13));*/
         _managerAnimaux.start();
         return true;
     }
@@ -64,7 +65,7 @@ public class Controleur {
     }
 
     // Méthode appelé pour ajouter un décor
-    public boolean ajouterDecor(Decor decor, int largeur, int hauteur, Point position) {
+    public boolean ajouterDecor(EnumDecor decor, int largeur, int hauteur, Point position) {
         System.out.println("Décor => " + decor.getNom() + " : " + largeur + ", " + hauteur + ", " + position);
 
         int x = (int) position.getX();
@@ -79,8 +80,8 @@ public class Controleur {
         return true;
     }
 
-    public void ajouterNourriture(String nourriture, Point position) {
-        _managerAnimaux.getMonde().ajoutNourriture(nourriture, position.x, position.y);
+    public void ajouterNourriture(EnumNourriture nourriture, Point position) {
+        //_managerAnimaux.getMonde().ajoutNourriture(nourriture, position.x, position.y);
     }
 
 

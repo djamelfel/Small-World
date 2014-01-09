@@ -1,7 +1,7 @@
 package modele.nourriture;
 
 import modele.monde.Case;
-import vue.enums.NourrituresEnum;
+import vue.enums.EnumNourriture;
 
 public class Nourriture {
 
@@ -10,7 +10,7 @@ public class Nourriture {
     private Boolean _mangeable; // indique si la nourriture a deja ete mangee par un animal et doit donc etre supprimee par le Monde
 
 
-    private NourrituresEnum _graphics; // contient les graphismes
+    private EnumNourriture _graphics; // contient les graphismes
 
     public Nourriture(int energieRendue, Case position) {
         _energieRendue = energieRendue;
@@ -49,11 +49,11 @@ public class Nourriture {
         _position = position;
     }
 
-    public void setGraphics(NourrituresEnum nourriture) {
+    public void setGraphics(EnumNourriture nourriture) {
         _graphics = nourriture;
     }
 
-    public NourrituresEnum getGraphics() {
+    public EnumNourriture getGraphics() {
         return _graphics;
     }
 

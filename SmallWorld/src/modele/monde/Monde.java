@@ -6,9 +6,9 @@ import modele.especes.animaux.Lamastico;
 import modele.especes.animaux.Lion;
 import modele.nourriture.Herbe;
 import modele.nourriture.Nourriture;
-import vue.enums.Animal;
-import vue.enums.Decor;
-import vue.enums.NourrituresEnum;
+import vue.enums.EnumAnimal;
+import vue.enums.EnumDecor;
+import vue.enums.EnumNourriture;
 
 import java.util.ArrayList;
 
@@ -91,12 +91,12 @@ public class Monde {
             case "Lion":
                 System.out.println("JE SUIS UN LION");
                 tmpEspece = new Lion(estLeader, sexe);
-                tmpEspece.setGraphics(Animal.lion);
+                tmpEspece.setGraphics(EnumAnimal.lion);
                 break;
             case "Lamasticot":
                 System.out.println("JE SUIS UN LAMA");
                 tmpEspece = new Lamastico(estLeader, sexe);
-                tmpEspece.setGraphics(Animal.lamasticot);
+                tmpEspece.setGraphics(EnumAnimal.lamasticot);
                 break;
 
         }
@@ -106,7 +106,7 @@ public class Monde {
         return tmpEspece;
     }
 
-    public void ajoutDecors(Decor decor, int posX, int posY) {
+    public void ajoutDecors(EnumDecor decor, int posX, int posY) {
         switch (decor.getNom()) {
 //TODO : AJOUTER TOUS LES AUTRES TYPE DE DECORS
             case "Eau":
@@ -126,7 +126,7 @@ public class Monde {
         switch (nourriture) {
             case "Banane":
                 tmpNourriture = new Herbe(_map.getCase(posX, posY));
-                tmpNourriture.setGraphics(NourrituresEnum.banane);
+                tmpNourriture.setGraphics(EnumNourriture.banane);
                 break;
             default:
         }

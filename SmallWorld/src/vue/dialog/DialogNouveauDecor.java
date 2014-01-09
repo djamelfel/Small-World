@@ -2,7 +2,7 @@ package vue.dialog;
 
 import controleur.Controleur;
 import vue.Fenetre;
-import vue.enums.Decor;
+import vue.enums.EnumDecor;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class DialogNouveauDecor extends JDialog implements ActionListener {
     private Fenetre fenetre;
     private Controleur controleur;
-    private Decor _decor;
+    private EnumDecor _decor;
 
     private JPanel caracteristiques;
     private JPanel boutons;
@@ -29,7 +29,7 @@ public class DialogNouveauDecor extends JDialog implements ActionListener {
     private MiniGrille position;
     private JLabel positionDecor;
 
-    public DialogNouveauDecor(Fenetre fenetre, Controleur controleur, Decor decor) {
+    public DialogNouveauDecor(Fenetre fenetre, Controleur controleur, EnumDecor decor) {
         super();
 
         this.fenetre = fenetre;

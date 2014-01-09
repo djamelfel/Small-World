@@ -1,6 +1,6 @@
 package modele.monde;
 
-import vue.enums.Decor;
+import vue.enums.EnumDecor;
 
 public class Decors {
 
@@ -8,7 +8,7 @@ public class Decors {
     private int _posX;
     private int _posY;
 
-    private Decor _graphics; // contient les graphismes
+    private EnumDecor _graphics; // contient les graphismes
 
     public Decors(int type, int posX, int posY) {
         _type = type;
@@ -36,11 +36,11 @@ public class Decors {
         return _posY;
     }
 
-    public void setGraphics(Decor decor) {
+    public void setGraphics(EnumDecor decor) {
         _graphics = decor;
     }
 
-    public Decor getGraphics() {
+    public EnumDecor getGraphics() {
         return _graphics;
     }
 

@@ -4,7 +4,7 @@ import modele.monde.Case;
 import modele.monde.Monde;
 import modele.monde.Temps;
 import modele.utils.Utils;
-import vue.enums.Animal;
+import vue.enums.EnumAnimal;
 
 public class Espece {
 
@@ -32,7 +32,7 @@ public class Espece {
     private boolean _course;
     private Espece _danger;
 
-    private Animal _graphics; // contient les graphismes
+    private EnumAnimal _graphics; // contient les graphismes
 
     public String getNom() {
         return _nom;
@@ -480,11 +480,11 @@ public class Espece {
         return null;
     }
 
-    public void setGraphics(Animal animal) {
+    public void setGraphics(EnumAnimal animal) {
         _graphics = animal;
     }
 
-    public Animal getGraphics() {
+    public EnumAnimal getGraphics() {
         return _graphics;
     }
 }

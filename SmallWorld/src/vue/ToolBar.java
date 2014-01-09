@@ -4,9 +4,9 @@ import controleur.Controleur;
 import vue.dialog.DialogNouveauAnimal;
 import vue.dialog.DialogNouveauDecor;
 import vue.dialog.DialogNouveauNourriture;
-import vue.enums.Animal;
-import vue.enums.Decor;
-import vue.enums.NourrituresEnum;
+import vue.enums.EnumAnimal;
+import vue.enums.EnumDecor;
+import vue.enums.EnumNourriture;
 
 import javax.swing.*;
 import java.awt.*;
@@ -78,10 +78,10 @@ public class ToolBar extends JToolBar implements ActionListener {
 
 
         // ajout de tous les animaux
-        Animal[] resourcesAnimaux = Animal.values(); // Récupération des valeurs de l'énumération
+        EnumAnimal[] resourcesAnimaux = EnumAnimal.values(); // Récupération des valeurs de l'énumération
         int valuesNumber = resourcesAnimaux.length;
         for (int i = 0; i < valuesNumber; i++) {
-            final Animal type = resourcesAnimaux[i];
+            final EnumAnimal type = resourcesAnimaux[i];
             image = type.getToolbar();
             tmpBtn = new JButton(image);
             // tmpBtn.addActionListener(this);
@@ -97,10 +97,10 @@ public class ToolBar extends JToolBar implements ActionListener {
         }
 
         // ajout de tous les éléments de décors
-        Decor[] resourcesDecors = Decor.values(); // Récupération des valeurs  de l'énumération
+        EnumDecor[] resourcesDecors = EnumDecor.values(); // Récupération des valeurs  de l'énumération
         valuesNumber = resourcesDecors.length;
         for (int i = 0; i < valuesNumber; i++) {
-            final Decor type = resourcesDecors[i];
+            final EnumDecor type = resourcesDecors[i];
             image = type.getToolbar();
             tmpBtn = new JButton(image);
             // tmpBtn.addActionListener(this);
@@ -117,16 +117,16 @@ public class ToolBar extends JToolBar implements ActionListener {
         }
 
         // ajout de toutes les nourritures
-        NourrituresEnum[] resourcesNourriture = NourrituresEnum.values(); // Récupération des valeurs de l'énumération
+        EnumNourriture[] resourcesNourriture = EnumNourriture.values(); // Récupération des valeurs de l'énumération
         valuesNumber = resourcesNourriture.length;
         for (int i = 0; i < valuesNumber; i++) {
-            final NourrituresEnum type = resourcesNourriture[i];
+            final EnumNourriture type = resourcesNourriture[i];
             image = type.getToolbar();
             tmpBtn = new JButton(image);
             // tmpBtn.addActionListener(this);
             tmpBtn.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
-                    new DialogNouveauNourriture(fenetre, controleur, type.getNom());
+                    new DialogNouveauNourriture(fenetre, controleur, type);
                 }
             });
             tmpBtn.setToolTipText(type.getPhraseToolbar());
