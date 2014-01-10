@@ -76,4 +76,7 @@ public abstract class Cellule extends JComponent implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
+    @Override
+    public abstract String toString();
 }

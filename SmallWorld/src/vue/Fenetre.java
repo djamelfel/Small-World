@@ -89,6 +89,7 @@ public class Fenetre extends JFrame {
     // Modifie la taille de la grille
     public void setTailleGrille(Map map) {
         grille = new Grille(this, controleur, map);
+        arbre.setGrille(grille);
         scrollPaneGrille.setViewportView(grille);
         activate();
 
@@ -96,5 +97,9 @@ public class Fenetre extends JFrame {
 
     public Grille getGrille() {
         return grille;
+    }
+
+    public Arbre getArbre() {
+        return arbre;
     }
 }

@@ -53,6 +53,7 @@ public class Grille extends JPanel {
             for (int j = 0; j < cols; j++) {
                 tmp = new CelluleMonde(_map.getCase(j, i), this);
                 mondeAL.add(tmp);
+                fenetre.getArbre().ajouterNoeud(tmp);
                 add(tmp);
             }
         }
@@ -63,6 +64,7 @@ public class Grille extends JPanel {
         CelluleAnimal tmp = new CelluleAnimal(instanceEspece, this);
         animalAL.add(tmp);
         add(tmp);
+        fenetre.getArbre().ajouterNoeud(tmp);
         repaint(); // refresh la grille
         return true;
     }
@@ -73,6 +75,7 @@ public class Grille extends JPanel {
         for (int i = 0; i < lg; i++)
             if (espece == animalAL.get(i).getEspece()) {
                 animalAL.remove(i);
+                //fenetre.getArbre().supprimerNoeud();
                 break;
             }
         repaint(); // refresh la grille

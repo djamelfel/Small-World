@@ -93,6 +93,11 @@ public class CelluleAnimal extends Cellule implements ActionListener {
     }
 
     @Override
+    public String toString() {
+        return getEspece().toString();
+    }
+
+    @Override
     public void mouseClicked(MouseEvent e) {
     }
 

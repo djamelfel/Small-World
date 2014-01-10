@@ -46,6 +46,11 @@ public class CelluleMonde extends Cellule {
         }
     }
 
+    @Override
+    public String toString() {
+        return get_case().toString();
+    }
+
     public Case get_case() {
         return _case;
     }
