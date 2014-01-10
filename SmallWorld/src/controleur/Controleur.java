@@ -111,6 +111,4 @@ public class Controleur {
         //GUI must start on EventDispatchThread:
         SwingUtilities.invokeLater(gui);
     }
-
-
 }

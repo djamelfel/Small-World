@@ -147,7 +147,7 @@ public class Grille extends JPanel {
         int i;
         Shape line; // Permet de tracer des lignes à partir de coordonnées Double =)
         // Tracage des lignes
-        for (i = 0; i <= rows; i++) {
+        /*for (i = 0; i <= rows; i++) {
             if (i == rows)
                 g2.drawLine(0, i * htOfRow - 1, (int) width, i * htOfRow - 1);
             g2.drawLine(0, i * htOfRow, (int) width, i * htOfRow);
@@ -157,9 +157,9 @@ public class Grille extends JPanel {
                 line = new Line2D.Double(0, i * htOfRow, width, i * htOfRow);
             g2.draw(line);*/
 
-        }
+        //}
         // Tracage des colonnes
-        for (i = 0; i <= cols; i++) {
+        /*for (i = 0; i <= cols; i++) {
             if (i == cols)
                 g2.drawLine(i * wdOfRow - 1, 0, i * wdOfRow - 1, (int) height);
             g2.drawLine(i * wdOfRow, 0, i * wdOfRow, (int) height);
@@ -168,7 +168,7 @@ public class Grille extends JPanel {
             else
                 line = new Line2D.Double(i * wdOfRow, 0, i * wdOfRow, height);
             g2.draw(line);*/
-        }
+        //}
     }
 
     public int getRows() {
