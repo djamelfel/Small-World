@@ -29,13 +29,13 @@ public class BarreEtat extends JPanel implements ActionListener {
         this.fenetre = fenetre;
         this.controleur = controleur;
 
-        this.setLayout(new GridLayout(1, 0));
+        this.setLayout(new GridLayout(1, 4));
         this.setBackground(Color.DARK_GRAY);
 
         info = new JLabel();
         info.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
         info.setForeground(Color.WHITE);
-        str = "aaa";
+        str = "Temps : 0";
         info.setText(str);
 
         normal = new JButton(Temps.play.getIcon());
@@ -64,13 +64,13 @@ public class BarreEtat extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(normal)) {
-
+            controleur.getManagerAnimaux().setDuree(500);
         }
         else if (e.getSource().equals(pause)) {
-
+            controleur.getManagerAnimaux().setPause(!controleur.getManagerAnimaux().isPause());
         }
         else if (e.getSource().equals(accelere)) {
-
+            controleur.getManagerAnimaux().setDuree(100);
         }
     }
 }

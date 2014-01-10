@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class Araignee extends EspeceTer implements Herbivore {
 
 
-    public Araignee(Espece espece) {
-        super(espece);
+    public Araignee(boolean course, int dateNaissance, int energie, boolean estLeader, int faim, int force, boolean sexe, boolean fuite, boolean nage, int nbReproductions, int sens, boolean sommeil, int vitesse, int vitesseCourse) {
+        super("Araignee", 0, 45, 5, 25, course, dateNaissance, energie, estLeader, faim, force, sexe, fuite, nage, nbReproductions, sens, sommeil, vitesse, vitesseCourse);
     }
 
     public Araignee(boolean estLeader, boolean sexe) {

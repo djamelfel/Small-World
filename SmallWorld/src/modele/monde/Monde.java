@@ -197,10 +197,11 @@ public class Monde {
         _map.getCase(posX, posY).getDecors().setGraphics(decor);
     }
 
-    public void ajoutNourriture(String nourriture, int posX, int posY) {
+    public Nourriture ajoutNourriture(String nourriture, int posX, int posY) {
         Nourriture tmpNourriture = null;
         switch (nourriture) {
             case "Banane":
+                System.out.println("On ajoute une banane");
                 tmpNourriture = new Herbe(_map.getCase(posX, posY));
                 tmpNourriture.setGraphics(NourrituresEnum.banane);
                 break;
@@ -215,14 +216,14 @@ public class Monde {
                 tmpNourriture.setGraphics(NourrituresEnum.cadavre);
                 break;
             default:
-                System.out.println("On ajoute une carotte");
+                System.out.println("On ajoute une nourri par def : " + nourriture);
                 tmpNourriture = new Carotte(_map.getCase(posX, posY));
 
                 NourrituresEnum[] resourcesNourriture = NourrituresEnum.values(); // Récupération des valeurs de l'énumération
                 int valuesNumber = resourcesNourriture.length;
                 for (int i = 0; i < valuesNumber; i++) {
                     final NourrituresEnum type = resourcesNourriture[i];
-                    if (type.getNom() == nourriture) {
+                    if (type.getNom().equals(nourriture)) {
                         tmpNourriture.setGraphics(type);
                         break;
                     }
@@ -230,9 +231,11 @@ public class Monde {
 
 
         }
+
+        System.out.println("" + tmpNourriture.getGraphics());
         _map.ajouterNouriture(tmpNourriture);
         _listeNourriture.add(tmpNourriture);
-
+        return tmpNourriture;
     }
 
 
@@ -265,6 +268,7 @@ public class Monde {
     }
 
     public Element sauvegarder() {
+        Element manager = new Element("Manager");
         Element monde = new Element("Monde");
         Element animaux = new Element("Animaux");
         Element nourriture = new Element("Nourriture");
@@ -277,13 +281,14 @@ public class Monde {
         for (int i = 0; i < lg; i++)
             nourriture.addContent(_listeNourriture.get(i).sauvegarder());
 
+        manager.addContent(_map.sauvegarder());
         monde.setAttribute("Temperature", _temperature + "");
-        monde.addContent(_map.sauvegarder());
         monde.addContent(animaux);
         monde.addContent(nourriture);
-
-        return monde;
+        manager.addContent(monde);
+        return manager;
     }
+
 
     public void charger(String nom) {
 
@@ -300,6 +305,14 @@ public class Monde {
 
     public Temps getTemps() {
         return _temps;
+    }
+
+    public void setTemperature(int _temperature) {
+        this._temperature = _temperature;
+    }
+
+    public ArrayList<Espece> getListeAnimaux() {
+        return _listeAnimaux;
     }
 
 

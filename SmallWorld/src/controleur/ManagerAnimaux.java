@@ -13,7 +13,10 @@ public class ManagerAnimaux implements Runnable {
     private Controleur _controleur;
     private Monde _monde;
     private int _duree = 500; // Contient la duree d'endormissement du Thread entre chaque tour de boucle en ms
+
+
     private boolean _pause = false;
+
 
     public ManagerAnimaux(Controleur controleur) {
         _controleur = controleur;
@@ -63,5 +66,20 @@ public class ManagerAnimaux implements Runnable {
         return _monde;
     }
 
+    public boolean isPause() {
+        return _pause;
+    }
+
+    public void setPause(boolean _pause) {
+        this._pause = _pause;
+    }
+
+    public void setDuree(int _duree) {
+        this._duree = _duree;
+    }
+
+    public int getDuree() {
+        return _duree;
+    }
 
 }

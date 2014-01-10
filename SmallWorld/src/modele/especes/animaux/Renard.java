@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class Renard extends EspeceTer implements Herbivore {
 
 
-    public Renard(Espece espece) {
-        super(espece);
+    public Renard(boolean course, int dateNaissance, int energie, boolean estLeader, int faim, int force, boolean sexe, boolean fuite, boolean nage, int nbReproductions, int sens, boolean sommeil, int vitesse, int vitesseCourse) {
+        super("Renard", 50, 100, 5, 25, course, dateNaissance, energie, estLeader, faim, force, sexe, fuite, nage, nbReproductions, sens, sommeil, vitesse, vitesseCourse);
     }
 
     public Renard(boolean estLeader, boolean sexe) {

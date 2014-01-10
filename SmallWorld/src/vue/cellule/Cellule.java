@@ -7,9 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-/**
- * Created by Edwin on 23/12/13.
- */
+
 public abstract class Cellule extends JComponent implements MouseListener {
     protected Grille grille;
     private int posX;

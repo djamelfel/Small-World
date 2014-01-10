@@ -5,9 +5,6 @@ import java.awt.*;
 
 import static modele.utils.Utils.hex2Rgb;
 
-/**
- * Created by Edwin on 26/12/13.
- */
 public enum Decor {
     herbe("Herbe", "Ajouter de l'herbe", new ImageIcon(Decor.class.getResource("../../images/toolbar/herbe.png")),
             new ImageIcon(Decor.class.getClass().getResource("../../images/carte/herbe.png")).getImage(), hex2Rgb("#8FCF3C")),

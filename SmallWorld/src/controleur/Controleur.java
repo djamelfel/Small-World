@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.especes.Espece;
+import modele.utils.Utils;
 import utilitaires.Charger;
 import utilitaires.Sauvegarder;
 import vue.Fenetre;
@@ -13,7 +14,7 @@ import java.io.File;
 public class Controleur {
     private Fenetre fenetre;
     private ManagerAnimaux _managerAnimaux;
-    private String _nomJoueur;
+
 
     public Controleur() {
         fenetre = new Fenetre(this);
@@ -28,23 +29,29 @@ public class Controleur {
         _managerAnimaux.initialiser(rows, cols);
         fenetre.setTailleGrille(_managerAnimaux.getMonde().getMap());
 
-        ajouterAnimal("Lion", "roger", false, false, new Point(5, 10));
-        ajouterAnimal("Lamastico", "roger", false, false, new Point(10, 10));
-        ajouterAnimal("Lamastico", "roger", true, true, new Point(11, 10));
-        ajouterAnimal("PoissonVolant", "roger", false, false, new Point(5, 2));
-        ajouterAnimal("Renard", "roger", false, true, new Point(8, 8));
-        ajouterAnimal("Renard", "roger", true, false, new Point(8, 9));
+        if (Charger.chargerXML(this))
+            System.out.println("partie CHARGEE");
+        else {
+            ajouterAnimal("Lion", "roger", false, false, new Point(Utils.getRand(cols - 1), Utils.getRand(rows - 1)));
+            ajouterAnimal("Lamastico", "roger", false, false, new Point(Utils.getRand(cols - 1), Utils.getRand(rows - 1)));
+            ajouterAnimal("Lamastico", "roger", true, true, new Point(Utils.getRand(cols - 1), Utils.getRand(rows - 1)));
+            ajouterAnimal("PoissonVolant", "roger", false, false, new Point(Utils.getRand(cols - 1), Utils.getRand(rows - 1)));
+            ajouterAnimal("Renard", "roger", false, true, new Point(Utils.getRand(cols - 1), Utils.getRand(rows - 1)));
+            ajouterAnimal("Renard", "roger", true, false, new Point(Utils.getRand(cols - 1), Utils.getRand(rows - 1)));
 
-        ajouterAnimal("Araignee", "roger", false, false, new Point(4, 9));
-        ajouterAnimal("Araignee", "roger", true, false, new Point(5, 9));
-         
- /*       ajouterNourriture("Banane", new Point(21,0));
+            ajouterAnimal("Araignee", "roger", false, false, new Point(Utils.getRand(cols), Utils.getRand(rows)));
+            ajouterAnimal("Araignee", "roger", true, false, new Point(Utils.getRand(cols), Utils.getRand(rows)));
+              /*       ajouterNourriture("Banane", new Point(21,0));
         ajouterNourriture("Banane", new Point(21,3));
 		ajouterNourriture("Banane", new Point(21,6));
 		ajouterNourriture("Banane", new Point(21,9));
 		ajouterNourriture("Banane", new Point(21,11));
 		ajouterNourriture("Banane", new Point(21,13));*/
+
+        }
+
         _managerAnimaux.start();
+
         return true;
     }
 
@@ -55,7 +62,7 @@ public class Controleur {
 
     // Méthode appelé lors d'un chargement de partie
     public boolean charger(File file) {
-        if (Charger.chargerXML(file)) {
+        if (Charger.chargerXML(file, this)) {
             return true;
         }
         return false;
@@ -111,4 +118,17 @@ public class Controleur {
         //GUI must start on EventDispatchThread:
         SwingUtilities.invokeLater(gui);
     }
+
+
+    public ManagerAnimaux getManagerAnimaux() {
+        return _managerAnimaux;
+    }
+
+    private String _nomJoueur;
+
+    public void setNomJoueur(String _nomJoueur) {
+        this._nomJoueur = _nomJoueur;
+    }
+
+
 }

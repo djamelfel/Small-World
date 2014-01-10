@@ -97,6 +97,7 @@ public class Utils {
         return bImage2;
     }
 
+
     /**
      * @param colorStr e.g. "#FFFFFF"
      * @return

@@ -3,6 +3,7 @@ package modele.especes;
 import modele.monde.Case;
 import modele.monde.Monde;
 import modele.monde.Temps;
+import modele.nourriture.Cadavre;
 import modele.utils.Utils;
 import org.jdom2.Element;
 import vue.enums.Animal;
@@ -232,28 +233,32 @@ public class Espece {
         _convoiter = new ArrayList();
     }
 
-    public Espece(Espece espece) {
-        _nom = espece.getNom();
-        _sommeilDeb = espece.getSommeilDeb();
-        _sommeilFin = espece.getSommeilFin();
-        _vitesse = espece.getVitesse();
-        _force = espece.getForce();
-        _energie = espece.getEnergie();
-        _faim = espece.getFaim();
-        _meute = espece.getMeute();
-        _vitesseCourse = espece.getVitesseCourse();
-        _sexe = espece.getSexe();
-        _estLeader = espece.getEstLeader();
-        _dateNaissance = espece.getDateNaissance();
-        _nage = espece.getNage();
-        _estVivant = espece.getEstVivant();
-        _position = espece.getPosition();
-        _champVision = espece.getChampVision();
-        _sens = espece.getSens();
-        _tempsIdeal = espece.getTempsIdeal();
-        _nbReproductions = espece.getNbReproductions();
-        _course = espece.getCourse();
+    public Espece(String nom, int sommeilDeb, int sommeilFin, int champVision, int tempsIdeal, boolean course, int dateNaissance, int energie, boolean estLeader, int faim, int force, boolean sexe, boolean fuite, boolean nage, int nbReproductions, int sens, boolean sommeil, int vitesse, int vitesseCourse) {
+        _nom = nom;
+        _sommeilDeb = sommeilDeb;
+        _sommeilFin = sommeilFin;
+        _vitesse = vitesse;
+        _force = force;
+        _energie = 100;
+        _faim = 100;
+        _meute = null;
+        _vitesseCourse = vitesseCourse;
+        _sexe = sexe;
+        if (estLeader == true)
+            _meute = new Meute(this);
+        else
+            _meute = null;
+        _estLeader = estLeader;
+        _dateNaissance = Temps.getJeux();
+        _nage = nage;
+        _estVivant = true;
+        _champVision = champVision;
+        _tempsIdeal = tempsIdeal;
+        _nbReproductions = nbReproductions;
+        _course = false;
         _danger = null;
+        _dangeureux = new ArrayList();
+        _convoiter = new ArrayList();
     }
 
     public void verifierEtatJournee() {
@@ -323,6 +328,9 @@ public class Espece {
     }
 
     public void manger() {
+
+        if (this instanceof Herbivore && _position.getNourriture() instanceof Cadavre) return;
+        if (this instanceof Carnivore && !(_position.getNourriture() instanceof Cadavre)) return;
         if (_position.getNourriture().getEnergieRendue() + _faim > 100)
             setFaim(100);                    //energie maximum 100
         else
@@ -489,7 +497,7 @@ public class Espece {
 
     @Override
     public String toString() {
-        return getNom() + " : x: " + getPosition().getPosX() + ", y:" + getPosition().getPosY();
+        return getNom() + " (" + getEnergie() + "): x: " + getPosition().getPosX() + ", y:" + getPosition().getPosY();
     }
 
     public Element sauvegarder() {
@@ -509,8 +517,8 @@ public class Espece {
         espece.setAttribute("nage", getNage() + "");
         espece.setAttribute("nbReproductions", getNbReproductions() + "");
         espece.setAttribute("nom", getNom());
-        espece.setAttribute("position", getPosition().getPosX() + "");
-        espece.setAttribute("position", getPosition().getPosY() + "");
+        espece.setAttribute("positionX", getPosition().getPosX() + "");
+        espece.setAttribute("positionY", getPosition().getPosY() + "");
         espece.setAttribute("sens", getSens() + "");
         espece.setAttribute("sexe", getSexe() + "");
         espece.setAttribute("sommeil", getSommeil() + "");

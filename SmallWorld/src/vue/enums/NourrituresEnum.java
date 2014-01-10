@@ -5,9 +5,6 @@ import java.awt.*;
 
 import static modele.utils.Utils.hex2Rgb;
 
-/**
- * Created by Edwin on 25/12/13.
- */
 public enum NourrituresEnum {
     banane("Banane", "Ajouter une banane", new ImageIcon(NourrituresEnum.class.getResource("../../images/toolbar/nourriture/banane.png")),
             new ImageIcon(NourrituresEnum.class.getClass().getResource("../../images/nourriture/banane.png")).getImage(), hex2Rgb("#D1B606")),

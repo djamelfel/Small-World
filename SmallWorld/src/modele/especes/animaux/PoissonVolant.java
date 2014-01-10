@@ -1,8 +1,8 @@
 package modele.especes.animaux;
 
 import modele.especes.Espece;
-import modele.especes.EspeceTer;
 import modele.especes.Herbivore;
+import modele.especes.Oiseau;
 import modele.monde.Case;
 import modele.monde.Monde;
 import modele.monde.Temps;
@@ -11,16 +11,17 @@ import vue.enums.Decor;
 
 import java.util.ArrayList;
 
-public class PoissonVolant extends EspeceTer implements Herbivore {
+public class PoissonVolant extends Oiseau implements Herbivore {
 
 
-    public PoissonVolant(Espece espece) {
-        super(espece);
+    public PoissonVolant(boolean course, int dateNaissance, int energie, boolean estLeader, int faim, int force, boolean sexe, boolean fuite, boolean nage, int nbReproductions, int sens, boolean sommeil, int vitesse, int vitesseCourse) {
+        super("PoissonVolant", 70, 90, 5, 25, course, dateNaissance, energie, estLeader, faim, force, sexe, fuite, nage, nbReproductions, sens, sommeil, vitesse, vitesseCourse);
     }
 
     public PoissonVolant(boolean estLeader, boolean sexe) {
         super("PoissonVolant", 70, 90, 1, 70, 20, estLeader, false, 5, 25, Utils.getRand(3), sexe);
         getConvoiter().add("Araignee");
+
     }
 
     @Override

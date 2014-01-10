@@ -64,7 +64,10 @@ public class Fenetre extends JFrame {
         panelDroit.add(scrollPaneGrille);
 
         barreEtat = new BarreEtat(this, controleur);
+        barreEtat.setSize(0, 40);
+        barreEtat.setPreferredSize(barreEtat.getSize());
         panelDroit.add(barreEtat, BorderLayout.SOUTH);
+
 
         // Initialisation du panel gauche contenant l'arbre
         arbre = new Arbre();
@@ -75,6 +78,7 @@ public class Fenetre extends JFrame {
         scrollPaneArbre.setVisible(false);
 
         pack();
+        setExtendedState(MAXIMIZED_BOTH);
         setVisible(true);
 
     }

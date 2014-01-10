@@ -42,32 +42,38 @@ public class Arbre extends JPanel {
     }
 
     public void updateTree() {
-        animaux.removeAllChildren();
-        nourritures.removeAllChildren();
+        try {
 
-        // System.out.println("update tree");
 
-        if (grille.getAnimalAL() != null) {
-            // System.out.println("not null");
-            int lg = grille.getAnimalAL().size();
-            // System.out.println("not null "+lg);
-            for (int i = 0; i < lg; i++) {
-                //ajouterNoeud(grille.getAnimalAL().get(i));
-                DefaultMutableTreeNode animal = new DefaultMutableTreeNode(grille.getAnimalAL().get(i));
-                animaux.add(animal);
+            animaux.removeAllChildren();
+            nourritures.removeAllChildren();
+
+            // System.out.println("update tree");
+
+            if (grille.getAnimalAL() != null) {
+                // System.out.println("not null");
+                int lg = grille.getAnimalAL().size();
+                // System.out.println("not null "+lg);
+                for (int i = 0; i < lg; i++) {
+                    //ajouterNoeud(grille.getAnimalAL().get(i));
+                    DefaultMutableTreeNode animal = new DefaultMutableTreeNode(grille.getAnimalAL().get(i));
+                    animaux.add(animal);
+                }
             }
-        }
-        int lg2 = grille.getMondeAL().size();
-        for (int i = 0; i < lg2; i++) {
-            if (grille.getMondeAL().get(i).get_case().getNourriture() != null) {
-                // ajouterNoeud(grille.getMondeAL().get(i));
-                DefaultMutableTreeNode nourriture = new DefaultMutableTreeNode(grille.getMondeAL().get(i));
-                nourritures.add(nourriture);
+            int lg2 = grille.getMondeAL().size();
+            for (int i = 0; i < lg2; i++) {
+                if (grille.getMondeAL().get(i).get_case().getNourriture() != null) {
+                    // ajouterNoeud(grille.getMondeAL().get(i));
+                    DefaultMutableTreeNode nourriture = new DefaultMutableTreeNode(grille.getMondeAL().get(i));
+                    nourritures.add(nourriture);
+                }
             }
-        }
 
-        tree.updateUI();
-        
+            tree.updateUI();
+
+        } catch (Exception e) {
+            System.out.println("lol");
+        }
       /* */
     }
 

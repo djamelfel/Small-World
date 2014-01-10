@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class Schtroumpf extends EspeceTer implements Herbivore {
 
 
-    public Schtroumpf(Espece espece) {
-        super(espece);
+    public Schtroumpf(boolean course, int dateNaissance, int energie, boolean estLeader, int faim, int force, boolean sexe, boolean fuite, boolean nage, int nbReproductions, int sens, boolean sommeil, int vitesse, int vitesseCourse) {
+        super("Schtroumpf", 40, 70, 5, 25, course, dateNaissance, energie, estLeader, faim, force, sexe, fuite, nage, nbReproductions, sens, sommeil, vitesse, vitesseCourse);
     }
 
     public Schtroumpf(boolean estLeader, boolean sexe) {
