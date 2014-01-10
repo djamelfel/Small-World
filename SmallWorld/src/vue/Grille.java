@@ -174,6 +174,10 @@ public class Grille extends JPanel {
         return animalAL;
     }
 
+    public ArrayList<CelluleMonde> getMondeAL() {
+        return mondeAL;
+    }
+
     // En cours de réalisation
     // Une idée de génie arrive
     public boolean deplacer(CelluleAnimal celluleAnimal) {

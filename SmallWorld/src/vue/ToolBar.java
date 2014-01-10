@@ -126,7 +126,7 @@ public class ToolBar extends JToolBar implements ActionListener {
             // tmpBtn.addActionListener(this);
             tmpBtn.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
-                    new DialogNouveauNourriture(fenetre, controleur, type.getNom());
+                    new DialogNouveauNourriture(fenetre, controleur, type);
                 }
             });
             tmpBtn.setToolTipText(type.getPhraseToolbar());

@@ -2,6 +2,7 @@ package vue.dialog;
 
 import controleur.Controleur;
 import vue.Fenetre;
+import vue.enums.NourrituresEnum;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -16,7 +17,7 @@ import java.awt.event.ActionListener;
 public class DialogNouveauNourriture extends JDialog implements ActionListener {
     private Fenetre _fenetre;
     private Controleur _controleur;
-    private String _nourriture;
+    private NourrituresEnum _nourriture;
 
     private JPanel caracteristiques;
     private JPanel boutons;
@@ -25,7 +26,7 @@ public class DialogNouveauNourriture extends JDialog implements ActionListener {
     private MiniGrille position;
     private JLabel positionMonde;
 
-    public DialogNouveauNourriture(Fenetre fenetre, Controleur controleur, String nourriture) {
+    public DialogNouveauNourriture(Fenetre fenetre, Controleur controleur, NourrituresEnum nourriture) {
         super();
 
         _fenetre = fenetre;
@@ -115,7 +116,7 @@ public class DialogNouveauNourriture extends JDialog implements ActionListener {
                 return;
             }
 
-            _controleur.ajouterNourriture(_nourriture, position.getCoordonnees());
+            _controleur.ajouterNourriture(_nourriture.getNom(), position.getCoordonnees());
             dispose();
         }
         else if (e.getSource().equals(annuler)) {

@@ -45,4 +45,8 @@ public class CelluleMonde extends Cellule {
             grille.setDeplacement(this);
         }
     }
+
+    public Case get_case() {
+        return _case;
+    }
 }

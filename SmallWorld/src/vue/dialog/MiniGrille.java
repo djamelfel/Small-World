@@ -2,6 +2,7 @@ package vue.dialog;
 
 import vue.Grille;
 import vue.cellule.CelluleAnimal;
+import vue.cellule.CelluleMonde;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,7 @@ public class MiniGrille extends JPanel implements MouseListener {
     private Grille grille;
     private JDialog dialogNouveau;
     private ArrayList<CelluleAnimal> animalAL;
+    private ArrayList<CelluleMonde> mondeAl;
     private Point caseSelectionne;
     private Point coordonnees;
 
@@ -172,6 +174,59 @@ public class MiniGrille extends JPanel implements MouseListener {
                 dialogNouveauDecor.getPositionDecor().setText("Aucune cellule sélectionnée!");
             }
         }
+        // Si le JDialog est pour ajouter un animal
+        // On affiche, les animaux déjà présents.
+        if (dialogNouveau instanceof DialogNouveauNourriture) {
+            DialogNouveauNourriture dialogNouveauNourriture = (DialogNouveauNourriture) dialogNouveau;
+
+            // Affichage des différentes cases occupés par les animaux
+            mondeAl = grille.getMondeAL();
+            g2.setColor(Color.RED);
+            for (CelluleMonde monde : mondeAl) {
+                if (monde.get_case().getNourriture() != null) {
+                    int wdOfCell = wdOfRow;
+                    int htOfCell = htOfRow;
+                    if (monde.getPosX() == cols - 1)
+                        wdOfCell--;
+                    if (monde.getPosY() == rows - 1)
+                        htOfCell--;
+                    g2.fillRect(monde.getPosX() * wdOfRow + 1, monde.getPosY() * htOfRow + 1, wdOfCell - 1,
+                            htOfCell - 1);
+                }
+            }
+
+            // Affichage de la case sélectionnée
+            g2.setColor(Color.BLUE);
+            if (caseSelectionne != null) {
+                int x = 0;
+                for (i = 0; i < cols; i++) {
+                    x = i * wdOfRow + 1;
+                    if (x > caseSelectionne.x) {
+                        x = (i - 1) * wdOfRow + 1;
+                        break;
+                    }
+                }
+                int y = 0;
+                for (i = 0; i < rows; i++) {
+                    y = i * htOfRow + 1;
+                    if (y > caseSelectionne.y) {
+                        y = (i - 1) * htOfRow + 1;
+                        break;
+                    }
+                }
+
+                int wdOfCell = wdOfRow;
+                int htOfCell = htOfRow;
+                if ((x - 1) / wdOfRow == cols - 1)
+                    wdOfCell--;
+                if ((y - 1) / htOfRow == rows - 1)
+                    htOfCell--;
+                g2.fillRect(x, y, wdOfCell - 1, htOfCell - 1);
+
+                coordonnees = new Point((x - 1) / wdOfRow, (y - 1) / htOfRow);
+                dialogNouveauNourriture.getPositionMonde().setText("x = " + coordonnees.x + " y = " + coordonnees.y);
+            }
+        }
     }
 
     private boolean caseContientAnimal(Point point) {
@@ -193,6 +248,33 @@ public class MiniGrille extends JPanel implements MouseListener {
             if (point.x >= animal.getPosX() * wdOfRow + 1 && point.x <= animal.getPosX() * wdOfRow + wdOfCell) {
                 if (point.y >= animal.getPosY() * htOfRow + 1 && point.y <= animal.getPosY() * htOfRow + htOfCell) {
                     return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean caseContientNourriture(Point point) {
+        int rows = grille.getRows();
+        int cols = grille.getCols();
+        int width = getSize().width;
+        int height = getSize().height;
+        int wdOfRow = width / cols;
+        int htOfRow = height / rows;
+        for (CelluleMonde monde : mondeAl) {
+            if (monde.get_case().getNourriture() != null) {
+                // Dimensions cellule
+                int wdOfCell = wdOfRow;
+                int htOfCell = htOfRow;
+                if (monde.getPosX() == cols - 1)
+                    wdOfCell--;
+                if (monde.getPosY() == rows - 1)
+                    htOfCell--;
+                // Vérification de la case à partir des coordonnées
+                if (point.x >= monde.getPosX() * wdOfRow + 1 && point.x <= monde.getPosX() * wdOfRow + wdOfCell) {
+                    if (point.y >= monde.getPosY() * htOfRow + 1 && point.y <= monde.getPosY() * htOfRow + htOfCell) {
+                        return true;
+                    }
                 }
             }
         }
@@ -231,6 +313,16 @@ public class MiniGrille extends JPanel implements MouseListener {
                 caseSelectionne = e.getPoint();
             }
             repaint();
+        }
+        // DialogNouveauMonde
+        if (dialogNouveau instanceof DialogNouveauNourriture) {
+            if (caseContientNourriture(e.getPoint())) {
+                JOptionPane.showMessageDialog(getTopLevelAncestor(), "La cellule sélectionné contient déjà de la nourriture!");
+            }
+            else {
+                caseSelectionne = e.getPoint();
+                repaint();
+            }
         }
     }
 
