@@ -47,7 +47,7 @@ public class Grille extends JPanel {
         setBackground(Color.BLACK);
     }
 
-    public boolean initMonde() {
+   public boolean initMonde() {
         CelluleMonde tmp;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -63,6 +63,7 @@ public class Grille extends JPanel {
         CelluleAnimal tmp = new CelluleAnimal(instanceEspece, this);
         animalAL.add(tmp);
         add(tmp);
+        //fenetre.getArbre().updateTree();
         repaint(); // refresh la grille
         return true;
     }
@@ -72,16 +73,26 @@ public class Grille extends JPanel {
         int lg = animalAL.size();
         for (int i = 0; i < lg; i++)
             if (espece == animalAL.get(i).getEspece()) {
+               // fenetre.getArbre().supprimerNoeud(animalAL.get(i));
                 animalAL.remove(i);
                 break;
             }
+        //fenetre.getArbre().updateTree();
         repaint(); // refresh la grille
     }
 
     public boolean ajouterDecor() {
-        repaint();// refresh la grille
+        repaint();
         return true;
     }
+    
+    public boolean ajouterNourriture() {
+       // fenetre.getArbre().updateTree();
+        return true;
+    }
+
+    
+    
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -91,8 +102,8 @@ public class Grille extends JPanel {
         // Dimensions cellule
         double width = getSize().width;
         double height = getSize().height;
-        width = 1280;
-        height = 720;
+        width = 1686 ;//1280;
+        height = 914;//720;
         int wdOfRow = (int) (width / cols);
         int htOfRow = (int) (height / rows);
         setSize(wdOfRow * cols, htOfRow * rows);
@@ -106,12 +117,12 @@ public class Grille extends JPanel {
             // Optimiser l'affichage des cases pour éviter de superposer une ligne ou une colonne
             wdOfCell = wdOfRow;
             htOfCell = htOfRow;
-            if (celluleMonde.getPosX() == cols - 1)
+            if (celluleMonde.getPosX() == cols)
                 wdOfCell--;
-            if (celluleMonde.getPosY() == rows - 1)
+            if (celluleMonde.getPosY() == rows)
                 htOfCell--;
-            celluleMonde.setBounds(celluleMonde.getPosX() * wdOfRow + 1, celluleMonde.getPosY() * htOfRow + 1,
-                    (int) wdOfCell - 1, (int) htOfCell - 1);
+            celluleMonde.setBounds(celluleMonde.getPosX() * wdOfRow, celluleMonde.getPosY() * htOfRow,
+                    (int) wdOfCell, (int) htOfCell);
             celluleMonde.setSize(celluleMonde.getBounds().width, celluleMonde.getBounds().height);
             celluleMonde.setPreferredSize(celluleMonde.getSize());
             setComponentZOrder(celluleMonde, 1);
@@ -135,18 +146,18 @@ public class Grille extends JPanel {
             //celluleAnimal.repaint();
         }
 
-        int i;
+       /* int i;
         Shape line; // Permet de tracer des lignes à partir de coordonnées Double =)
         // Tracage des lignes
         for (i = 0; i <= rows; i++) {
             if (i == rows)
                 g2.drawLine(0, i * htOfRow - 1, (int) width, i * htOfRow - 1);
             g2.drawLine(0, i * htOfRow, (int) width, i * htOfRow);
-            /*if (i == rows)
+            /\*if (i == rows)
                 line = new Line2D.Double(0, i * htOfRow - 1, width, i * htOfRow - 1);
             else
                 line = new Line2D.Double(0, i * htOfRow, width, i * htOfRow);
-            g2.draw(line);*/
+            g2.draw(line);*\/
 
         }
         // Tracage des colonnes
@@ -154,12 +165,12 @@ public class Grille extends JPanel {
             if (i == cols)
                 g2.drawLine(i * wdOfRow - 1, 0, i * wdOfRow - 1, (int) height);
             g2.drawLine(i * wdOfRow, 0, i * wdOfRow, (int) height);
-            /*if (i == cols)
+            /\*if (i == cols)
                 line = new Line2D.Double(i * wdOfRow - 1, 0, i * wdOfRow - 1, height);
             else
                 line = new Line2D.Double(i * wdOfRow, 0, i * wdOfRow, height);
-            g2.draw(line);*/
-        }
+            g2.draw(line);*\/
+        }*/
     }
 
     public int getRows() {

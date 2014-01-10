@@ -11,14 +11,16 @@ import modele.utils.Utils;
 import vue.enums.Decor;
 
 public class Lamastico extends EspeceTer implements Herbivore {
-	
-	public Lamastico(boolean course, int dateNaissance, int energie, boolean estLeader, int faim, int force, boolean sexe, boolean fuite, boolean nage,  int nbReproductions, int sens, boolean sommeil, int vitesse, int vitesseCourse){
-		super("Lamastico", 35, 50, 65, 25, course, dateNaissance, energie, estLeader, faim, force, sexe, fuite, nage, nbReproductions, sens, sommeil, vitesse, vitesseCourse);
-	}
+
+
+   public Lamastico(boolean course, int dateNaissance, int energie, boolean estLeader, int faim, int force, boolean sexe, boolean fuite, boolean nage,  int nbReproductions, int sens, boolean sommeil, int vitesse, int vitesseCourse){
+	super("Lamastico", 35, 50, 65, 25, course, dateNaissance, energie, estLeader, faim, force, sexe, fuite, nage, nbReproductions, sens, sommeil, vitesse, vitesseCourse);
+}
 
     public Lamastico(boolean estLeader, boolean sexe) {
         super("Lamastico", 35, 80, 2, 40, 20, estLeader, false, 65, 25, Utils.getRand(3), sexe);
 		getDangeureux().add("Lion");
+                getConvoiter().add("PoissonVolant");
     }
 
     @Override
@@ -58,7 +60,7 @@ public class Lamastico extends EspeceTer implements Herbivore {
 		switch (resultat){
 			case 1:																//perd
 				if (getEstLeader())												//si leader 
-					if (espece.getEstLeader() && espece instanceof Lamastico)	//si adversaire leader et de la meme espece
+					if (espece.getEstLeader() && espece instanceof Lamastico)		//si adversaire leader et de la meme espece
 						espece.getMeute().rejoindre(getMeute());				//legue ma meute
 					else														//sinon
 						getMeute().detruire();									//dissout la meute
@@ -117,7 +119,7 @@ System.out.println("mauvaise zone");
 {
 						combattre(getPosition().getEspece());					//combatre
 System.out.println("combat");}
-					else if (getPosition().getEspece() instanceof Lion && getSexe() == false && getPosition().getEspece().getSexe() != getSexe() )	//si animal meme espece de sexe different du mien et moi femelle
+					else if (getPosition().getEspece() instanceof Lamastico && getSexe() == false && getPosition().getEspece().getSexe() != getSexe() )	//si animal meme espece de sexe different du mien et moi femelle
 {						
 						seReproduire();											//faire des bébés
 											
@@ -157,7 +159,7 @@ System.out.println("DANGER : "+vision.get(i).getEspece().getNom());
 								finAction = true;
 System.out.println("à la chasse");
 							}
-							else if ( vision.get(i).getEspece() instanceof Lion ) {	//sinon si animal même espece
+							else if ( vision.get(i).getEspece() instanceof Lamastico ) {	//sinon si animal même espece
 								if (vision.get(i).getEspece().getEstLeader() == true && getEstLeader() == true)	{	//si animal leader et moi leader
 									seDeplacer(vision.get(i).getEspece().getPosition());
 									finAction = true;
@@ -194,8 +196,4 @@ System.out.println("direction accouplement");
 		}
 	}
 	
-    @Override
-    public String toString() {
-        return "nom - leader - repro - " + getNom() + getEstLeader() + getNbReproductions() + super.toString();
-    }
 }

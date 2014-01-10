@@ -12,8 +12,9 @@ public class Herbe extends Nourriture {
 	
 	@Override
 	public void seFaireManger() {
+            System.out.println("Cette herbe se fait bouffer toute crue");
 	}
-	
+    
 	@Override
 	public Element sauvegarder() {
 		Element nourriture = new org.jdom2.Element("Herbe");
@@ -26,4 +27,6 @@ public class Herbe extends Nourriture {
 		
 		return nourriture;
 	}
+    
+
 }

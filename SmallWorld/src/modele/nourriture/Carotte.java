@@ -1,7 +1,7 @@
 package modele.nourriture;
 
-import org.jdom2.Element;
 import modele.monde.Case;
+import org.jdom2.Element;
 
 public class Carotte extends Nourriture {
     
@@ -12,9 +12,10 @@ public class Carotte extends Nourriture {
 	
 	@Override
 	public void seFaireManger() {
+            System.out.println("Cette carotte se fait bouffer toute crue");
 		setMangeable(false);
 	}
-	
+    
 	@Override
 	public Element sauvegarder() {
 		Element nourriture = new org.jdom2.Element("Carrote");
@@ -27,4 +28,6 @@ public class Carotte extends Nourriture {
 		
 		return nourriture;
 	}
+    
+
 }

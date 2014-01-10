@@ -1,7 +1,8 @@
 package modele.nourriture;
 
-import org.jdom2.Element;
+import modele.especes.Espece;
 import modele.monde.Case;
+import org.jdom2.Element;
 
 public class Cadavre extends Nourriture {
 	private int _tempsDecomposition;
@@ -14,18 +15,20 @@ public class Cadavre extends Nourriture {
 	
 	@Override
 	public void seFaireManger() {
+            System.out.println("Ce cadavre se fait bouffer tout crue");
 		setMangeable(false);
 	}
 	
 	public void setTempsDecomposition(int tempsDecomposition) {
 		_tempsDecomposition = tempsDecomposition;
+               // System.out.println("Decomposition cadavre : "+_tempsDecomposition);
 	}
 
     public int getTempsDecomposition() {
         return _tempsDecomposition;
     }
-	
-	@Override
+    
+    @Override
 	public Element sauvegarder() {
 		Element nourriture = new org.jdom2.Element("Cadavre");
 		
@@ -38,4 +41,5 @@ public class Cadavre extends Nourriture {
 		
 		return nourriture;
 	}
+
 }

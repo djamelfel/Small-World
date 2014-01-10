@@ -52,6 +52,8 @@ public class CelluleAnimal extends Cellule implements ActionListener {
         
         
         image = _instanceEspece.getGraphics().getGrille();
+        
+        setToolTipText(_instanceEspece.getNom());
     }
     
    @Override
@@ -121,5 +123,10 @@ public class CelluleAnimal extends Cellule implements ActionListener {
         else if (e.getSource().equals(supprimer)) {
             System.out.println("Supprimer!");
         }
+    }
+
+   @Override
+    public String toString() {
+        return getEspece().toString();
     }
 }

@@ -11,6 +11,8 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import static modele.utils.Utils.hex2Rgb;
+
 /**
  * Created by Edwin on 26/12/13.
  */
@@ -30,7 +32,7 @@ public class MiniGrille extends JPanel implements MouseListener {
 
         // Initialisation
         setLayout(null);
-        setBackground(Color.GREEN);
+        setBackground(hex2Rgb("#8FCF3C"));
         setSize(300, 200);
         setPreferredSize(getSize());
 
@@ -74,7 +76,6 @@ public class MiniGrille extends JPanel implements MouseListener {
 
             // Affichage des différentes cases occupés par les animaux
             animalAL = grille.getAnimalAL();
-            g2.setColor(Color.RED);
             for (CelluleAnimal animal : animalAL) {
                 int wdOfCell = wdOfRow;
                 int htOfCell = htOfRow;
@@ -82,11 +83,12 @@ public class MiniGrille extends JPanel implements MouseListener {
                     wdOfCell--;
                 if (animal.getPosY() == rows - 1)
                     htOfCell--;
+                g2.setColor(animal.getEspece().getGraphics().getColor());
                 g2.fillRect(animal.getPosX() * wdOfRow + 1, animal.getPosY() * htOfRow + 1, wdOfCell - 1, htOfCell - 1);
             }
 
             // Affichage de la case sélectionnée
-            g2.setColor(Color.BLUE);
+            g2.setColor(dialogNouveauAnimal.get_animal().getColor());
             if (caseSelectionne != null) {
                 int x = 0;
                 for (i = 0; i < cols; i++) {
@@ -122,8 +124,21 @@ public class MiniGrille extends JPanel implements MouseListener {
         if (dialogNouveau instanceof DialogNouveauDecor) {
             DialogNouveauDecor dialogNouveauDecor = (DialogNouveauDecor) dialogNouveau;
 
+            // Affichage des décors déjà présents
+            mondeAl = grille.getMondeAL();
+            for (CelluleMonde monde : mondeAl) {
+                int wdOfCell = wdOfRow;
+                int htOfCell = htOfRow;
+                if (monde.getPosX() == cols - 1)
+                    wdOfCell--;
+                if (monde.getPosY() == rows - 1)
+                    htOfCell--;
+                g2.setColor(monde.get_case().getDecors().getGraphics().getColor());
+                g2.fillRect(monde.getPosX() * wdOfRow + 1, monde.getPosY() * htOfRow + 1, wdOfCell - 1, htOfCell - 1);
+            }
+
             // Affichage des cases sélectionnées
-            g2.setColor(Color.BLUE);
+            g2.setColor(dialogNouveauDecor.get_decor().getColor());
             if (caseSelectionne != null) {
                 int x = 0;
                 for (i = 0; i < cols; i++) {
@@ -179,9 +194,8 @@ public class MiniGrille extends JPanel implements MouseListener {
         if (dialogNouveau instanceof DialogNouveauNourriture) {
             DialogNouveauNourriture dialogNouveauNourriture = (DialogNouveauNourriture) dialogNouveau;
 
-            // Affichage des différentes cases occupés par les animaux
+            // Affichage des différentes cases occupés par les autres nourritures
             mondeAl = grille.getMondeAL();
-            g2.setColor(Color.RED);
             for (CelluleMonde monde : mondeAl) {
                 if (monde.get_case().getNourriture() != null) {
                     int wdOfCell = wdOfRow;
@@ -190,13 +204,14 @@ public class MiniGrille extends JPanel implements MouseListener {
                         wdOfCell--;
                     if (monde.getPosY() == rows - 1)
                         htOfCell--;
+                    g2.setColor(monde.get_case().getNourriture().getGraphics().getColor());
                     g2.fillRect(monde.getPosX() * wdOfRow + 1, monde.getPosY() * htOfRow + 1, wdOfCell - 1,
                             htOfCell - 1);
                 }
             }
 
             // Affichage de la case sélectionnée
-            g2.setColor(Color.BLUE);
+            g2.setColor(dialogNouveauNourriture.get_nourriture().getColor());
             if (caseSelectionne != null) {
                 int x = 0;
                 for (i = 0; i < cols; i++) {

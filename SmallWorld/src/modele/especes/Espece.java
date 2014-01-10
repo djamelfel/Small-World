@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import modele.monde.Case;
 import modele.monde.Monde;
 import modele.monde.Temps;
+import modele.nourriture.Cadavre;
 import modele.utils.Utils;
 import org.jdom2.Element;
 import vue.enums.Animal;
@@ -39,6 +40,9 @@ public class Espece {
 	private ArrayList<String> _dangeureux;
 
     private Animal _graphics; // contient les graphismes
+    private boolean _needToCreateABaby;
+
+   
 
     public String getNom() {
         return _nom;
@@ -166,10 +170,6 @@ public class Espece {
         _sens = sens;
     }
 
-    public int getTempsIdeal() {
-        return _tempsIdeal;
-    }
-
     public int getNbReproductions() {
         return _nbReproductions;
     }
@@ -205,7 +205,7 @@ public class Espece {
     }
 
     public Espece(String nom, int sommeilDeb, int sommeilFin, int vitesse, int force, int vitesseCourse, boolean estLeader, boolean nage, int champVision,
-                  int tempsIdeal, int nbReproductions, boolean sexe) {
+                  int tempIdeale, int nbReproductions, boolean sexe) {
         _nom = nom;
         _sommeilDeb = sommeilDeb;
         _sommeilFin = sommeilFin;
@@ -225,15 +225,15 @@ public class Espece {
         _nage = nage;
         _estVivant = true;
         _champVision = champVision;
-        _tempsIdeal = tempsIdeal;
+        _tempsIdeal = tempIdeale;
         _nbReproductions = nbReproductions;
         _course = false;
 		_danger = null;
 		_dangeureux = new ArrayList();
 		_convoiter = new ArrayList();
     }
-	
-	public Espece(String nom, int sommeilDeb, int sommeilFin, int champVision, int tempsIdeal, boolean course, int dateNaissance, int energie, boolean estLeader, int faim, int force, boolean sexe, boolean fuite, boolean nage, int nbReproductions, int sens, boolean sommeil, int vitesse, int vitesseCourse){
+
+    public Espece(String nom, int sommeilDeb, int sommeilFin, int champVision, int tempsIdeal, boolean course, int dateNaissance, int energie, boolean estLeader, int faim, int force, boolean sexe, boolean fuite, boolean nage, int nbReproductions, int sens, boolean sommeil, int vitesse, int vitesseCourse){
         _nom = nom;
         _sommeilDeb = sommeilDeb;
         _sommeilFin = sommeilFin;
@@ -314,10 +314,12 @@ public class Espece {
     }
 
     public void seReproduire() {
+        if(_nbReproductions <= 0) return;
         _nbReproductions -= 1;
 		_position.getEspece().setNbReproductions(_position.getEspece().getNbReproductions()-1);
         if (_sexe == false) {
-            //Création d'un Giraffe
+            //Création d'un bébé
+            _needToCreateABaby = true;
         }
     }
 
@@ -326,6 +328,9 @@ public class Espece {
     }
 
     public void manger() {
+        
+        if(this instanceof Herbivore && _position.getNourriture() instanceof Cadavre) return;
+        if(this instanceof Carnivore && !(_position.getNourriture() instanceof Cadavre)) return;
 		if (_position.getNourriture().getEnergieRendue() + _faim > 100)
 			setFaim(100);                    //energie maximum 100
 		else
@@ -371,7 +376,7 @@ public class Espece {
         else
             x = Utils.getRand(_position.getPosX(), _position.getPosX()-temp);
 
-        vitesse -= Math.abs(_position.getPosX()-x);								//soustrait le deplacement x a deplacer
+        vitesse -= Math.abs(_position.getPosX()-x);															//soustrait le deplacement x a deplacer
 
 //Gestion point Y        
         if (Math.abs(posY - _position.getPosY()) < vitesse)						//permet de ne pas depasser le point X
@@ -485,22 +490,23 @@ public class Espece {
             else																//fuite en bas
                 y = Utils.getRand((_position.getPosY() + vitesse), _position.getPosY());
         }
-		sens(x,y);
 		setPosition(Monde.getMap().getCase(x, y));
     }
 
     @Override
     public String toString() {
-        return "sexe - date - " + _sexe + _dateNaissance;
+        return getNom()+" ("+getEnergie()+"): x: "+getPosition().getPosX()+", y:"+getPosition().getPosY();
     }
 
-    public Element sauvegarder() {
+     public Element sauvegarder() {
 		Element espece = new Element("Espece");
 		
+		espece.setAttribute("champVision", getChampVision()+"");
 		espece.setAttribute("course", getCourse()+"");
 		espece.setAttribute("dateNaissance", getDateNaissance()+"");
 		espece.setAttribute("energie", getEnergie()+"");
 		espece.setAttribute("estLeader", getEstLeader()+"");
+		espece.setAttribute("estVivant", getEstVivant()+"");
 		espece.setAttribute("faim", getFaim()+"");
 		espece.setAttribute("force", getForce()+"");
 		espece.setAttribute("fuite", getFuite()+"");
@@ -514,6 +520,9 @@ public class Espece {
 		espece.setAttribute("sens", getSens()+"");
 		espece.setAttribute("sexe", getSexe()+"");
 		espece.setAttribute("sommeil", getSommeil()+"");
+		espece.setAttribute("sommeilDeb", getSommeilDeb()+"");
+		espece.setAttribute("sommeilFin", getSommeilFin()+"");
+		espece.setAttribute("tempIdeal", getTempsIdeal()+"");
 		espece.setAttribute("vitesse", getVitesse()+"");
 		espece.setAttribute("vitesseCourse",getVitesseCourse()+"");
 		
@@ -526,5 +535,17 @@ public class Espece {
     
     public Animal getGraphics() {
         return _graphics;
+    }
+    
+     public int getTempsIdeal() {
+        return _tempsIdeal;
+    }
+     
+      public boolean isNeedToCreateABaby() {
+        return _needToCreateABaby;
+    }
+
+    public void setNeedToCreateABaby(boolean _needToCreateABaby) {
+        this._needToCreateABaby = _needToCreateABaby;
     }
 }

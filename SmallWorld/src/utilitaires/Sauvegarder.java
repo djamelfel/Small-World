@@ -10,9 +10,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import modele.monde.Monde;
 
-/**
- * Created by Edwin on 18/12/13.
- */
 public class Sauvegarder {
 	private static Monde _monde;
 	

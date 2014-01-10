@@ -13,6 +13,10 @@ public class Decors {
         _posY = posY;
 		_graphics = Decor.herbe;
     }
+
+    public String sauvegarder() {
+        return "";
+    }
 	
     public int getPosX() {
         return _posX;
@@ -29,4 +33,8 @@ public class Decors {
     public Decor getGraphics() {
         return _graphics;
     }
+
+
+
+
 }

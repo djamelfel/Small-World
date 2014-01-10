@@ -85,7 +85,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
             fenetre.dispose();
         }
         else if (e.getSource().equals(aPropos)) {
-            JOptionPane.showMessageDialog(fenetre, "En cours de réalisation...");
+            JOptionPane.showMessageDialog(fenetre, "Projet réalisé par Djamel Fellah, Benjamin Descamps, Edwin Damy et Mélanie Taboyan.");
         }
     }
 

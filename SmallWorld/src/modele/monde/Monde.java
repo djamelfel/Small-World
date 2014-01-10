@@ -2,12 +2,21 @@ package modele.monde;
 
 
 import controleur.Controleur;
+import java.awt.Point;
 import modele.especes.Espece;
 import modele.nourriture.Nourriture;
 import java.util.ArrayList;
+import modele.especes.animaux.Araignee;
+import modele.especes.animaux.Elephant;
 import modele.especes.animaux.Lamastico;
 import modele.especes.animaux.Lion;
+import modele.especes.animaux.PoissonVolant;
+import modele.especes.animaux.Renard;
+import modele.especes.animaux.Schtroumpf;
+import modele.nourriture.Cadavre;
+import modele.nourriture.Carotte;
 import modele.nourriture.Herbe;
+import modele.utils.Utils;
 import org.jdom2.Element;
 import utilitaires.Sauvegarder;
 import vue.enums.Animal;
@@ -19,7 +28,7 @@ public class Monde {
   private ArrayList<Espece> _listeAnimaux;
   private ArrayList<Nourriture> _listeNourriture;
   private static Map _map;
-  private int _temperature;
+  private int _temperature; 
   private Temps _temps;
   private Controleur _controleur;
   
@@ -28,8 +37,8 @@ public class Monde {
       _listeAnimaux = new ArrayList<>();
       _listeNourriture = new ArrayList<>();
 	  _controleur = controleur;
-	  new Sauvegarder(this);
-	  _temperature = 20;
+          
+          new Sauvegarder(this);
   }
   
   public void initialiser(int rows, int cols)
@@ -45,7 +54,14 @@ public class Monde {
 		for(int i = 0; i < lg; i++) {
 			tmpAnimal = _listeAnimaux.get(i);
 			if ( tmpAnimal.getEstVivant() )
-				tmpAnimal.verifierEtatJournee();
+                        {
+                            tmpAnimal.verifierEtatJournee();
+                            if(tmpAnimal.isNeedToCreateABaby())
+                            {
+                              tmpAnimal.setNeedToCreateABaby(false);
+                              _controleur.ajouterAnimal(tmpAnimal.getNom(), "Baby "+tmpAnimal.getNom(), Utils.getRand(10) < 6, Utils.getRand(10) < 3, new Point(tmpAnimal.getPosition().getPosX(), tmpAnimal.getPosition().getPosY()));
+                            }
+                        }	
 			else {
 				//créer nourriture == Gerer temps de décomposition
 				//if (tmpAnimal instanceof Lamastico)
@@ -56,8 +72,15 @@ public class Monde {
 		}
 		lg = aTuer.size();
 		for(int i=0; i< lg; i++)
-			_controleur.supprimerEspece(aTuer.get(i));
-	    aTuer.removeAll(aTuer);
+                {
+                    tmpAnimal = aTuer.get(i);
+                    if(tmpAnimal.getPosition().getNourriture() == null)
+                        ajoutNourriture("Cadavre", tmpAnimal.getPosition().getPosX(), tmpAnimal.getPosition().getPosY());
+                    _controleur.supprimerEspece(tmpAnimal);
+                    
+                }
+			
+	    _listeAnimaux.removeAll(aTuer);
    }
  
    public static ArrayList<Case> getVoisins(Case caseDepart, int champVision, int sens) {
@@ -144,6 +167,36 @@ public class Monde {
               tmpEspece.setGraphics(Animal.lamastico);
              break;
           
+          case "Araignee":
+              System.out.println("JE SUIS UNE ARAIGNEE");
+              tmpEspece = new Araignee(estLeader, sexe);
+              tmpEspece.setGraphics(Animal.araignee);
+             break;
+              
+           case "Elephant":
+              System.out.println("JE SUIS UN Elephant");
+              tmpEspece = new Elephant(estLeader, sexe);
+              tmpEspece.setGraphics(Animal.elephant);
+             break;
+               
+             case "Renard":
+              System.out.println("JE SUIS UN Renard");
+              tmpEspece = new Renard(estLeader, sexe);
+              tmpEspece.setGraphics(Animal.renard);
+             break;
+                 
+            case "PoissonVolant":
+              System.out.println("JE SUIS UN PoissonVolant");
+              tmpEspece = new PoissonVolant(estLeader, sexe);
+              tmpEspece.setGraphics(Animal.poissonVolant);
+             break;
+                
+            case "Schtroumpf":
+              System.out.println("JE SUIS UN Schtroumpf");
+              tmpEspece = new Schtroumpf(estLeader, sexe);
+              tmpEspece.setGraphics(Animal.schtroumpf);
+             break;
+          
       }
       tmpEspece.setPosition(_map.getCase(posX, posY));
       _listeAnimaux.add(tmpEspece);
@@ -151,37 +204,86 @@ public class Monde {
      return tmpEspece;
   }
 
-		public ArrayList<Espece> getListeAnimaux() {
-				return _listeAnimaux;
-		}
-
-		public ArrayList<Nourriture> getListeNourriture() {
-				return _listeNourriture;
-		}
-
   public void ajoutDecors(Decor decor, int posX, int posY) {
 	  _map.getCase(posX, posY).getDecors().setGraphics(decor);
   }
 
-  public void ajoutNourriture(String nourriture, int posX, int posY) {
+  public Nourriture ajoutNourriture(String nourriture, int posX, int posY) {
       Nourriture tmpNourriture = null;
       switch(nourriture)
       {
           case "Banane":
+               System.out.println("On ajoute une banane");
 			  tmpNourriture = new Herbe(_map.getCase(posX, posY));
 			  tmpNourriture.setGraphics(NourrituresEnum.banane);
               break;
           case "Carotte":
-			  tmpNourriture = new Herbe(_map.getCase(posX, posY));
+              System.out.println("On ajoute une carotte");
+			  tmpNourriture = new Carotte(_map.getCase(posX, posY));
 			  tmpNourriture.setGraphics(NourrituresEnum.carotte);
-              break;				  
+              break;
+          case "Cadavre":
+              System.out.println("On ajoute une cadavre");
+			  tmpNourriture = new Cadavre(100, _map.getCase(posX, posY));
+			  tmpNourriture.setGraphics(NourrituresEnum.cadavre);
+              break;
           default:
+              System.out.println("On ajoute une nourri par def : "+nourriture);
+                tmpNourriture = new Carotte(_map.getCase(posX, posY));
+                
+                NourrituresEnum[] resourcesNourriture = NourrituresEnum.values(); // Récupération des valeurs de l'énumération
+                int valuesNumber = resourcesNourriture.length;
+                for (int i = 0 ; i < valuesNumber ; i++) {
+                  final NourrituresEnum type = resourcesNourriture[i];
+                  if(type.getNom().equals(nourriture))
+                  {
+                     tmpNourriture.setGraphics(type);
+                     break;
+                  }
+                }
+		
+              
       }
+      
+      System.out.println(""+tmpNourriture.getGraphics());
       _map.ajouterNouriture(tmpNourriture);
       _listeNourriture.add(tmpNourriture);
+      return tmpNourriture;
+  }
+  
+  
+  public void gererNourriture()
+  {
+       ArrayList<Nourriture> aTuer = new ArrayList<>();
+       int lg = _listeNourriture.size();
+       Nourriture tmpNourriture;
+		for(int i = 0; i < lg; i++) {
+			tmpNourriture = _listeNourriture.get(i);
+                        
+                        if(tmpNourriture instanceof Cadavre) // Gére le temps de décomposition
+                        {
+                            ((Cadavre)tmpNourriture).setTempsDecomposition(((Cadavre)tmpNourriture).getTempsDecomposition() - 1);
+                            if(((Cadavre)tmpNourriture).getTempsDecomposition() <=0)
+                                tmpNourriture.setMangeable(false);
+                        }
+                        
+			if ( tmpNourriture.getMangeable() == false)
+                        {
+				aTuer.add(tmpNourriture);
+			}
+		}
+		lg = aTuer.size();
+		for(int i=0; i< lg; i++)
+                {
+                   tmpNourriture = aTuer.get(i); 
+                    System.out.println("Delete nourriture");
+                   tmpNourriture.getPosition().setNourriture(null);
+                }
+			
+	    _listeNourriture.removeAll(aTuer);
   }
 
-  public Element sauvegarder() {
+   public Element sauvegarder() {
 		Element manager = new Element("Manager");
 		Element monde = new Element("Monde");
 		Element animaux = new Element("Animaux");
@@ -203,12 +305,10 @@ public class Monde {
 		return manager;
   }
 
+
   public void charger(String nom) {
-	
-  }
-  
-  public void setTemperature(int temperature) {
-		_temperature = temperature;
+      
+      
   }
   
   public static Map getMap() {
@@ -221,5 +321,13 @@ public class Monde {
 
     public Temps getTemps() {
         return _temps;
-	}
+    }
+    public void setTemperature(int _temperature) {
+        this._temperature = _temperature;
+    }
+    public ArrayList<Espece> getListeAnimaux() {
+        return _listeAnimaux;
+    }
+   
+
 }

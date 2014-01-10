@@ -25,17 +25,16 @@ public class CelluleMonde extends Cellule {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
 
         imageDecors = _case.getDecors().getGraphics().getGrille();
 
-        g2.drawImage(imageDecors, 0, 0, getSize().width, getSize().height, null);
+        g.drawImage(imageDecors, 0, 0, getSize().width, getSize().height, null);
 
-        if (_case.getNourriture() != null)
+        if (_case != null && _case.getNourriture() != null)
             imageNourriture = _case.getNourriture().getGraphics().getGrille();
         else
             imageNourriture = null;
-        g2.drawImage(imageNourriture, 0, 0, getSize().width, getSize().height, null);
+        g.drawImage(imageNourriture, 0, 0, getSize().width, getSize().height, null);
     }
 
     @Override
@@ -44,6 +43,11 @@ public class CelluleMonde extends Cellule {
         if (grille.isAutoriserDeplacement()) {
             grille.setDeplacement(this);
         }
+    }
+    
+    @Override
+    public String toString() {
+        return get_case().toString();
     }
 
     public Case get_case() {

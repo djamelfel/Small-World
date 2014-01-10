@@ -103,9 +103,12 @@ public class DialogNouveauNourriture extends JDialog implements ActionListener {
         setVisible(true);
     }
 
-
     public JLabel getPositionMonde() {
         return positionMonde;
+    }
+
+    public NourrituresEnum get_nourriture() {
+        return _nourriture;
     }
 
     @Override

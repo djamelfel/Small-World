@@ -10,6 +10,7 @@ public class Map {
 	public Case[][] _listeCase;
 	private int _largeur;
 	private int _hauteur;
+	private Monde _monde;
 	//  public Case Composer;
    
 	public Map(int largeur, int hauteur)
@@ -41,16 +42,9 @@ public class Map {
 		if(posX < 0 || posY < 0 || posX >= _largeur || posY >= _hauteur) return null; // Sort du tableau !
 			return _listeCase[posY][posX];
        }
-  
-	public int getLargeur() {
-        return _largeur;
-    }
-
-    public int getHauteur() {
-        return _hauteur;
-    }
-	
-	public Element sauvegarder(){
+     
+     
+     public Element sauvegarder(){
 		Element map = new Element("Map");
 		
 		map.setAttribute("Hauteur",""+_hauteur);
@@ -63,4 +57,12 @@ public class Map {
 		
 		return map;
 	}
+  
+	public int getLargeur() {
+        return _largeur;
+    }
+
+    public int getHauteur() {
+        return _hauteur;
+    }
 }
