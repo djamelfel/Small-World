@@ -66,7 +66,7 @@ public class ToolBar extends JToolBar implements ActionListener {
 
 
         // Ajout animal
-        image = new ImageIcon(this.getClass().getResource("../images/toolbar/animal.png"));
+        image = new ImageIcon(this.getClass().getResource("../images/toolbar/nourritures.png"));
         addNourriture = new JButton(image);
         addNourriture.addActionListener(this);
         addNourriture.setToolTipText("Ajouter de la nourriture...");

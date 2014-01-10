@@ -2,6 +2,7 @@ package modele.monde;
 
 import modele.especes.Espece;
 import modele.nourriture.Nourriture;
+import org.jdom2.Element;
 
 
 public class Case {
@@ -26,7 +27,19 @@ public class Case {
     }
 
     public String toString() {
-        return "[Case : posX : " + _posX + " , posY : " + _posY + " ]";
+        if (_nourriture != null)
+            return _nourriture.getGraphics().getNom() + " : x: " + _posX + " , y: " + _posY + "";
+        return "Case : x: " + _posX + " , y: " + _posY + "";
+    }
+
+    public Element sauvegarder() {
+        Element decors = new Element("Decors");
+
+        decors.setAttribute("Decors", "" + _decors.getGraphics().getNom());
+        decors.setAttribute("posX", "" + _posX);
+        decors.setAttribute("posY", "" + _posY);
+
+        return decors;
     }
 
     public int getPosX() {

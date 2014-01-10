@@ -28,9 +28,14 @@ public class BarreEtat extends JPanel {
         info = new JLabel();
         info.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
         info.setForeground(Color.WHITE);
-        str = "Edwin ;-)";
+        str = "aaa";
         info.setText(str);
 
         this.add(info);
+    }
+
+    public void update(String data) {
+        str = data;
+        info.setText(str);
     }
 }

@@ -13,6 +13,7 @@ import java.io.File;
 public class Controleur {
     private Fenetre fenetre;
     private ManagerAnimaux _managerAnimaux;
+    private String _nomJoueur;
 
     public Controleur() {
         fenetre = new Fenetre(this);
@@ -22,27 +23,34 @@ public class Controleur {
 
     // Méthode appelé lors de la création d'une nouvelle partie
     public boolean creerPartie(String nomJoueur, int rows, int cols) {
-        System.out.println("My name is " + nomJoueur);
+        _nomJoueur = nomJoueur;
 
         _managerAnimaux.initialiser(rows, cols);
         fenetre.setTailleGrille(_managerAnimaux.getMonde().getMap());
 
+        ajouterAnimal("Lion", "roger", false, false, new Point(5, 10));
+        ajouterAnimal("Lamastico", "roger", false, false, new Point(10, 10));
+        ajouterAnimal("Lamastico", "roger", true, true, new Point(11, 10));
+        ajouterAnimal("PoissonVolant", "roger", false, false, new Point(5, 2));
+        ajouterAnimal("Renard", "roger", false, true, new Point(8, 8));
+        ajouterAnimal("Renard", "roger", true, false, new Point(8, 9));
 
-        ajouterAnimal("Lamasticot", "roger", false, false, new Point(10, 10));
-        ajouterAnimal("Lamasticot", "roger", false, true, new Point(11, 10));
-        ajouterNourriture("Banane", new Point(21, 0));
-        ajouterNourriture("Banane", new Point(21, 3));
-        ajouterNourriture("Banane", new Point(21, 6));
-        ajouterNourriture("Banane", new Point(21, 9));
-        ajouterNourriture("Banane", new Point(21, 11));
-        ajouterNourriture("Banane", new Point(21, 13));
+        ajouterAnimal("Araignee", "roger", false, false, new Point(4, 9));
+        ajouterAnimal("Araignee", "roger", true, false, new Point(5, 9));
+         
+ /*       ajouterNourriture("Banane", new Point(21,0));
+        ajouterNourriture("Banane", new Point(21,3));
+		ajouterNourriture("Banane", new Point(21,6));
+		ajouterNourriture("Banane", new Point(21,9));
+		ajouterNourriture("Banane", new Point(21,11));
+		ajouterNourriture("Banane", new Point(21,13));*/
         _managerAnimaux.start();
         return true;
     }
 
     // Méthode appelé lors d'une sauvegarde d'une partie
     public boolean sauvegarder(File file) {
-        return Sauvegarder.sauvegarderXML(file);
+        return Sauvegarder.sauvegarderXML(file, _nomJoueur);
     }
 
     // Méthode appelé lors d'un chargement de partie
@@ -81,6 +89,7 @@ public class Controleur {
 
     public void ajouterNourriture(String nourriture, Point position) {
         _managerAnimaux.getMonde().ajoutNourriture(nourriture, position.x, position.y);
+        fenetre.getGrille().ajouterNourriture();
     }
 
     public void supprimerEspece(Espece espece) {

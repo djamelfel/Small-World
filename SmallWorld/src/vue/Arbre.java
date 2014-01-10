@@ -1,9 +1,5 @@
 package vue;
 
-import vue.cellule.Cellule;
-import vue.cellule.CelluleAnimal;
-import vue.cellule.CelluleMonde;
-
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -42,20 +38,40 @@ public class Arbre extends JPanel {
     public void setGrille(Grille grille) {
         this.grille = grille;
 
+        updateTree();
+    }
+
+    public void updateTree() {
         animaux.removeAllChildren();
         nourritures.removeAllChildren();
 
-        for (int i = 0; i < grille.getAnimalAL().size(); i++) {
-            ajouterNoeud(grille.getAnimalAL().get(i));
-        }
-        for (int i = 0; i < grille.getMondeAL().size(); i++) {
-            if (grille.getMondeAL().get(i).get_case().getNourriture() != null) {
-                ajouterNoeud(grille.getMondeAL().get(i));
+        // System.out.println("update tree");
+
+        if (grille.getAnimalAL() != null) {
+            // System.out.println("not null");
+            int lg = grille.getAnimalAL().size();
+            // System.out.println("not null "+lg);
+            for (int i = 0; i < lg; i++) {
+                //ajouterNoeud(grille.getAnimalAL().get(i));
+                DefaultMutableTreeNode animal = new DefaultMutableTreeNode(grille.getAnimalAL().get(i));
+                animaux.add(animal);
             }
         }
+        int lg2 = grille.getMondeAL().size();
+        for (int i = 0; i < lg2; i++) {
+            if (grille.getMondeAL().get(i).get_case().getNourriture() != null) {
+                // ajouterNoeud(grille.getMondeAL().get(i));
+                DefaultMutableTreeNode nourriture = new DefaultMutableTreeNode(grille.getMondeAL().get(i));
+                nourritures.add(nourriture);
+            }
+        }
+
+        tree.updateUI();
+        
+      /* */
     }
 
-    public void ajouterNoeud(Cellule cellule) {
+   /* public void ajouterNoeud(Cellule cellule) {
         if (cellule instanceof CelluleAnimal) {
             DefaultMutableTreeNode animal = new DefaultMutableTreeNode(cellule);
             animaux.add(animal);
@@ -87,5 +103,5 @@ public class Arbre extends JPanel {
             }
         }
         tree.updateUI();
-    }
+    }*/
 }

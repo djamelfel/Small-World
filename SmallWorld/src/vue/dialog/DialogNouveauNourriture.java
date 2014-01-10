@@ -115,7 +115,6 @@ public class DialogNouveauNourriture extends JDialog implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Veuillez choisir une cellule valide!");
                 return;
             }
-
             _controleur.ajouterNourriture(_nourriture.getNom(), position.getCoordonnees());
             dispose();
         }

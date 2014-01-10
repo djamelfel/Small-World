@@ -10,12 +10,9 @@ import modele.monde.Temps;
 public class ManagerAnimaux implements Runnable {
 
     private Thread _instance;
-
     private Controleur _controleur;
     private Monde _monde;
-
     private int _duree = 500; // Contient la duree d'endormissement du Thread entre chaque tour de boucle en ms
-
     private boolean _pause = false;
 
     public ManagerAnimaux(Controleur controleur) {
@@ -50,8 +47,12 @@ public class ManagerAnimaux implements Runnable {
             Temps.incrementer();
 
             _monde.activerAnimaux();
+            _monde.gererNourriture();
 
             _controleur.getFenetre().getGrille().repaint();
+
+            _controleur.getFenetre().getBarreEtat().update("Temps : " + Temps.getJournee());
+            _controleur.getFenetre().getArbre().updateTree();
 
             //System.out.println("> Heure = "+currentTime);
         }

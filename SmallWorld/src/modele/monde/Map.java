@@ -1,6 +1,8 @@
 package modele.monde;
 
 import modele.nourriture.Nourriture;
+import org.jdom2.Element;
+import vue.enums.Decor;
 
 public class Map {
 
@@ -36,6 +38,21 @@ public class Map {
     public Case getCase(Integer posX, Integer posY) {
         if (posX < 0 || posY < 0 || posX >= _largeur || posY >= _hauteur) return null; // Sort du tableau !
         return _listeCase[posY][posX];
+    }
+
+
+    public Element sauvegarder() {
+        Element map = new Element("Map");
+
+        map.setAttribute("Hauteur", "" + _hauteur);
+        map.setAttribute("Largeur", "" + _largeur);
+        for (int i = 0; i < _hauteur; i++)
+            for (int j = 0; j < _largeur; j++) {
+                if (!(_listeCase[i][j].getDecors().getGraphics().getNom().equals(Decor.herbe.getNom())))
+                    map.addContent(_listeCase[i][j].sauvegarder());
+            }
+
+        return map;
     }
 
     public int getLargeur() {

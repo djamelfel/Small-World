@@ -19,7 +19,7 @@ public class Temps {
     }
 
     public static int getJournee() {
-        return (int) (_jeux % 100);//86400);
+        return (int) (_jeux % 80);//86400);
     }
 
     public void setJournee(int journee) {

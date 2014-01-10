@@ -98,7 +98,7 @@ public class DialogNouveau extends JDialog implements ActionListener, KeyListene
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.BASELINE;
         rows = new JTextField();
-        rows.setText("15");
+        rows.setText("16");
         caracteristiques.add(rows, gbc);
 
         gbc.gridx = 2;
@@ -120,7 +120,7 @@ public class DialogNouveau extends JDialog implements ActionListener, KeyListene
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.BASELINE;
         cols = new JTextField();
-        cols.setText("25");
+        cols.setText("29");
         caracteristiques.add(cols, gbc);
 
         // Boutons

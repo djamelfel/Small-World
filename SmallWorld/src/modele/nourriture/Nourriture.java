@@ -1,6 +1,7 @@
 package modele.nourriture;
 
 import modele.monde.Case;
+import org.jdom2.Element;
 import vue.enums.NourrituresEnum;
 
 public class Nourriture {
@@ -25,7 +26,7 @@ public class Nourriture {
     public void detruire() {
     }
 
-    public String sauvegarder() {
+    public Element sauvegarder() {
         return null;
     }
 
@@ -33,8 +34,10 @@ public class Nourriture {
         return _mangeable;
     }
 
-    public void setMeangable(boolean mangeable) {
+    public void setMangeable(boolean mangeable) {
         _mangeable = mangeable;
+
+        System.out.println("mangeable : " + mangeable);
     }
 
     public Case getPosition() {

@@ -53,7 +53,6 @@ public class Grille extends JPanel {
             for (int j = 0; j < cols; j++) {
                 tmp = new CelluleMonde(_map.getCase(j, i), this);
                 mondeAL.add(tmp);
-                fenetre.getArbre().ajouterNoeud(tmp);
                 add(tmp);
             }
         }
@@ -64,7 +63,7 @@ public class Grille extends JPanel {
         CelluleAnimal tmp = new CelluleAnimal(instanceEspece, this);
         animalAL.add(tmp);
         add(tmp);
-        fenetre.getArbre().ajouterNoeud(tmp);
+        //fenetre.getArbre().updateTree();
         repaint(); // refresh la grille
         return true;
     }
@@ -74,17 +73,24 @@ public class Grille extends JPanel {
         int lg = animalAL.size();
         for (int i = 0; i < lg; i++)
             if (espece == animalAL.get(i).getEspece()) {
+                // fenetre.getArbre().supprimerNoeud(animalAL.get(i));
                 animalAL.remove(i);
-                //fenetre.getArbre().supprimerNoeud();
                 break;
             }
+        //fenetre.getArbre().updateTree();
         repaint(); // refresh la grille
     }
 
     public boolean ajouterDecor() {
-        repaint();// refresh la grille
+        repaint();
         return true;
     }
+
+    public boolean ajouterNourriture() {
+        // fenetre.getArbre().updateTree();
+        return true;
+    }
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -94,8 +100,8 @@ public class Grille extends JPanel {
         // Dimensions cellule
         double width = getSize().width;
         double height = getSize().height;
-        width = 1280;
-        height = 720;
+        width = 1536;//1280;
+        height = 864;//720;
         int wdOfRow = (int) (width / cols);
         int htOfRow = (int) (height / rows);
         setSize(wdOfRow * cols, htOfRow * rows);
