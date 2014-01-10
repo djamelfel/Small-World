@@ -11,15 +11,14 @@ import modele.utils.Utils;
 import vue.enums.Decor;
 
 public class Lion extends EspeceTer implements Herbivore {
-
-
-    public Lion(Espece espece) {
-        super(espece);
-    }
+	
+	public Lion(boolean course, int dateNaissance, int energie, boolean estLeader, int faim, int force, boolean sexe, boolean fuite, boolean nage,  int nbReproductions, int sens, boolean sommeil, int vitesse, int vitesseCourse){
+		super("Lion", 35, 80, 65, 25, course, dateNaissance, energie, estLeader, faim, force, sexe, fuite, nage, nbReproductions, sens, sommeil, vitesse, vitesseCourse);
+	}
 
     public Lion(boolean estLeader, boolean sexe) {
         super("Lion", 35, 80, 2, 40, 20, estLeader, false, 65, 25, Utils.getRand(3), sexe);
-		getConvoiter().add("Lamastico");
+		getDangeureux().add("Lion");
     }
 
     @Override
@@ -63,13 +62,15 @@ public class Lion extends EspeceTer implements Herbivore {
 						espece.getMeute().rejoindre(getMeute());				//legue ma meute
 					else														//sinon
 						getMeute().detruire();									//dissout la meute
-					tuer();
 				break;
+			
 			case 2:																//gagne
 				setEnergie((getForce() - espece.getForce()) / 2);
 				espece.tuer();		
 				break;
+			
 			default:															//match null
+				
 		}
     }
 	

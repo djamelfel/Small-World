@@ -11,11 +11,10 @@ import modele.utils.Utils;
 import vue.enums.Decor;
 
 public class Lamastico extends EspeceTer implements Herbivore {
-
-
-    public Lamastico(Espece espece) {
-        super(espece);
-    }
+	
+	public Lamastico(boolean course, int dateNaissance, int energie, boolean estLeader, int faim, int force, boolean sexe, boolean fuite, boolean nage,  int nbReproductions, int sens, boolean sommeil, int vitesse, int vitesseCourse){
+		super("Lamastico", 35, 50, 65, 25, course, dateNaissance, energie, estLeader, faim, force, sexe, fuite, nage, nbReproductions, sens, sommeil, vitesse, vitesseCourse);
+	}
 
     public Lamastico(boolean estLeader, boolean sexe) {
         super("Lamastico", 35, 80, 2, 40, 20, estLeader, false, 65, 25, Utils.getRand(3), sexe);

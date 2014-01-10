@@ -29,6 +29,7 @@ public class Monde {
       _listeNourriture = new ArrayList<>();
 	  _controleur = controleur;
 	  new Sauvegarder(this);
+	  _temperature = 20;
   }
   
   public void initialiser(int rows, int cols)
@@ -150,6 +151,14 @@ public class Monde {
      return tmpEspece;
   }
 
+		public ArrayList<Espece> getListeAnimaux() {
+				return _listeAnimaux;
+		}
+
+		public ArrayList<Nourriture> getListeNourriture() {
+				return _listeNourriture;
+		}
+
   public void ajoutDecors(Decor decor, int posX, int posY) {
 	  _map.getCase(posX, posY).getDecors().setGraphics(decor);
   }
@@ -173,6 +182,7 @@ public class Monde {
   }
 
   public Element sauvegarder() {
+		Element manager = new Element("Manager");
 		Element monde = new Element("Monde");
 		Element animaux = new Element("Animaux");
 		Element nourriture = new Element("Nourriture");
@@ -185,16 +195,20 @@ public class Monde {
 		for(int i = 0; i < lg;i++)
 			nourriture.addContent(_listeNourriture.get(i).sauvegarder());		
 		
+		manager.addContent(_map.sauvegarder());
 		monde.setAttribute("Temperature",_temperature+"");
-		monde.addContent(_map.sauvegarder());
 		monde.addContent(animaux);
 		monde.addContent(nourriture);
-		
-		return monde;
+		manager.addContent(monde);
+		return manager;
   }
 
   public void charger(String nom) {
 	
+  }
+  
+  public void setTemperature(int temperature) {
+		_temperature = temperature;
   }
   
   public static Map getMap() {

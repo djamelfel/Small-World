@@ -10,7 +10,6 @@ public class Map {
 	public Case[][] _listeCase;
 	private int _largeur;
 	private int _hauteur;
-	private Monde _monde;
 	//  public Case Composer;
    
 	public Map(int largeur, int hauteur)
@@ -57,8 +56,10 @@ public class Map {
 		map.setAttribute("Hauteur",""+_hauteur);
 		map.setAttribute("Largeur",""+_largeur);
 		for(int i =0; i< _hauteur;i++)
-			for(int j=0; j<_largeur; j++)
-				map.addContent(_listeCase[i][j].sauvegarder());
+			for(int j=0; j<_largeur; j++) {
+				if( !(_listeCase[i][j].getDecors().getGraphics().getNom().equals(Decor.herbe.getNom())) )
+					map.addContent(_listeCase[i][j].sauvegarder());
+			}
 		
 		return map;
 	}

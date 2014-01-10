@@ -3,6 +3,7 @@ package modele.monde;
 import modele.especes.Espece;
 import modele.nourriture.Nourriture;
 import org.jdom2.Element;
+import vue.enums.Decor;
 
 public class Case {
 	private int _posX;
@@ -61,11 +62,11 @@ public class Case {
 		
 		public Element sauvegarder(){
 			Element decors = new Element("Decors");
-			
+
 			decors.setAttribute("Decors", ""+_decors.getGraphics().getNom());
 			decors.setAttribute("posX",""+_posX);
 			decors.setAttribute("posY",""+_posY);
-			
+
 			return decors;
 		}
 }

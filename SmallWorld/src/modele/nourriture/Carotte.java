@@ -17,7 +17,7 @@ public class Carotte extends Nourriture {
 	
 	@Override
 	public Element sauvegarder() {
-		Element nourriture = new org.jdom2.Element("Nourriture");
+		Element nourriture = new org.jdom2.Element("Carrote");
 		
 		nourriture.setAttribute("posX",getPosition().getPosX()+"");
 		nourriture.setAttribute("posY",getPosition().getPosY()+"");
