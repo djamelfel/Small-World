@@ -59,7 +59,7 @@ public class Lamastico extends EspeceTer implements Herbivore {
 		switch (resultat){
 			case 1:																//perd
 				if (getEstLeader())												//si leader 
-					if (espece.getEstLeader() && espece instanceof Lamastico)		//si adversaire leader et de la meme espece
+					if (espece.getEstLeader() && espece instanceof Lamastico)	//si adversaire leader et de la meme espece
 						espece.getMeute().rejoindre(getMeute());				//legue ma meute
 					else														//sinon
 						getMeute().detruire();									//dissout la meute

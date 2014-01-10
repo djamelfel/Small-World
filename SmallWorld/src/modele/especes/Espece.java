@@ -5,6 +5,7 @@ import modele.monde.Case;
 import modele.monde.Monde;
 import modele.monde.Temps;
 import modele.utils.Utils;
+import org.jdom2.Element;
 import vue.enums.Animal;
 
 public class Espece {
@@ -27,7 +28,7 @@ public class Espece {
     private Case _position;
     private int _champVision;
     private int _sens;									//0 : haut, 1 : droite, 2 : bas, 3 : gauche
-    private int _tempIdeale;
+    private int _tempsIdeal;
     private int _nbReproductions;
     private boolean _fuite;
     private boolean _course;
@@ -165,8 +166,8 @@ public class Espece {
         _sens = sens;
     }
 
-    public int getTempIdeale() {
-        return _tempIdeale;
+    public int getTempsIdeal() {
+        return _tempsIdeal;
     }
 
     public int getNbReproductions() {
@@ -204,7 +205,7 @@ public class Espece {
     }
 
     public Espece(String nom, int sommeilDeb, int sommeilFin, int vitesse, int force, int vitesseCourse, boolean estLeader, boolean nage, int champVision,
-                  int tempIdeale, int nbReproductions, boolean sexe) {
+                  int tempsIdeal, int nbReproductions, boolean sexe) {
         _nom = nom;
         _sommeilDeb = sommeilDeb;
         _sommeilFin = sommeilFin;
@@ -224,7 +225,7 @@ public class Espece {
         _nage = nage;
         _estVivant = true;
         _champVision = champVision;
-        _tempIdeale = tempIdeale;
+        _tempsIdeal = tempsIdeal;
         _nbReproductions = nbReproductions;
         _course = false;
 		_danger = null;
@@ -250,7 +251,7 @@ public class Espece {
         _position = espece.getPosition();
         _champVision = espece.getChampVision();
         _sens = espece.getSens();
-        _tempIdeale = espece.getTempIdeale();
+        _tempsIdeal = espece.getTempsIdeal();
         _nbReproductions = espece.getNbReproductions();
         _course = espece.getCourse();
 		_danger = null;
@@ -488,8 +489,34 @@ public class Espece {
         return "sexe - date - " + _sexe + _dateNaissance;
     }
 
-    public String sauvegarder() {
-        return null;
+    public Element sauvegarder() {
+		Element espece = new Element("Espece");
+		
+		espece.setAttribute("champVision", getChampVision()+"");
+		espece.setAttribute("course", getCourse()+"");
+		espece.setAttribute("dateNaissance", getDateNaissance()+"");
+		espece.setAttribute("energie", getEnergie()+"");
+		espece.setAttribute("estLeader", getEstLeader()+"");
+		espece.setAttribute("estVivant", getEstVivant()+"");
+		espece.setAttribute("faim", getFaim()+"");
+		espece.setAttribute("force", getForce()+"");
+		espece.setAttribute("fuite", getFuite()+"");
+		espece.setAttribute("meute", getMeute().getColor()+"");
+		espece.setAttribute("nage", getNage()+"");
+		espece.setAttribute("nbReproductions", getNbReproductions()+"");
+		espece.setAttribute("nom", getNom());
+		espece.setAttribute("position", getPosition().getPosX()+"");
+		espece.setAttribute("position", getPosition().getPosY()+"");
+		espece.setAttribute("sens", getSens()+"");
+		espece.setAttribute("sexe", getSexe()+"");
+		espece.setAttribute("sommeil", getSommeil()+"");
+		espece.setAttribute("sommeilDeb", getSommeilDeb()+"");
+		espece.setAttribute("sommeilFin", getSommeilFin()+"");
+		espece.setAttribute("tempIdeal", getTempsIdeal()+"");
+		espece.setAttribute("vitesse", getVitesse()+"");
+		espece.setAttribute("vitesseCourse",getVitesseCourse()+"");
+		
+        return espece;
     }
 
     public void setGraphics(Animal animal) {

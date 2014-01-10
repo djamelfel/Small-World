@@ -2,9 +2,7 @@ package modele.monde;
 
 import modele.especes.Espece;
 import modele.nourriture.Nourriture;
-import vue.enums.Decor;
-
-
+import org.jdom2.Element;
 
 public class Case {
 	private int _posX;
@@ -12,22 +10,18 @@ public class Case {
 	private Decors _decors;
 	private Espece _espece;
 	private Nourriture _nourriture;
-        
-	
-        
-        public Case(int posX, int posY)
-        {
+		
+		public Case(int posX, int posY) {
             _posX = posX;
             _posY = posY;
 			_espece = null;
 			_nourriture = null;
 			_decors = new Decors(posX, posY);
-        }
+		}
         
-	public Boolean estVide() {
-  
-		return _espece == null && _nourriture == null;
-	}
+		public Boolean estVide() {
+			return _espece == null && _nourriture == null;
+		}
         
         public String toString ( ){
             return "[Case : posX : " + _posX + " , posY : " + _posY +" ]";
@@ -64,4 +58,14 @@ public class Case {
         public void setNourriture(Nourriture nourriture) {
             _nourriture = nourriture;
         }
+		
+		public Element sauvegarder(){
+			Element decors = new Element("Decors");
+			
+			decors.setAttribute("Decors", ""+_decors.getGraphics().getNom());
+			decors.setAttribute("posX",""+_posX);
+			decors.setAttribute("posY",""+_posY);
+			
+			return decors;
+		}
 }

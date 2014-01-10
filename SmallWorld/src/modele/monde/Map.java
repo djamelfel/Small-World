@@ -1,6 +1,7 @@
 package modele.monde;
 
 import modele.nourriture.Nourriture;
+import org.jdom2.Element;
 import vue.enums.Decor;
 
 public class Map {
@@ -49,4 +50,16 @@ public class Map {
     public int getHauteur() {
         return _hauteur;
     }
+	
+	public Element sauvegarder(){
+		Element map = new Element("Map");
+		
+		map.setAttribute("Hauteur",""+_hauteur);
+		map.setAttribute("Largeur",""+_largeur);
+		for(int i =0; i< _hauteur;i++)
+			for(int j=0; j<_largeur; j++)
+				map.addContent(_listeCase[i][j].sauvegarder());
+		
+		return map;
+	}
 }

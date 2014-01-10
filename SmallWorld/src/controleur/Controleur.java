@@ -13,6 +13,7 @@ import modele.especes.Espece;
 public class Controleur {
     private Fenetre fenetre;
     private ManagerAnimaux _managerAnimaux;
+	private String _nomJoueur;
 
     public Controleur() {
         fenetre = new Fenetre(this);
@@ -22,7 +23,7 @@ public class Controleur {
 
     // Méthode appelé lors de la création d'une nouvelle partie
     public boolean creerPartie(String nomJoueur, int rows, int cols) {
-        System.out.println("My name is " + nomJoueur);
+        _nomJoueur = nomJoueur;
         
         _managerAnimaux.initialiser(rows, cols);
         fenetre.setTailleGrille(_managerAnimaux.getMonde().getMap());
@@ -42,7 +43,7 @@ public class Controleur {
 
     // Méthode appelé lors d'une sauvegarde d'une partie
     public boolean sauvegarder(File file) {
-        return Sauvegarder.sauvegarderXML(file);
+        return Sauvegarder.sauvegarderXML(file, _nomJoueur);
     }
 
     // Méthode appelé lors d'un chargement de partie

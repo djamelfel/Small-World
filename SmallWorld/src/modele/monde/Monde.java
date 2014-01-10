@@ -7,8 +7,9 @@ import modele.nourriture.Nourriture;
 import java.util.ArrayList;
 import modele.especes.animaux.Lamastico;
 import modele.especes.animaux.Lion;
-import modele.nourriture.Cadavre;
 import modele.nourriture.Herbe;
+import org.jdom2.Element;
+import utilitaires.Sauvegarder;
 import vue.enums.Animal;
 import vue.enums.Decor;
 import vue.enums.NourrituresEnum;
@@ -27,6 +28,7 @@ public class Monde {
       _listeAnimaux = new ArrayList<>();
       _listeNourriture = new ArrayList<>();
 	  _controleur = controleur;
+	  new Sauvegarder(this);
   }
   
   public void initialiser(int rows, int cols)
@@ -170,13 +172,29 @@ public class Monde {
       _listeNourriture.add(tmpNourriture);
   }
 
-  public String sauvegarder() {
-  return "";
+  public Element sauvegarder() {
+		Element monde = new Element("Monde");
+		Element animaux = new Element("Animaux");
+		Element nourriture = new Element("Nourriture");
+		
+		int lg=_listeAnimaux.size();
+		for(int i = 0; i < lg;i++)
+			animaux.addContent(_listeAnimaux.get(i).sauvegarder());
+		
+		lg=_listeNourriture.size();
+		for(int i = 0; i < lg;i++)
+			nourriture.addContent(_listeNourriture.get(i).sauvegarder());		
+		
+		monde.setAttribute("Temperature",_temperature+"");
+		monde.addContent(_map.sauvegarder());
+		monde.addContent(animaux);
+		monde.addContent(nourriture);
+		
+		return monde;
   }
 
   public void charger(String nom) {
-      
-      
+	
   }
   
   public static Map getMap() {
@@ -189,8 +207,5 @@ public class Monde {
 
     public Temps getTemps() {
         return _temps;
-    }
-
-   
-
+	}
 }

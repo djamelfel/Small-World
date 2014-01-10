@@ -1,5 +1,6 @@
 package modele.nourriture;
 
+import org.jdom2.Element;
 import modele.monde.Case;
 
 public class Carotte extends Nourriture {
@@ -13,11 +14,17 @@ public class Carotte extends Nourriture {
 	public void seFaireManger() {
 		setMangeable(false);
 	}
-    
+	
 	@Override
-    public String sauvegarder() {
-            return "" ;//sauvegarder("Herbe");
-    }
-    
-
+	public Element sauvegarder() {
+		Element nourriture = new org.jdom2.Element("Nourriture");
+		
+		nourriture.setAttribute("posX",getPosition().getPosX()+"");
+		nourriture.setAttribute("posY",getPosition().getPosY()+"");
+		nourriture.setAttribute("Mangeable",getMangeable()+"");
+		nourriture.setAttribute("EnergieRendue",getEnergieRendue()+"");
+		nourriture.setAttribute("Graphics",getGraphics().getNom());
+		
+		return nourriture;
+	}
 }

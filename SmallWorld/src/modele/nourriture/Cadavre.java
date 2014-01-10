@@ -1,6 +1,6 @@
 package modele.nourriture;
 
-import modele.especes.Espece;
+import org.jdom2.Element;
 import modele.monde.Case;
 
 public class Cadavre extends Nourriture {
@@ -24,9 +24,18 @@ public class Cadavre extends Nourriture {
     public int getTempsDecomposition() {
         return _tempsDecomposition;
     }
-    
-    public String sauvegarder() {
-         return "" ; //sauvegarder("Cadavre");
-     }
-
+	
+	@Override
+	public Element sauvegarder() {
+		Element nourriture = new org.jdom2.Element("Nourriture");
+		
+		nourriture.setAttribute("posX",getPosition().getPosX()+"");
+		nourriture.setAttribute("posY",getPosition().getPosY()+"");
+		nourriture.setAttribute("Mangeable",getMangeable()+"");
+		nourriture.setAttribute("EnergieRendue",getEnergieRendue()+"");
+		nourriture.setAttribute("Graphics",getGraphics().getNom());
+		nourriture.setAttribute("TempsDecomposition", getTempsDecomposition()+"");
+		
+		return nourriture;
+	}
 }

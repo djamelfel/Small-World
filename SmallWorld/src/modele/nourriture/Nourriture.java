@@ -1,15 +1,13 @@
 package modele.nourriture;
-import modele.especes.Espece;
 import modele.monde.Case;
 import vue.enums.NourrituresEnum;
+import org.jdom2.Element;
 
 public class Nourriture {
         
     private Case _position;
     private int _energieRendue;
-    private Boolean _mangeable; // indique si la nourriture a deja ete mangee par un animal et doit donc etre supprimee par le Monde
-        
-        
+    private Boolean _mangeable; // indique si la nourriture a deja ete mangee par un animal et doit donc etre supprimee par le Monde 
     private NourrituresEnum _graphics; // contient les graphismes
 	
     public Nourriture(int energieRendue, Case position) {
@@ -25,7 +23,7 @@ public class Nourriture {
 	public void detruire() {
 	}
 	
-	public String sauvegarder() {
+	public Element sauvegarder() {
 		return null;
 	}
 	
