@@ -2,6 +2,7 @@ package vue.dialog;
 
 import controleur.Controleur;
 import vue.Fenetre;
+import vue.enums.Animal;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -16,7 +17,7 @@ import java.awt.event.ActionListener;
 public class DialogNouveauAnimal extends JDialog implements ActionListener {
     private Fenetre _fenetre;
     private Controleur _controleur;
-    private String _animal;
+    private Animal _animal;
 
     private JPanel caracteristiques;
     private JPanel boutons;
@@ -30,7 +31,7 @@ public class DialogNouveauAnimal extends JDialog implements ActionListener {
     private MiniGrille position;
     private JLabel positionAnimal;
 
-    public DialogNouveauAnimal(Fenetre fenetre, Controleur controleur, String animal) {
+    public DialogNouveauAnimal(Fenetre fenetre, Controleur controleur, Animal animal) {
         super();
 
         _fenetre = fenetre;
@@ -197,6 +198,10 @@ public class DialogNouveauAnimal extends JDialog implements ActionListener {
         return positionAnimal;
     }
 
+    public Animal get_animal() {
+        return _animal;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(valider)) {
@@ -219,7 +224,7 @@ public class DialogNouveauAnimal extends JDialog implements ActionListener {
                 return;
             }
 
-            _controleur.ajouterAnimal(_animal, nom.getText(), sexe, leader, position.getCoordonnees());
+            _controleur.ajouterAnimal(_animal.getNom(), nom.getText(), sexe, leader, position.getCoordonnees());
             dispose();
         }
         else if (e.getSource().equals(annuler)) {

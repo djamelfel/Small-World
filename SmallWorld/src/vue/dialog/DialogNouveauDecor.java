@@ -155,6 +155,10 @@ public class DialogNouveauDecor extends JDialog implements ActionListener {
         return positionDecor;
     }
 
+    public Decor get_decor() {
+        return _decor;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(valider)) {
