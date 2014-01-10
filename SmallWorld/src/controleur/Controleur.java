@@ -27,15 +27,15 @@ public class Controleur {
         _managerAnimaux.initialiser(rows, cols);
         fenetre.setTailleGrille(_managerAnimaux.getMonde().getMap());
         
-        
-        ajouterAnimal("Lamasticot", "roger", false,false, new Point(10, 10));
-		ajouterAnimal("Lamasticot", "roger", false,true, new Point(11, 10));
-        ajouterNourriture("Banane", new Point(21,0));
+        ajouterAnimal("Lion", "roger", false,false, new Point(5, 10));
+        ajouterAnimal("Lamastico", "roger", false,false, new Point(10, 10));
+		ajouterAnimal("Lamastico", "roger", false,true, new Point(11, 10));
+ /*       ajouterNourriture("Banane", new Point(21,0));
         ajouterNourriture("Banane", new Point(21,3));
 		ajouterNourriture("Banane", new Point(21,6));
 		ajouterNourriture("Banane", new Point(21,9));
 		ajouterNourriture("Banane", new Point(21,11));
-		ajouterNourriture("Banane", new Point(21,13));
+		ajouterNourriture("Banane", new Point(21,13));*/
         _managerAnimaux.start();
         return true;
     }

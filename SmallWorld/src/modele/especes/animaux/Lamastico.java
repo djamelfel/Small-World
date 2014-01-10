@@ -90,7 +90,6 @@ System.out.println("energie" + getFaim() + " - " + getEnergie() );
 		else{
 			if (getFuite() == true)	{											//si animal en fuite
 				if(getDanger() == null) {
-					setFuite(false);
 					seDeplacer();
 					retrouveCapacite();
 				}
@@ -101,10 +100,10 @@ System.out.println("en fuite");
 				else {
 System.out.println("fin fuite");
 					setDanger(null);											//sinon ne plus fuire
-					setFuite(false);
 					retrouveCapacite();
 					seDeplacer();
 				}
+				setFuite(false);
 			}
 			else {
 				//System.out.println(getPosition().getDecors() + " ou "+ TypeDecors.EAU);
@@ -117,9 +116,9 @@ System.out.println("mauvaise zone");
 				else if (getPosition().getEspece() != null && getPosition().getEspece() != this)	{						//sinon si case animal
 					if ( getCourse() )											//si doit se battre
 {
-						combattre(getPosition().getEspece());											//combatre
+						combattre(getPosition().getEspece());					//combatre
 System.out.println("combat");}
-					else if (getPosition().getEspece() instanceof Lamastico && getSexe() == false && getPosition().getEspece().getSexe() != getSexe() )	//si animal meme espece de sexe different du mien et moi femelle
+					else if (getPosition().getEspece() instanceof Lion && getSexe() == false && getPosition().getEspece().getSexe() != getSexe() )	//si animal meme espece de sexe different du mien et moi femelle
 {						
 						seReproduire();											//faire des bébés
 											
@@ -141,17 +140,17 @@ System.out.println("mange");}
 					setCourse(false);
 					vision = Monde.getVoisins(getPosition(), getChampVision(), getSens() );	//recupere champs vision dans tempObj
 					if ( vision.isEmpty() ) {									//se deplace rien apperçu
-							finAction = true;
-							seDeplacer();
+						finAction = true;
+						seDeplacer();
 					}
 					while(finAction == false && i < vision.size() ){
 						if ( vision.get(i).getEspece() != null ) {				//si apperçoit animal
-								if ( getDangeureux().contains(vision.get(i).getEspece().getNom()) ) {									//si animal dangereux
-								setFuite(true);
-								setDanger( vision.get(i).getEspece() );
-								fuir(getDanger() );
-								finAction = true;
-System.out.println("DANGER");
+							if ( getDangeureux().contains(vision.get(i).getEspece().getNom()) ) {									//si animal dangereux
+							setFuite(true);
+							setDanger( vision.get(i).getEspece() );
+							fuir(getDanger() );
+							finAction = true;
+System.out.println("DANGER : "+vision.get(i).getEspece().getNom());
 							}
 							else if ( getConvoiter().contains(vision.get(i).getEspece().getNom()) ) {				//sinon si animal convoiter
 								setCourse(true);
@@ -159,7 +158,7 @@ System.out.println("DANGER");
 								finAction = true;
 System.out.println("à la chasse");
 							}
-							else if ( vision.get(i).getEspece() instanceof Lamastico ) {	//sinon si animal même espece
+							else if ( vision.get(i).getEspece() instanceof Lion ) {	//sinon si animal même espece
 								if (vision.get(i).getEspece().getEstLeader() == true && getEstLeader() == true)	{	//si animal leader et moi leader
 									seDeplacer(vision.get(i).getEspece().getPosition());
 									finAction = true;
@@ -167,7 +166,7 @@ System.out.println("go bataille");
 								}
 								else if (vision.get(i).getEspece().getEstLeader() == true && getMeute() == null)	//sinon si adversaire leader et moi sans meute
 {
-										vision.get(i).getEspece().getMeute().rejoindre(this);						//adhérer
+									vision.get(i).getEspece().getMeute().rejoindre(this);						//adhérer
 System.out.println("adhere meute");}
 								else if (vision.get(i).getEspece().getEstLeader() == true && getMeute() != null)	//sinon si adversaire est leader mais pas le mien et moi meute
 									if (vision.get(i).getEspece() != getMeute().getLeader())

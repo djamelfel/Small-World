@@ -57,26 +57,70 @@ public class Monde {
 	    aTuer.removeAll(aTuer);
    }
  
-  public static ArrayList<Case> getVoisins(Case caseDepart, int champVision, int sens) {
+   public static ArrayList<Case> getVoisins(Case caseDepart, int champVision, int sens) {
       
 		ArrayList<Case> _casesVoisines = new ArrayList();
       
       // TODO : prendre en compte le sens
+     //0 : haut, 1 : droite, 2 : bas, 3 : gauche
       
 		Case tmpCase;
 		int posX = caseDepart.getPosX();
 		int posY = caseDepart.getPosY();
+                
 		
-		for(int i = 1; i < champVision; i++) {
-				for (int j = posY - i+2; j< posY + i-1 ; j++) {
-					tmpCase = _map.getCase( (posX+i-1) , j);
+		if(sens == 1) {
+			//System.out.println("droite "+champVision);
+			for(int i = 1; i < champVision; i++) {
+				for (int j = posY - i; j<= posY + i ; j++) {
+					tmpCase = _map.getCase( (posX+i) , j);
 					if ( tmpCase == null ) continue;
-					if(tmpCase.getEspece() != null)
-						_casesVoisines.add(tmpCase);
-					if(tmpCase.getNourriture() != null)
-						_casesVoisines.add(tmpCase);
+						if(tmpCase.getEspece() != null)
+							_casesVoisines.add(tmpCase);
+						else if(tmpCase.getNourriture() != null)
+							_casesVoisines.add(tmpCase);
 				}
-		  }
+			}
+		}
+        else if(sens == 3) {
+			//System.out.println("GAUCHE "+champVision);
+			for(int i = 1; i < champVision; i++) {
+				for (int j = posY - i; j<= posY + i ; j++) {
+					tmpCase = _map.getCase( (posX-i) , j);
+					if ( tmpCase == null ) continue;
+						if(tmpCase.getEspece() != null)
+							_casesVoisines.add(tmpCase);
+						else if(tmpCase.getNourriture() != null)
+							_casesVoisines.add(tmpCase);
+				}
+			}
+		}
+		else if(sens == 2) {
+			// System.out.println("bas "+champVision);
+			for(int i = 1; i < champVision; i++) {
+				for (int j = posX - i; j<= posX + i ; j++) {
+					tmpCase = _map.getCase( j , posY + i);
+					if ( tmpCase == null ) continue;
+						if(tmpCase.getEspece() != null)
+							_casesVoisines.add(tmpCase);
+						else if(tmpCase.getNourriture() != null)
+							_casesVoisines.add(tmpCase);
+				}
+			}
+		}
+		else if(sens == 0) {
+			// System.out.println("haut");
+			for(int i = 1; i < champVision; i++) {
+				for (int j = posX - i; j<= posX + i ; j++) {
+					tmpCase = _map.getCase( j , posY - i);
+					if ( tmpCase == null ) continue;
+						if(tmpCase.getEspece() != null)
+							_casesVoisines.add(tmpCase);
+						else if(tmpCase.getNourriture() != null)
+							_casesVoisines.add(tmpCase);
+				}
+			}
+		}
     return _casesVoisines;
   }
 
@@ -91,10 +135,10 @@ public class Monde {
               tmpEspece = new Lion(estLeader, sexe);
               tmpEspece.setGraphics(Animal.lion);
              break;
-          case "Lamasticot":
+          case "Lamastico":
               System.out.println("JE SUIS UN LAMA");
               tmpEspece = new Lamastico(estLeader, sexe);
-              tmpEspece.setGraphics(Animal.lamasticot);
+              tmpEspece.setGraphics(Animal.lamastico);
              break;
           
       }
@@ -116,6 +160,10 @@ public class Monde {
 			  tmpNourriture = new Herbe(_map.getCase(posX, posY));
 			  tmpNourriture.setGraphics(NourrituresEnum.banane);
               break;
+          case "Carotte":
+			  tmpNourriture = new Herbe(_map.getCase(posX, posY));
+			  tmpNourriture.setGraphics(NourrituresEnum.carotte);
+              break;				  
           default:
       }
       _map.ajouterNouriture(tmpNourriture);

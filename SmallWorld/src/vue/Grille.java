@@ -1,18 +1,15 @@
 package vue;
 
 import controleur.Controleur;
+import modele.especes.Espece;
+import modele.monde.Map;
 import vue.cellule.CelluleAnimal;
 import vue.cellule.CelluleMonde;
-import vue.enums.Animal;
-import vue.enums.Decor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
-import modele.especes.Espece;
-import modele.monde.Decors;
-import modele.monde.Map;
 
 /**
  * Created by Edwin on 18/12/13.
@@ -69,17 +66,17 @@ public class Grille extends JPanel {
         repaint(); // refresh la grille
         return true;
     }
-	
-	public void supprimerAnimal(Espece espece) {
-		CelluleAnimal tmp;
-		int lg = animalAL.size();
-		for(int i = 0; i < lg; i++)
-			if ( espece == animalAL.get(i).getEspece() ) {
-				animalAL.remove(i);
-				break;
-			}
+
+    public void supprimerAnimal(Espece espece) {
+        CelluleAnimal tmp;
+        int lg = animalAL.size();
+        for (int i = 0; i < lg; i++)
+            if (espece == animalAL.get(i).getEspece()) {
+                animalAL.remove(i);
+                break;
+            }
         repaint(); // refresh la grille
-	}
+    }
 
     public boolean ajouterDecor() {
         repaint();// refresh la grille
@@ -87,7 +84,7 @@ public class Grille extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {   
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
@@ -175,6 +172,10 @@ public class Grille extends JPanel {
 
     public ArrayList<CelluleAnimal> getAnimalAL() {
         return animalAL;
+    }
+
+    public ArrayList<CelluleMonde> getMondeAL() {
+        return mondeAL;
     }
 
     // En cours de réalisation

@@ -9,7 +9,7 @@ import java.awt.*;
 public enum Animal {
     lion("Lion", "Ajouter un lion", new ImageIcon(Animal.class.getResource("../../images/toolbar/lion.png")),
             new ImageIcon(Animal.class.getClass().getResource("../../images/animaux/lion.png")).getImage()),
-    lamasticot("Lamasticot", "Ajouter un lamasticot ticooot", new ImageIcon(Animal.class.getResource("../../images/toolbar/lamasticot.png")),
+    lamastico("Lamastico", "Ajouter un lamastico ticooo", new ImageIcon(Animal.class.getResource("../../images/toolbar/lamasticot.png")),
             new ImageIcon(Animal.class.getClass().getResource("../../images/animaux/lamasticot.png")).getImage());
 
     private String nom;

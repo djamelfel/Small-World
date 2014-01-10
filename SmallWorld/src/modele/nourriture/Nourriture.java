@@ -33,7 +33,7 @@ public class Nourriture {
 			return _mangeable;
 	}
 	
-	public void setMeangable(boolean mangeable) {
+	public void setMangeable(boolean mangeable) {
 			_mangeable = mangeable;
 	}
         

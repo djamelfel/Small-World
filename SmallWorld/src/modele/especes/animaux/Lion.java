@@ -19,7 +19,7 @@ public class Lion extends EspeceTer implements Herbivore {
 
     public Lion(boolean estLeader, boolean sexe) {
         super("Lion", 35, 80, 2, 40, 20, estLeader, false, 65, 25, Utils.getRand(3), sexe);
-		getConvoiter().add("Lamasticot");
+		getConvoiter().add("Lamastico");
     }
 
     @Override
@@ -63,15 +63,13 @@ public class Lion extends EspeceTer implements Herbivore {
 						espece.getMeute().rejoindre(getMeute());				//legue ma meute
 					else														//sinon
 						getMeute().detruire();									//dissout la meute
+					tuer();
 				break;
-			
 			case 2:																//gagne
 				setEnergie((getForce() - espece.getForce()) / 2);
 				espece.tuer();		
 				break;
-			
 			default:															//match null
-				
 		}
     }
 	
@@ -90,7 +88,6 @@ System.out.println("energie" + getFaim() + " - " + getEnergie() );
 		else{
 			if (getFuite() == true)	{											//si animal en fuite
 				if(getDanger() == null) {
-					setFuite(false);
 					seDeplacer();
 					retrouveCapacite();
 				}
@@ -101,10 +98,10 @@ System.out.println("en fuite");
 				else {
 System.out.println("fin fuite");
 					setDanger(null);											//sinon ne plus fuire
-					setFuite(false);
 					retrouveCapacite();
 					seDeplacer();
 				}
+				setFuite(false);
 			}
 			else {
 				//System.out.println(getPosition().getDecors() + " ou "+ TypeDecors.EAU);
@@ -141,17 +138,17 @@ System.out.println("mange");}
 					setCourse(false);
 					vision = Monde.getVoisins(getPosition(), getChampVision(), getSens() );	//recupere champs vision dans tempObj
 					if ( vision.isEmpty() ) {									//se deplace rien apperçu
-							finAction = true;
-							seDeplacer();
+						finAction = true;
+						seDeplacer();
 					}
 					while(finAction == false && i < vision.size() ){
 						if ( vision.get(i).getEspece() != null ) {				//si apperçoit animal
-								if ( getDangeureux().contains(vision.get(i).getEspece().getNom()) ) {									//si animal dangereux
-								setFuite(true);
-								setDanger( vision.get(i).getEspece() );
-								fuir(getDanger() );
-								finAction = true;
-System.out.println("DANGER");
+							if ( getDangeureux().contains(vision.get(i).getEspece().getNom()) ) {									//si animal dangereux
+							setFuite(true);
+							setDanger( vision.get(i).getEspece() );
+							fuir(getDanger() );
+							finAction = true;
+System.out.println("DANGER : "+vision.get(i).getEspece().getNom());
 							}
 							else if ( getConvoiter().contains(vision.get(i).getEspece().getNom()) ) {				//sinon si animal convoiter
 								setCourse(true);
@@ -167,7 +164,7 @@ System.out.println("go bataille");
 								}
 								else if (vision.get(i).getEspece().getEstLeader() == true && getMeute() == null)	//sinon si adversaire leader et moi sans meute
 {
-										vision.get(i).getEspece().getMeute().rejoindre(this);						//adhérer
+									vision.get(i).getEspece().getMeute().rejoindre(this);						//adhérer
 System.out.println("adhere meute");}
 								else if (vision.get(i).getEspece().getEstLeader() == true && getMeute() != null)	//sinon si adversaire est leader mais pas le mien et moi meute
 									if (vision.get(i).getEspece() != getMeute().getLeader())

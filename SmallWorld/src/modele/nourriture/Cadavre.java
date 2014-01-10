@@ -14,7 +14,7 @@ public class Cadavre extends Nourriture {
 	
 	@Override
 	public void seFaireManger() {
-		setMeangable(false);
+		setMangeable(false);
 	}
 	
 	public void setTempsDecomposition(int tempsDecomposition) {
